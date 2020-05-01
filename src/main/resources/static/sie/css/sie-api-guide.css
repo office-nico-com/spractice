@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+div.sie-api-scenario-window {
+	width:0px;
+	height:0px;
+	background-color:black;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	filter:alpha(opacity=75);
+	-moz-opacity: 0.75;
+	opacity: 0.75;
+	z-index:2000000000;
+}
+
+div.sie-api-scenario-window-inner {
+	width:0px;
+	height:0px;
+	border:solid 2px #fff;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	color:#fff;
+	padding:20px;
+	font-size:20px;
+	overflow:auto;
+	z-index:2000000001;
+}
+
+div.sie-api-scenario-window-inner span, div.sie-api-scenario-window-inner font{
+	font-size:20px;
+}
+
+div.sie-api-scenario-window-inner div.control{
+	padding-top:20px;
+	margin-bottom:20px;
+	font-size:20px;
+	text-align:center;
+}
+
+div.sie-api-scenario-window-inner div.control a{
+	color:#fff;
+	font-size:20px;
+/*	margin-left:5px; */
+}
+
+
+div.sie-api-scenario-window-inner div.control span:before{
+	content:"［ ";
+}
+
+div.sie-api-scenario-window-inner div.control span:after{
+	content:" ］";
+}
+
+div.sie-api-scenario-window-close{
+	color:#fff;
+	top:-20px;
+/*	font-weight:bold; */
+	text-decoration:underline;
+	width:200px;
+/*	background-color:red; */
+	z-index:2000000002;
+	
+}
+div.sie-api-scenario-window-close:hover{
+	color:#e22;
+	cursor:pointer;
+}
+

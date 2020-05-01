@@ -1,0 +1,258 @@
+@charset "utf-8";
+
+div.sie-module-win-wannacry-body{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	background-color:#841010;
+}
+
+div.sie-module-win-wannacry-body div.lock{
+	width:130px;
+	height:130px;
+	left:60px;
+	top:9px;
+	background-image:url("../img/sie-module-wannacry/lock.png")
+}
+
+div.sie-module-win-wannacry-body div.box1{
+	border:solid 1px #fff;
+	left:11px;
+	top:142px;
+	width:261px;
+	height:134px;
+}
+
+div.sie-module-win-wannacry-body div.box1 div.message{
+	color:#E7E300;
+	top:5px;
+	left:30px;
+	font-weight:bold;
+}
+
+div.sie-module-win-wannacry-body div.box1 div.date{
+	width:90%;
+	text-align:center;
+	top:30px;
+	color:#fff;
+}
+
+div.sie-module-win-wannacry-body div.box1 div.timeleft{
+	width:90%;
+	text-align:center;
+	top:60px;
+	color:#fff;
+}
+
+div.sie-module-win-wannacry-body div.box1 div.countdown{
+	width:90%;
+	text-align:center;
+	top:80px;
+	color:#fff;
+	font-size:210%;
+}
+
+
+div.sie-module-win-wannacry-body div.box2{
+	border:solid 1px #fff;
+	left:11px;
+	top:286px;
+	width:261px;
+	height:134px;
+}
+
+div.sie-module-win-wannacry-body div.box2 div.message{
+	color:#E7E300;
+	top:5px;
+	left:35px;
+	font-weight:bold;
+}
+
+div.sie-module-win-wannacry-body div.box2 div.date{
+	width:90%;
+	text-align:center;
+	top:30px;
+	color:#fff;
+}
+
+div.sie-module-win-wannacry-body div.box2 div.timeleft{
+	width:90%;
+	text-align:center;
+	top:60px;
+	color:#fff;
+}
+
+div.sie-module-win-wannacry-body div.box2 div.countdown{
+	width:90%;
+	text-align:center;
+	top:80px;
+	color:#fff;
+	font-size:210%;
+}
+
+
+div.sie-module-win-wannacry-body div.about{
+	color:#7BEFEF;
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+
+div.sie-module-win-wannacry-body div.about1{
+	top:450px;
+	left:32px;
+}
+
+div.sie-module-win-wannacry-body div.about2{
+	top:480px;
+	left:32px;
+}
+
+div.sie-module-win-wannacry-body div.about3{
+	top:510px;
+	left:32px;
+	font-size:130%;
+}
+
+
+div.sie-module-win-wannacry-body div.ooops{
+	left:358px;
+	top:14px;
+	font-size:130%;
+	color:#fff;
+	font-weight:bold;
+}
+
+div.sie-module-win-wannacry-body div.description{
+	border:solid 1px #424142;
+	width:665px;
+	height:362px;
+	background-color:#fff;
+	top:60px;
+	left:283px;
+	overflow-y:scroll;
+	font-size:110%;
+	line-height:1.8em;
+	padding:3px;
+}
+
+div.sie-module-win-wannacry-body div.description p{
+	font-size:140%;
+	margin-bottom:0px;
+	font-weight:bold;
+}
+
+div.sie-module-win-wannacry-body div.sendto{
+	border:solid 1px #fff;
+	width:665px;
+	height:70px;
+	top:432px;
+	left:283px;
+	background-image:url("../img/sie-module-wannacry/bitcoin.png");
+	background-repeat:no-repeat;
+	background-position: 0px center;
+
+}
+
+div.sie-module-win-wannacry-body div.sendto div.message{
+	left:180px;
+	top:3px;
+	font-weight:bold;
+	color:#E7E300;
+	margin-bottom:0px;
+}
+
+div.sie-module-win-wannacry-body div.sendto div.email{
+	border-top:solid 2px #424142;
+	border-left:solid 2px #424142;
+	border-bottom:solid 2px #fff;
+	border-right:solid 2px #fff;
+	height:28px;
+	width:400px;
+	left:180px;
+	top:30px;
+	color:#fff;
+	padding-left:5px;
+}
+
+div.sie-module-win-wannacry-body div.sendto div.button{
+	border-top:solid 1px #fefefe;
+	border-left:solid 1px #fefefe;
+	border-bottom:solid 1px #414141;
+	border-right:solid 1px #414141;
+	background-color:#D5D2CD;
+	height:33px;
+	width:50px;
+	left:590px;
+	top:25px;
+	color:#000;
+	padding-left:5px;
+	line-height:33px;
+}
+
+
+div.sie-module-win-wannacry-body div.button1{
+	border-top:solid 1px #fefefe;
+	border-left:solid 1px #fefefe;
+	border-bottom:solid 1px #414141;
+	border-right:solid 1px #414141;
+	background-color:#D5D2CD;
+	height:33px;
+	width:313px;
+	left:283px;
+	top:520px;
+	color:#000;
+	padding-left:5px;
+	line-height:33px;
+	text-align:center;
+	font-weight:bold;
+}
+
+div.sie-module-win-wannacry-body div.button2{
+	border-top:solid 1px #fefefe;
+	border-left:solid 1px #fefefe;
+	border-bottom:solid 1px #414141;
+	border-right:solid 1px #414141;
+	background-color:#D5D2CD;
+	height:33px;
+	width:313px;
+	left:636px;
+	top:520px;
+	color:#000;
+	padding-left:5px;
+	line-height:33px;
+	text-align:center;
+	font-weight:bold;
+}
+
+
+div.sie-module-win-wannacry-body div.lang{
+	border-top:solid 2px #424142;
+	border-left:solid 2px #424142;
+	border-bottom:solid 2px #fff;
+	height:28px;
+	width:130px;
+	left:780px;
+	top:17px;
+	color:#fff;
+	padding-left:5px;
+}
+
+div.sie-module-win-wannacry-body div.lang-pulldown{
+	border-top:solid 2px #424142;
+	border-bottom:solid 2px #fff;
+	border-right:solid 2px #fff;
+	height:28px;
+	width:30px;
+	left:910px;
+	top:17px;
+	color:#000;
+	padding-left:5px;
+	background-color:#D6D3CE;
+	text-align:center;
+	font-size:80%;
+	line-height:28px;
+}
+
+
+

@@ -1,0 +1,1331 @@
+@charset "utf-8";
+
+div.sie-module-win-gmail{
+}
+
+div.sie-module-win-gmail div.titlebar{
+	background-color:#DEE1E6;
+	height:40px;
+}
+
+div.sie-module-win-gmail div.titlebar img{
+	display:none;
+}
+
+div.sie-module-win-gmail div.titlebar span{
+	display:none;
+}
+
+div.sie-module-win-gmail div.tab-menu{
+	position:absolute;
+	font-size:13px;
+	top:10px;
+	height:30px;
+	background-color:#fff;
+	padding-left:15px;
+	padding-right:15px;
+	-webkit-border-radius: 7px 7px 0px 0px / 7px 7px 0px 0px;
+	-moz-border-radius: 7px 7px 0px 0px / 7px 7px 0px 0px;
+	border-radius: 7px 7px 0px 0px / 7px 7px 0px 0px;
+}
+
+div.sie-module-win-gmail div.tab-menu img{
+	display:inline-block;
+	margin-top:-4px;
+}
+
+div.sie-module-win-gmail div.tab-menu i{
+	color:#666;
+	margin-left:20px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar{
+	height:42px;
+	width:100%;
+	position:relative;
+	background-color:#fff;
+	border-bottom:solid 1px #ccc;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar i{
+	font-size:20px;
+	margin-left:15px;
+	color:#666;
+	margin-top:10px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar i.fa-arrow-right{
+	color:#ccc;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar div.address-bar{
+	display:inline-block;
+	width:calc(100% - 200px);
+	background-color:#F1F3F4;
+	height:30px;
+	margin-left:15px;
+	margin-top:5px;
+	border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar div.address-bar span{
+	display:inline-block;
+	width:40px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar div.address-bar span i{
+	font-size:17px;
+	line-height:11px;
+	margin-top:5px;
+	margin-left:15px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar div.address-bar input[type=text]{
+	height:100%;
+	width:calc(100% - 60px);
+	border:none;
+	background-color:transparent;
+	padding-left:10px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar i.fa-user-circle{
+	position:absolute;
+	right:0;
+	margin-right:40px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar div.setting {
+	display:inline-block;
+	position:absolute;
+	right:0;
+	margin-right:10px;
+	background-color:#fff;
+	width:25px;
+	height:25px;
+	top:8px;
+	text-align:center;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	transition: all .2s;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar div.setting:hover {
+	background-color:#eee;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar i.fa-ellipsis-v {
+	margin-left:2px;
+	margin-top:3px;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.menu-bar br{
+	clear:both;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header{
+	height:63px;
+	width:100%;
+	border-bottom:solid 1px #ECEFF1;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.main-menu{
+	left:12px;
+	top:8px;
+	width:46px;
+	height:46px;
+	text-align:center;
+	line-height:46px;
+	font-size:20px;
+	border-radius: 23px;
+	-webkit-border-radius: 23px;
+	-moz-border-radius: 23px;
+	transition: all .2s;
+	color:#5F6368;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.main-menu:hover{
+	background-color:#EBECEC;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.main-menu i.fa-bars{
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header img.gmail-icon{
+	position:absolute;
+	width:46px;
+	top:8px;
+	left:62px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.service-name{
+	top:16px;
+	left:118px;
+	font-size:22px;
+	font-weight:500;
+	color:#5F6368;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header input[type=text]{
+	position:absolute;
+	top:7px;
+	left:257px;
+	height:47px;
+	width:calc(100% - 500px);
+	background-color:#F1F3F4;
+	border:none;
+	padding-left:56px;
+	font-size:18px;
+	border-radius: 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header i.fa-search{
+	position:absolute;
+	top:20px;
+	left:277px;
+	color:#5F6368;
+	font-size:20px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-help,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-apl,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-user{
+	height:43px;
+	width:43px;
+	transition: all .2s;
+	right:0;
+	top:8px;
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	color:#5F6368;
+	font-size:20px;
+	line-height:43px;
+	text-align:center;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-help:hover,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-apl:hover,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-user:hover{
+	background-color:#F0F0F0;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-help{
+	margin-right:100px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-apl{
+	margin-right:60px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-header div.gmail-user{
+	margin-right:20px;
+	font-size:26px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left{
+	top:105px;
+	height:calc(100% - 105px);
+	width:256px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top{
+	height:270px;
+	width:100%;
+	background-color:#fff;
+	border-bottom:solid 1px #ECEFF1;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.button-new{
+	width:110px;
+	height:48px;
+	background-color:#fff;
+	top:14px;
+	left:9px;
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	box-shadow: 1px 3px 8px #999;
+	transition: all .2s;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.button-new:hover{
+	background-color:#FAFAFB;
+	box-shadow: 1px 3px 14px #999;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.button-new img{
+	margin-top:12px;
+	margin-left:18px;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.button-new div.text{
+	top:13px;
+	left:55px;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder{
+	top:78px;
+	width:240px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul{
+	list-style-type: none;
+	padding-left:0px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li{
+	height:32px;
+	line-height:32px;
+	list-style-type: none;
+	position:relative;
+	-webkit-border-radius: 0px 17px 17px 0px / 0px 17px 17px 0px;
+	-moz-border-radius: 0px 17px 17px 0px / 0px 17px 17px 0px;
+	border-radius: 0px 17px 17px 0px / 0px 17px 17px 0px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li.selected{
+	background-color:#FCE8E6;
+	color:#D93025;
+	font-weight:600;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li i{
+	position:absolute;
+	top:8px;
+	left:30px;
+	color:#5F6368;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li div{
+	position:absolute;
+	left:65px;
+	color:#5F6368;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li span{
+	position:absolute;
+	left:210px;
+	color:#5F6368;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li.selected i,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li.selected div,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-top div.folder ul li.selected span{
+	color:#D93025;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom{
+	top:270px;
+	height:calc(100% - 270px);
+	width:100%;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom div.bottom-header{
+	height:48px;
+	width:calc(100% - 48px);
+	left:24px;
+	border-bottom:solid 1px #ECEFF1;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom div.bottom-header i.fa-user-circle{
+	margin-left:18px;
+	margin-top:10px;
+	font-size:25px;
+	color:#5F6368;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom div.bottom-header div{
+	position:absolute;
+	font-size:12px;
+	left:50px;
+	top:15px;
+	color:#5F6368;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom div.bottom-header i.fa-plus{
+	margin-left:130px;
+	margin-top:10px;
+	font-size:18px;
+	color:#5F6368;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom i.fa-commenting{
+	position:absolute;
+	font-size:80px;
+	color:#F2F2F2;
+	left:90px;
+	top:80px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom div.message{
+	font-size:14px;
+	color:#AAAAAA;
+	top:180px;
+	left:18px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-left div.gmail-left-bottom div.link{
+	font-size:14px;
+	color:#1155CC;
+	text-decoration:underline;
+	top:210px;
+	left:80px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header{
+	top:105px;
+	height:48px;
+	width:calc(100% - 256px - 56px);
+	left:256px;
+	border-bottom:solid 1px #ECEFF1;
+	line-height:48px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.button-frame {
+	display:inline-block;
+	position:relative;
+	vertical-align:middle;
+	width:35px;
+	height:35px;
+	margin-top:-3px;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	cursor:pointer;
+	transition: all .2s;
+	text-align:center;
+	line-height:35px;
+	font-size:16px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.button-frame div.description{
+	position:absolute;
+	background-color:#505356;
+	padding:3px;
+	color:#fff;
+/*	width:200px; */
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	font-size:12px;
+	transition: all .2s;
+	display:block;
+	opacity : 0;
+	top:42px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.button-frame:hover div.description{
+	display:block;
+	opacity : 1;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.button-frame:hover {
+	background-color:#F2F2F2;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header i{
+	font-size:20px;
+	display:inline-block;
+	position:relative;
+	vertical-align:middle;
+	color:#767676;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header span{
+	display:inline-block;
+	position:relative;
+	font-size:12px;
+	vertical-align:middle;
+	color:#767676;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1{
+	width:100%;
+	min-width:600px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 i.fa-square-o{
+	margin-left:15px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 i.fa-repeat{
+	margin-left:25px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 i.fa-ellipsis-v{
+	margin-left:25px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 i.fa-cog{
+	position:absolute;
+	right:0;
+	top:14px;
+	margin-right:19px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 span.arrow1{
+	font-size:9px;
+	margin-left:8px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 span.arrow2{
+	position:absolute;
+	font-size:9px;
+	right:0;
+	top:0px;
+	margin-right:50px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 span.text{
+	position:absolute;
+	font-size:16px;
+	right:0;
+	top:0px;
+	margin-right:64px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 span.right-arrow{
+	position:absolute;
+	right:0;
+	top:0px;
+	margin-right:100px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 span.left-arrow{
+	position:absolute;
+	right:0;
+	top:0px;
+	margin-right:139px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-1 span.page{
+	position:absolute;
+	right:0;
+	top:0px;
+	margin-right:170px;
+}
+
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2{
+	width:100%;
+	min-width:600px;
+	display:none;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame{
+	margin-left:4px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.back div.description{
+	width:120px;
+	left:-40px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.archive{
+	margin-left:20px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.archive div.description{
+	width:90px;
+	left:-25px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.notify div.description{
+	width:120px;
+	left:-40px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.trash div.description{
+	width:60px;
+	left:-10px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.notread div.description{
+	width:90px;
+	left:-30px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.snooze div.description{
+	width:70px;
+	left:-20px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.move div.description{
+	width:60px;
+	left:-10px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.tag div.description{
+	width:60px;
+	left:-10px;
+}
+
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.arrow-left{
+	float:right;
+	margin-top:6px;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.arrow-right{
+	float:right;
+	margin-top:6px;
+	
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 div.button-frame.setting{
+	float:right;
+	margin-top:6px;
+	margin-right:10px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 span.delim{
+	font-size:20px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 span.page{
+	float:right;
+	margin-top:6px;
+	margin-right:10px;
+	line-height:40px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 span.arrow2{
+	float:right;
+	font-size:9px;
+	margin-right:1px;
+	margin-left:4px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-header div.header-group-2 span.text{
+	float:right;
+	font-size:16px;
+	margin-left:6px;
+}
+
+
+
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body{
+	top:153px;
+	height:calc(100% - 153px);
+	width:calc(100% - 312px);
+	left:256px;
+	overflow:auto;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list{
+	min-width:600px;
+	list-style-type: none;
+	padding-left:0px;
+	position:relative;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li{
+	padding-left:0px;
+	height:40px;
+	border-bottom:solid 1px #ECEFF1;
+	line-height:40px;
+	display:block;
+	white-space: nowrap;
+	user-select: none;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li.attachment{
+	height:80px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li:hover{
+	box-shadow: 1px 1px 3px #999;
+	border-left:solid 1px #ECEFF1;
+	border-right:solid 1px #ECEFF1;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li.readed{
+/*	background-color:#F5F7F7; */
+	background-image:url('../img/sie-module-win-gmail/bg_readed.png');
+	border-bottom:solid 1px #dfdfdf;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li label {
+	display:inline-block;
+	position:relative;
+	top:0;
+	width:45px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li.attachment label {
+	top:-20px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li input.check{
+	display:none;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li i.fa-square-o{
+	font-size:20px;
+	display:inline-block;
+	cursor:pointer;
+	margin-left:15px;
+	color:#767676;
+	position:relative;
+	vertical-align:middle;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li i.fa-check-square{
+	font-size:20px;
+	display:none;
+	cursor:pointer;
+	margin-left:15px;
+	color:#767676;
+	position:relative;
+	vertical-align:middle;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li input.check:checked ~ i.fa-square-o{
+	display:none;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li input.check:checked ~ i.fa-check-square{
+	display:inline-block;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li i.fa-star-o{
+	display:inline-block;
+	position:relative;
+	font-size:20px;
+	cursor:pointer;
+	color:#767676;
+	vertical-align:middle;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li.attachment i.fa-star-o {
+	top:-20px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li div.from{
+	display:inline-block;
+	position:relative;
+	width:100px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-left:15px;
+	vertical-align:middle;
+	font-weight:600;
+	line-height:38px;
+	font-size:14px;
+	height:100%;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li div.title{
+	display:inline-block;
+	position:relative;
+	width:calc(100% - 300px);
+	min-width:370px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-left:15px;
+	font-weight:600;
+	vertical-align:middle;
+	font-size:14px;
+	line-height:38px;
+	height:100%;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li div.recieved_at{
+	display:inline-block;
+	position:relative;
+	width:90px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-left:15px;
+	vertical-align:middle;
+	font-size:12px;
+	font-weight:600;
+	line-height:38px;
+	height:100%;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li.readed div.from,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li.readed div.title,
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body ul.mail-list li.readed div.recieved_at
+{
+	font-weight:400;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body div.gmail-footer{
+	width:100%;
+	height:72px;
+	background-color:#fff;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body div.gmail-footer div{
+	color:#666;
+	font-size:12px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body div.gmail-footer div.capacity{
+	left:20px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body div.gmail-footer div.admin{
+	left:20px;
+	top:20px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body div.gmail-footer div.policy{
+	left:50%;
+	margin-left:-80px;
+	min-width:100px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body div.gmail-footer div.hisotory{
+	right:0;
+	margin-right:20px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-body div.gmail-footer div.detail{
+	right:0;
+	top:20px;
+	margin-right:20px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-right-side{
+	top:105px;
+	height:calc(100% - 105px);
+	width:56px;
+	right:0;
+	overflow:hidden;
+	background-color:#fff;
+}
+
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-download-footer{
+	width:100%;
+	height:50px;
+	bottom:0;
+	background-color:#fff;
+	border-top:solid 1px #DADCE0;
+	display:none;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.gmail-download-footer div.gmail-download-footer-close{
+	right:0;
+	top:0px;
+	height:100%;
+	line-height:50px;
+	width:40px;
+	text-align:center;
+	z-index:200;
+	cursor:pointer;
+	margin-right:5px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-left{
+	height:calc(100% - 155px);
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-right-body{
+	height:calc(100% - 203px);
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer{
+	display:block;
+}
+
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block{
+/*	background-color:red; */
+	width:100%;
+	padding-top:20px;
+	position:relative;
+	min-width:600px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.title{
+	padding-left:50px;
+	font-size:20px;
+	font-weight:500;
+	position:relative;
+	width:calc(100% - 100px);
+/*	min-width:600px; */
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.print{
+	position:absolute;
+	left:calc(100% - 100px);
+	width:100px;
+	height:50px;
+	top:23px;
+	font-size:20px;
+	color:#767676;
+	text-align:right;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.print i{
+	margin-right:15px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.from{
+	top:20px;
+	padding-left:10px;
+	font-weight:600;
+	position:relative;
+	width:calc(100% - 250px);
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.favorite{
+	position:absolute;
+	left:calc(100% - 250px);
+	width:250px;
+	height:50px;
+	top:70px;
+	font-size:20px;
+	color:#767676;
+	text-align:right;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.favorite span{
+	font-size:13px;
+	margin-right:15px;
+	vertical-align:middle;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.favorite i{
+	margin-right:15px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.from i.fa-user-circle{
+	font-size:30px;
+	margin-right:8px;
+	vertical-align:middle;
+	color:#ddd;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.to{
+	top:20px;
+	padding-left:50px;
+	position:relative;
+	min-width:600px;
+	padding-right:20px;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.to span{
+	font-size:12px;
+	margin-left:5px;
+	color:#767676;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.body{
+	top:50px;
+	padding-left:50px;
+	padding-right:20px;
+	overflow: hidden;
+	width:100%;
+	position:relative;
+	min-width:600px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block hr{
+	top:50px;
+	overflow: hidden;
+	width:90%;
+	position:relative;
+	border-top: 1px dotted #ddd;
+	margin-left:50px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments{
+	top:50px;
+	padding-left:50px;
+	padding-right:20px;
+	width:100%;
+	position:relative;
+	min-width:600px;
+	display:block;
+	height:140px;
+	padding-top:10px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file{
+	width:180px;
+	height:120px;
+	display:block;
+	position:relative;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-body{
+	height:87px;
+	width:100%;
+	border:solid 1px #ddd;
+	display:block;
+	position:relative;
+	font-size:1px;
+	padding:3px;
+	overflow:hidden;
+	color:#999;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer{
+	height:33px;
+	width:100%;
+	background-color:#F5F5F5;
+	display:block;
+	position:relative;
+	border-left:solid 1px #ddd;
+	border-right:solid 1px #ddd;
+	border-bottom:solid 1px #ddd;
+	font-size:12px;
+	font-weight:bold;
+	color:#777;
+	padding-left:5px;
+	line-height:33px;
+	overflow: visible;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.file-type{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	position:relative;
+	background-color:#4B87E4;
+	line-height:20px;
+	text-align:center;
+	font-size:10px;
+	color:#fff;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	top:-14px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer span.file-name{
+	display:inline-block;
+	font-size:11px;
+	font-weight:bold;
+	letter-spacing:0px;
+	position:relative;
+	margin-left:5px;
+	width:105px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file div.file-footer .init-hide{
+	opacity:0;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file:hover div.file-footer .init-hide,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file.hover div.file-footer .init-hide
+{
+	opacity:1;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer p.size{
+	font-size:6px;
+	color:#ccc;
+	display:block;
+	text-align:left;
+	width:100%;
+/*	background-color:red; */
+	position:absolute;
+	top:18px;
+	left:32px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.download{
+	font-size:15px;
+	color:#fff;
+	display:block;
+	text-align:center;
+	background-color:#626262;
+	display:block;
+	position:absolute;
+	top:70px;
+	left:32px;
+	width:34px;
+	height:30px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.drive{
+	font-size:15px;
+	color:#fff;
+	display:block;
+	text-align:center;
+	background-color:#626262;
+	display:block;
+	position:absolute;
+	top:70px;
+	left:70px;
+	width:34px;
+	height:30px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.edit{
+	font-size:15px;
+	color:#fff;
+	display:block;
+	text-align:center;
+	background-color:#626262;
+	display:block;
+	position:absolute;
+	top:70px;
+	left:108px;
+	width:34px;
+	height:30px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.download:hover,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.drive:hover,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.edit:hover{
+	background-color:#313131;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.description{
+	position:absolute;
+	background-color:#505356;
+	padding:3px;
+	color:#fff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	font-size:12px;
+	transition: all .2s;
+	display:block;
+	opacity : 0;
+	top:32px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.download:hover div.description{
+	opacity : 1;
+	left:-30px;
+	width:90px;
+	z-index:800;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.drive:hover div.description{
+	opacity : 1;
+	left:-40px;
+	width:110px;
+	z-index:800;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.edit:hover div.description{
+	opacity : 1;
+	left:-70px;
+	width:170px;
+	z-index:800;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.block1{
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid #fff;
+	position:absolute;
+	top:21px;
+	left:calc(100% - 19px);
+	transform: rotate(135deg);
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.block2{
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid #0082EF;
+	position:absolute;
+	top:10px;
+	left:calc(100% - 30px);
+	transform: rotate(-45deg);
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file-footer div.block3{
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid #C4C4C4;
+	position:absolute;
+	top:20px;
+	left:calc(100% - 40px);
+	transform: rotate(135deg);
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file:hover div.file-body,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file.hover div.file-body{
+	display:none;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file:hover div.file-footer,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file.hover div.file-footer
+{
+	height:120px;
+	border-top:solid 1px #ddd;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file:hover div.file-footer span.file-name,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file.hover div.file-footer span.file-name
+{
+	width:135px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file:hover div.file-footer div.block1,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file.hover div.file-footer div.block1
+{
+	top:107px;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file:hover div.file-footer div.block2,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file.hover div.file-footer div.block2
+{
+	top:96px;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file:hover div.file-footer div.block3,
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.attachments div.file.hover div.file-footer div.block3
+{
+	top:106px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.control{
+	top:90px;
+	padding-left:50px;
+	padding-bottom:300px;
+	overflow: hidden;
+	width:100%;
+	position:relative;
+	min-width:600px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.control button{
+	background-color:#fff;
+	border:solid 1px #DADCE0;
+	padding:8px;
+	padding-left:30px;
+	padding-right:30px;
+	margin-right:10px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	cursor:pointer;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.control button:hover{
+	background-color:#eee;
+}
+div.sie-module-win-gmail div.sie-module-win-gmail-body  div.mail-block div.control button i{
+	margin-right:10px;
+	color:#767676;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer div.download-box {
+	display:inline-block;
+	position:relative;
+	height:100%;
+	top:0px;
+	width:200px;
+	line-height:42px;
+	cursor:pointer;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer div.download-box img{
+	display:inline-block;
+	position:relative;
+	margin-left:8px;
+	width:20px;
+	vertical-align:middle;
+	top:-17px;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer div.download-box span{
+	display:inline-block;
+	position:relative;
+	font-size:12px;
+	width:130px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-left:3px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer div.download-box i{
+	display:inline-block;
+	position:relative;
+	float:right;
+	top:15px;
+	margin-right:15px;
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer div.delim{
+	display:inline-block;
+	position:relative;
+	float:right;
+	width:0px;
+	height:40px;
+	top:5px;
+	border-right:solid 1px #DADCE0;
+	
+}
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer div.download-box:hover {
+	background-color:#E8E8E8;
+}
+
+
+div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-download-footer i.fa-download {
+	font-size:40px;
+	color:#4385F4;
+	position:absolute;
+	top:-120px;
+	left:50px;
+}

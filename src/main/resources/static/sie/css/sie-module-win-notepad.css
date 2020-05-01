@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+div.sie-module-win-notepad-body{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+div.sie-module-win-notepad-body div.note-menu-bar{
+	height:18px;
+	width:100%;
+	line-height:18px;
+	overflow:hidden;
+	white-space: nowrap;
+	border-bottom:solid 2px #F2F2F2;
+}
+
+div.sie-module-win-notepad-body div.note-menu{
+	width:55px;
+}
+
+div.sie-module-win-notepad-body div.note-menu-1{
+	left:10px;
+}
+
+div.sie-module-win-notepad-body div.note-menu-2{
+	left:70px;
+}
+div.sie-module-win-notepad-body div.note-menu-3{
+	left:130px;
+}
+div.sie-module-win-notepad-body div.note-menu-4{
+	left:190px;
+}
+div.sie-module-win-notepad-body div.note-menu-5{
+	left:250px;
+}
+
+
+div.sie-module-win-notepad-body div.note-body{
+	padding-left:3px;
+	top:18px;
+	width:100%;
+	overflow:auto;
+	background-color:yellow;
+	background-color:#fff;
+	white-space: nowrap;
+}
+
+
