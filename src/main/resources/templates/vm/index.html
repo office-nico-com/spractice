@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>セキュリティインシデント体験ツール</title>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css" href="sie/css/bootstrap-reboot.css" th:href="@{/sie/css/bootstrap-reboot.css}">
+<link rel="stylesheet" type="text/css" href="sie/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/sie/font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/sie-platform-win.css" th:href="@{/sie/css/sie-platform-win.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/sie-module-win-explore.css" th:href="@{/sie/css/sie-module-win-explore.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/sie-module-win-notepad.css" th:href="@{/sie/css/sie-module-win-notepad.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/sie-module-win-wannacry.css" th:href="@{/sie/css/sie-module-win-wannacry.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/sie-module-win-imageview.css" th:href="@{/sie/css/sie-module-win-imageview.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/sie-api-guide.css" th:href="@{/sie/css/sie-api-guide.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/sie-api-marker.css" th:href="@{/sie/css/sie-api-marker.css}">
+<link rel="stylesheet" type="text/css" href="sie/css/jquery-ui.1.12.1.css" th:href="@{/sie/css/jquery-ui.1.12.1.css}">
+<style type="text/css">
+
+</style>
+</head>
+<body>
+
+<!-- 戻る用のフォーム -->
+<form action="../index.php" method="post" id="backform"><input type="hidden" name="username" value="" id="username"/></form>
+</body>
+
+
+
+<script src="sie/js/jquery.min.3.3.1.js" th:src="@{/sie/js/jquery.min.3.3.1.js}"></script>
+<script src="sie/js/jquery-ui.min.1.12.1.js" th:src="@{/sie/js/jquery-ui.min.1.12.1.js}"></script>
+<script src="sie/js/sie.js" th:src="@{/sie/js/sie.js}"></script>
+<script src="sie/js/sie-platform-win.js" th:src="@{/sie/js/sie-platform-win.js}"></script>
+<script src="sie/js/sie-module-win-explore.js" th:src="@{/sie/js/sie-module-win-explore.js}"></script>
+<script src="sie/js/sie-module-win-notepad.js" th:src="@{/sie/js/sie-module-win-notepad.js}"></script>
+<script src="sie/js/sie-module-win-desktopicon.js" th:src="@{/sie/js/sie-module-win-desktopicon.js}"></script>
+<script src="sie/js/sie-module-win-wannacry.js" th:src="@{/sie/js/sie-module-win-wannacry.js}"></script>
+<script src="sie/js/sie-module-win-imageview.js" th:src="@{/sie/js/sie-module-win-imageview.js}"></script>
+<script src="sie/js/sie-api-marker.js" th:src="@{/sie/js/sie-api-marker.js}"></script>
+<script src="sie/js/sie-api-log.js" th:src="@{/sie/js/sie-api-log.js}"></script>
+<script src="sie/js/sie-api-guide.js" th:src="@{/sie/js/sie-api-guide.js}"></script>
+
+<script type="text/javascript">
+
+// 初期設定
+var config={
+	server:{port:'8080'},
+	login_url:"../guestlogin_giken.html"
+}
+
+// セキュリティインシデント体験ツール
+var sie = null;
+// EXPLOREモジュールオブジェクト
+var explore1 = null;
+// ガイド
+var guide = null;
+//  デスクトップアイコンモジュール
+var desktopicon1=null;
+var desktopicon2=null;
+var desktopicon3=null;
+var desktopicon4=null;
+// 壊れたファイル
+var notepad1=null;
+var notepad2=null;
+var notepad3=null;
+var notepad4=null;
+
+// イメージView
+var imageview=null;
+
+// ユーザID（ランディングページでセットされる）
+var uid = null;
+
+// logger
+var logger = null;
+
+$(function(){
+
+
+	uid = window.sessionStorage.getItem("user_id");
+//	if(uid == null || uid == ''){
+//		// ログインしていない場合は、ログイン画面に戻す
+//		location.href=config.login_url;
+//		return;
+//	}
+	$('#username').val(uid);
+	logger = new SieApiLog(location.hostname, config.server.port, uid, false);
+
+	sie = $('body').sie('win');
+	sie.setBackground("background.png");
+
+	// Exploreモジュールの生成
+	explore1 = new SieModuleWinExplore(10);
+	// デスクトップにアイコン非表示
+	explore1.isShowDeskTop=false;
+	// ×ボタン無効化
+	explore1.isClosable=false;
+	// エクスプローラーに表示するリソースのセット
+	explore1.resources=[
+		{
+			id:"100",
+			type: "folder",
+			name:"PC",
+			icon:"/sie/img/sie-module-win-explore/icon-pc.png",
+			prop_type: "ファイルフォルダー",
+			prop_discr: "ファイルフォルダー",
+			prop_location: "\\",
+			prop_size: "2.23 GB (2,403,575,918 バイト)",
+			prop_disk_size: "2.23 GB (2,403,575,918 バイト)",
+			prop_created: "2019年‎3月‎27日、16:12:17",
+			prop_updated: "2018年‎5月8日、8:53:23",
+			prop_accessed: "2019年‎3月27日、16:12:17",
+			click:showMarker2,
+			dblclick:showMarker1,
+			selected:true,
+			children:[
+				{	id:"100100",
+					type: "folder",
+					name:"ローカルディスク(C:)",
+					icon:"/sie/img/sie-module-win-explore/icon-drive-win.png",
+					kind:"圧縮ファイル",
+					updated:"2019/01/30 15:17",
+					prop_type: "ファイルフォルダー",
+					prop_discr: "ファイルフォルダー",
+					prop_location: "\\",
+					prop_size: "2.23 GB (2,403,575,918 バイト)",
+					prop_disk_size: "2.23 GB (2,403,575,918 バイト)",
+					prop_created: "2019年‎3月‎27日、16:12:17",
+					prop_updated: "2018年‎5月8日、8:53:23",
+					prop_accessed: "2019年‎3月27日、16:12:17",
+					size:"102KB",
+					click:showMarker2,
+					dblclick:showMarker1,
+					children:[]
+				},
+				{	id:"100200",
+					type: "folder",
+					name:"USB_DRIVE(D:)",
+					icon:"/sie/img/sie-module-win-explore/icon-drive.png",
+					kind:"圧縮ファイル",
+					updated:"2019/01/30 15:17",
+					prop_type: "ファイルフォルダー",
+					prop_discr: "ファイルフォルダー",
+					prop_location: "\\",
+					prop_size: "2.23 GB (2,403,575,918 バイト)",
+					prop_disk_size: "2.23 GB (2,403,575,918 バイト)",
+					prop_created: "2019年‎3月‎27日、16:12:17",
+					prop_updated: "2018年‎5月8日、8:53:23",
+					prop_accessed: "2019年‎3月27日、16:12:17",
+					size:"102KB",
+					click:showMarker2,
+					dblclick:showMarker1,
+					children:[
+						{	id:"100200100",
+							type: "file",
+							name:"H31年度科研費緊急申請書.doc.exe",
+							icon:"/sie/img/sie-module-win-explore/icon-word.png",
+							kind:"Microsoft Word",
+							updated:"2019/01/01 9:21",
+							prop_type: "アプリケーション (.exe)",
+							prop_discr: "その他のファイル",
+							prop_location: "D:\\",
+							prop_size: "4.85 MB (5,090,456 バイト)",
+							prop_disk_size: "2.05 MB (2,158,592 バイト)",
+							prop_created: "2019年‎3月‎27日、16:12:17",
+							prop_updated: "2018年‎5月8日、8:53:23",
+							prop_accessed: "2019年‎3月27日、16:12:17",
+							size:"",
+							click:null,
+							dblclick:execRansomware,
+							children:[]
+						}
+					]
+				}
+			]
+		},
+		{	id:"200",
+			type: "folder",
+			name:"ネットワーク",
+			icon:"/sie/img/sie-module-win-explore/icon-network.png",
+			kind:"ファイルフォルダー",
+			updated:"",
+			prop_type: "ファイルフォルダー",
+			prop_discr: "ファイルフォルダー",
+			prop_location: "\\",
+			prop_size: "2.23 GB (2,403,575,918 バイト)",
+			prop_disk_size: "2.23 GB (2,403,575,918 バイト)",
+			prop_created: "2019年‎3月‎27日、16:12:17",
+			prop_updated: "2018年‎5月8日、8:53:23",
+			prop_accessed: "2019年‎3月27日、16:12:17",
+			size:"",
+			click:showMarker2,
+			dblclick:showMarker1,
+			children:[]
+		}
+	];
+	// 初期イベントのセット
+	explore1.addOnCreateEvent(function(){
+		var resource1 = explore1.leftWindow.find('.resource-id-100 i');
+
+		// 「PC」を開く
+		resource1.click();
+
+		// 「ローカルディスク(C:)」をクリック
+		setTimeout(function(){
+			var resource2 = explore1.leftWindow.find('.resource-id-100200');
+			resource2.click()
+		}, 100);
+
+	});
+	sie.setModule(explore1);
+
+
+	var desktopicon1 = new SieModuleWinDesktopicon(30);
+	desktopicon1.icon='/sie/img/icon-excel.png';
+	desktopicon1.title='申請書'
+	desktopicon1.addOnCreateEvent(showEncryptedFile);
+	sie.setModule(desktopicon1);
+
+	var desktopicon2 = new SieModuleWinDesktopicon(40);
+	desktopicon2.icon='/sie/img/icon-excel.png';
+	desktopicon2.title='予算書'
+	desktopicon2.addOnCreateEvent(showEncryptedFile);
+	sie.setModule(desktopicon2);
+
+	var desktopicon3 = new SieModuleWinDesktopicon(50);
+	desktopicon3.icon='/sie/img/icon-ppt.png';
+	desktopicon3.title='事務説明'
+	desktopicon3.addOnCreateEvent(showEncryptedFile);
+	sie.setModule(desktopicon3);
+
+	var desktopicon4 = new SieModuleWinDesktopicon(60);
+	desktopicon4.icon='/sie/img/icon-word.png';
+	desktopicon4.title='手順書'
+	desktopicon4.addOnCreateEvent(showEncryptedFile);
+	sie.setModule(desktopicon4);
+
+	imageview = new SieModuleWinImageview(100);
+	imageview.image="usb.png";
+	imageview.isShowDeskTop=false;
+	imageview.imageWidth=500;
+	imageview.imageHeight=500;
+	imageview.title="USBメモリ";
+	imageview.titlebar="USBメモリ"
+	sie.setModule(imageview);
+
+	// ガイドの設定
+	guide = new SieApiGuide(sie, 100, logger);
+	guide.setMessage(1, '所有者不明のUSBメモリーを不用意に取り扱った場合の危険性を体験いただきます。\nなお、より高い体験効果を得るために、ブラウザーを最大化して利用することを推奨いたします。',
+		[{next:'script', label:'ブラウザーを最大化する', script:function(){requestFullScreen(document.documentElement);}}, {next:2, label:"次へ"}]);
+	guide.setMessage(2, 'あなたはいま、大学構内の通路で偶然拾ったUSBメモリーをどうするか考えています。\nメモリーには所属も名前も書いていないので、所有者がわかりません。返却するためにはPCで内容を確認するしかありません。',
+		[{next:3, label:"次へ"}], {beforeAction:showUSB});
+	guide.setMessage(3, '自分のPCにそのUSBメモリーを差し込み、Dドライブとして認識しました。\n中にはWord形式のアイコンで「H31年度科研費緊急申請書」が入っている様です。\nでは、そのファイルをダブルクリックしてみましょう。',
+		[], {beforeAction:openUSB});
+	guide.setMessage(4, 'Word資料に見えたファイルは、実はランサムウェアだった様です。\nあなたのデスクトップに置いてある4つのファイル（Excel文書×2、PowerPoint文書、Word文書）を元に、新しい4つの暗号化されたファイルが作成されました。',
+		[{next:5, label:"次へ"}], {beforeAction:encryptFile, afterAction:showMarker3});
+	guide.setMessage(5, '残り時間が表示されている赤いウィンドウの身代金要求画面が表示され、壁紙が書き換わりました。\n注目する点は、元の4つのファイル（Excel文書×2、PowerPoint文書、Word文書）が勝手に削除されて、暗号化された4つのファイルだけが残ったことです。\n身代金要求画面内には犯人からのメッセージが表示されていて、お金を支払うことで暗号化したファイルを元に戻すことができる、と書かれています。\nしかし、実際にはお金を払ってもファイルを元に戻してもらえるとは限りません。',
+		[{next:6, label:"次へ"}], {beforeAction:openIntimidation, delay:4000});
+	guide.setMessage(6, 'デスクトップ上のアイコンをダブルクリックしてみてください。\nあなたのファイルが暗号化されて参照することができなくなっています。',
+		[{next:7, label:"次へ"}], {});
+
+
+	var text = "■解説\n今回体験頂いた様に、以下の行為はセキュリティ上危険です。\n\n　✓所有者が不明のUSBメモリーやSDカード、CD-Rに収録されたファイルを開く。\n　✓知らない人から届いたメールに添付されているファイルを開く。\n　✓知らないサイトからダウンロードしたファイルを開く。\n\n";
+	text += "少しでも怪しいと思われるファイルを開く場合には、ファイルを右クリックし、「プロパティ」を開けて「ファイルの拡張子が.exeや.com等の実行形式ではないことを確認するようにしましょう。\n\n";
+	text += "ウィルスチェックプログラムをすり抜けてしまうランサムウェアが横行しています。ある調査結果では、ウィルスチェックソフトがウィルスを検出する率は４割程度にとどまると言われています。\nご自身のパソコンにウィルスチェックソフトがインスールされていても過信しないようにしましょう。\n\n\n";
+	text += "これでランサムウェアに感染した場合のセキュリティインシデント体験は終了です。\nアンケートに回答していない場合は、ご協力をお願いいたします。\n\n";
+
+	guide.setMessage(7, text,
+		[
+			{next:'url', url:'https://docs.google.com/a/iic.shinshu-u.ac.jp/forms/d/e/1FAIpQLSd_vgmtSnC8sRXc3bLTGepcwETseLCaI1HMZ8GCJwF671ZhQw/closedform', label:"アンケートに回答する", openWindow: true},
+			{next:'script', script:endSession, label:"この体験を終わる"},
+			{next:'url', url:'index.html', label:"もう一度体験する"}],
+			{height:'full', beforeAction:function(){logger.certificate(100)}});
+
+	// ガイドの開始
+	guide.exec(1);
+
+	// 全画面化
+	//requestFullScreen(document.documentElement);
+
+//		sie.openWindow(explore1.id);
+
+
+});
+
+// USB画像の表示
+function showUSB(){
+	var $imageview = sie.openWindow(imageview.id);
+}
+
+
+// USBドライブのオープン
+function openUSB(){
+
+	imageview.replaceImage("pc-usb.png");
+	setTimeout(function(){
+		sie.exitModule(imageview.id);
+		var $windowExplore1 = sie.openWindow(explore1.id);
+	}, 3500);
+}
+
+// ランサムウェアの実行
+function execRansomware(pain, id, params){
+		guide.next(4);
+}
+
+var marker1 = null;
+var marker2 = null;
+var marker3 = null;
+var marker4 = null;
+var marker5 = null;
+
+// マーカーの表示
+function showMarker1(pain, id, params){
+	if(pain == 'right'){
+		if(id == "100200"){
+			if(marker1== null){
+				marker1 = new SieApiMarker(params["window"], 'div.exp-address', 420, 12);
+				marker1.show();
+			}
+		}
+		else{
+			if(marker1 != null){
+				marker1.hide();
+				marker1 = null;
+			}
+		}
+	}
+}
+function showMarker2(pain, id, params){
+	if(pain == 'left'){
+		if(id == "100200"){
+			if(marker1== null){
+				marker1 = new SieApiMarker(params["window"], 'div.exp-address', 420, 12);
+				marker1.show();
+			}
+		}
+		else{
+			if(marker1 != null){
+				marker1.hide();
+				marker1 = null;
+			}
+		}
+	}
+}
+
+// ファイルの暗号化
+function encryptFile(){
+	// デスクトップにアイコン
+	var text = 'WANACRY!    ~・ｶi KYO<=Y磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*k・藁ｷ・ﾐ・ﾋn)?<br>';
+	text += ' $Se　ﾂ　Xﾀﾞ ｳ ｯｷL:E 声・ｶi KYO<=Y磔\nV Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ<br/>';
+	text += '　ﾔﾏﾎU屁*k・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ ｯｷ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材　Xﾀﾞ ｳ<br/>';
+	text += 'L:E 声・ｶin KYO<=Y磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*k・藁ｷ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・ﾐ・ﾋn)? $Se　ﾂ　X Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材ﾀﾞ ｳ ｯｷL:E 声 <br/>';
+	text += '磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*<br/>';
+	text += 'ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*<br/>';
+	text += 'pjｳﾞｨｵpfbjrpQ*・ﾝfwwww磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V ふぉくぇfj@ojfejo4Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*<br/>';
+	text += 'DﾌｧﾎHﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺<BR/>V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ<br/>';
+	text += '材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔Vf	ｴｲjhpjf4 Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・bgbgﾍﾞﾎU屁*磔V Q*・ﾝ材・fdsaihfpwﾙordiwefpri4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁<br/>';
+	text += 'DFSajFDp+ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V QGｳﾞｨ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V FQjnef`ｵjlE@?jeQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎUDSLWFﾏ屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧fｼﾞｪｵ<br/>';
+	text += 'ｵefpjw　ﾔﾏﾎUFDSｧKLF@:ﾀﾞK屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔV ﾌｨﾋqphe0ｼﾞｵwpjｳﾞｨｵpfbjrpQ*・ﾝfwwwwwrmol@mrrfgbwowf材・4・_f棺ﾒ~$ﾝ鎧 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材　ﾔﾏﾎU屁<br/>';
+	text += 'ﾌｫｫﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4fqb	2H.OL・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*FIWAHﾌｨPJHNFGV・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔFLW@:FL･｣｢ﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝFV,;AWRKDGV;「」ＫＰＧ材・4・_f棺ﾒ~$ﾝ鎧　fAk+FDADﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎﾌｫｺｱU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝfvSOJAfAr鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎUrfjｻ<br/>';
+	text += 'p屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁鎧材dsﾌｧｼﾞfhﾆﾜｴh・4・_f棺ﾒ~$ﾝ鎧　ﾔfrjｺl｡@:･ｱﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎUfgvﾗｴjkpfg屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ<br/>';
+	text += '鎧　ﾔﾏﾎU屁*磔V e	280fyhi	ｴ0r0yQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾌｫh・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔNFKPP;NKf?P+fkNhiwｲprwﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_ｈふぁ	えｈくぁ0iehjfipwjhfas<br/>';
+	text += 'prwﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_owffwiｈネｲhfwﾆhﾌｫpwﾌｨｱhﾝｲwf.p;fihhhhwfdasfadsafasdﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺<BR/>ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧qeihbdhio:qeo@j@efjo@jhrgv/O`J?Fro@h/ol@hewf　<br/>';
+	text += 'f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎUDfwｴfbhhﾆpf｡wwwhﾆｹﾌｪﾌyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏｪﾌｪﾌｪﾌfiphjpgrSLWFﾏ屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧fｼﾞｪｵｵefpjw　ﾔﾏﾎUFDSｧKLF@:ﾀﾞK<br/>';
+	text += '~・ｶi KYO<=Y磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*k・藁ｷ・ Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材ﾐ・ﾋn)?<br/>';
+	text += ' $Se　ﾂ　Xﾀﾞ ｳ ｯｷL:E 声・ｶi KYO<=Y磔\nV Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn) Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材? $Se　ﾂ　Xﾀﾞ ｳ<br/>';
+	text += '　ﾔﾏﾎU屁*k・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ ｯｷ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材<br/>';
+	text += 'L:E 声・ｶin KYO<=Y磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*k・藁ｷ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $Se　ﾂ　Xﾀﾞ ｳ・ﾐ・ﾋn)? $Se　ﾂ　X Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材ﾀﾞ ｳ ｯｷL:E 声 <br/>';
+	text += '280fyhi	ｴ0r0yQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*<br/>';
+	text += '? $Se　ﾂ　Xﾀﾞ ｳ・藁ｷ・ﾐ・ﾋn)? $S磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材 Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材　ﾔﾏﾎU屁*<br/>';
+	text += '*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V ふぉくぇfj@ojfejo4Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*<br/>';
+	text += 'DﾌｧﾎHﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔Vf	ｴｲjhpjf4 Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・bgbgﾍﾞﾎU屁*磔V Q*・ﾝ材・fdsaihfpwﾙordiwefpri4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁<br/>';
+	text += 'DFSajFDp+ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V QGｳﾞｨ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V FQjnef`ｵjlE@?jeQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎUDSLWFﾏ屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧fｼﾞｪｵｵefpjw　ﾔﾏﾎUFDSｧKLF@:ﾀﾞK屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔV Q*・ﾝfwwwwwrmol@mrrfgbwowf材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁<br/>';
+	text += 'ﾌｫｫﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4f・_f棺ﾒ~$ﾝ鎧　ﾔFLW@:FL･｣｢ﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝFV,;AWRKDGV;「」ＫＰＧ材・4・_f棺ﾒ~$ﾝ鎧　fAk+FDADﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎﾌｫｺｱU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝfvSOJAfAr鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎUrfjｻp屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁鎧材dsﾌｧｼﾞfhﾆﾜｴh・4・_f棺ﾒ~$ﾝ鎧　ﾔfrjｺl｡@:･ｱﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎUfgvﾗｴjkpfg屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ<br/>';
+	text += '鎧　ﾔﾏﾎU屁*磔V e	280fyhi	ｴ0r0yQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*9i8hrfwieioheihfbﾌｵｳｪｴｴｯyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾌｫh・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔNFKPP;NKf?P+fkNhiwｲprwﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_ｈふぁ	えｈくぁ0iehjfipwjhfas<br/>';
+	text += 'prwﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_owffwiｈネｲhfwﾆhﾌｫpwﾌｨｱhﾝｲwf.p;fihhhhwfdasfadsafasdﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺<BR/>ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧qeihbdhio:qeo@j@efjo@jhrgv/O`J?Fro@h/ol@hewf　<br/>';
+	text += 'f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁ﾎUDfwｴfbhhﾆpf｡wwwhﾆｹﾌｪﾌyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏyQ*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏｪﾌｪﾌｪﾌfiphjpgrSLWFﾏ屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧　ﾔﾏﾎU屁*磔V Q*・ﾝ材・4・_f棺ﾒ~$ﾝ鎧fｼﾞｪｵｵefpjw　ﾔﾏﾎUFDSｧKLF@:ﾀﾞK';
+
+	setTimeout(function(){
+		if(notepad1 == null){
+			notepad1 = new SieModuleWinNotepad(21);
+			notepad1.resource=text;
+			notepad1.title="申請書.xlsx.WINCRY";
+			notepad1.icon="sie/img/icon-blank.png";
+			notepad1.titlebar = notepad1.title;
+			sie.setModule(notepad1);
+		}
+	}, 500);
+
+	setTimeout(function(){
+		if(notepad2 == null){
+			notepad2 = new SieModuleWinNotepad(22);
+			notepad2.resource=text;
+			notepad2.title="予算書.xlsx.WINCRY";
+			notepad2.icon="sie/img/icon-blank.png";
+			notepad2.titlebar = notepad2.title;
+			sie.setModule(notepad2);
+		}
+	}, 1000);
+
+	setTimeout(function(){
+		if(notepad3 == null){
+			notepad3 = new SieModuleWinNotepad(23);
+			notepad3.resource=text;
+			notepad3.title="事務説明.pptx.WINCRY";
+			notepad3.titlebar = notepad3.title;
+			notepad3.icon="sie/img/icon-blank.png";
+			sie.setModule(notepad3);
+		}
+	}, 1500);
+
+	setTimeout(function(){
+		if(notepad4 == null){
+			notepad4 = new SieModuleWinNotepad(24);
+			notepad4.resource=text;
+			notepad4.title="申請書.docx.WINCRY";
+			notepad4.titlebar = notepad4.title;
+			notepad4.icon="sie/img/icon-blank.png";
+			sie.setModule(notepad4);
+		}
+	}, 2000);
+}
+
+// 脅迫画面の表示
+function openIntimidation(){
+
+	setTimeout(function(){
+		sie.find(".icon-module-id-30").hide();
+	}, 1000);
+	setTimeout(function(){
+		sie.find(".icon-module-id-40").hide();
+	}, 1000);
+	setTimeout(function(){
+		sie.find(".icon-module-id-50").hide();
+	}, 1000);
+	setTimeout(function(){
+		sie.find(".icon-module-id-60").hide();
+	}, 1000);
+
+	var wannacry = new SieModuleWinWannacry(70);
+	sie.setModule(wannacry);
+	var $windowWannacry = sie.openWindow(wannacry.id);
+		sie.setBackground("sie/img/sie-module-wannacry/background.png");
+
+}
+
+var encrypted=false;
+function showMarker3(){
+	if(	marker2 == null){
+		setTimeout(function(){
+			marker2 = new SieApiMarker(sie, 'div.icon-module-id-21,div.icon-module-id-22,div.icon-module-id-23,div.icon-module-id-24', 80, -10);
+			marker2.show();
+		}, 200);
+		encrypted=true;
+	}
+}
+
+// 暗号化ファイルの表示
+function showEncryptedFile(){
+	if(encrypted){
+		sie.openWindow(notepad1.id);
+	}
+}
+
+// 体験の終了
+function endSession(){
+	exitFull();
+	$("#backform").submit();
+}
+
+
+//全画面表示
+function requestFullScreen(element){
+	var isFullScreen = false;
+	var requestMethod = get_fullScreenMethod(element);
+	if(requestMethod){
+		requestMethod.call(element);
+		isFullScreen = true;
+	}else if(typeof window.ActiveXObject !== "undefined"){
+		//for Internet Explorer
+		var wscript = new ActiveXObject("WScript.Shell");
+		if(wscript !== null){
+			wscript.SendKeys("{F11}");
+			isFullScreen = true;
+		}
+	}
+
+	return isFullScreen;
+}
+
+//クロースブラウザ対応の全画面表示API
+function get_fullScreenMethod(element){
+	var requestMethod =
+		element.requestFullscreen ||		//W3C
+		element.requestFullScreen ||		//W3C
+		element.webkitRequestFullscreen ||	//Chrome等
+		element.webkitRequestFullScreen ||	//Chrome等
+		element.mozRequestFullscreen ||		//FireFox
+		element.mozRequestFullScreen ||		//FireFox
+		element.msRequestFullscreen ||		//IE11
+		element.msRequestFullScreen;		//IE11
+
+	return requestMethod;
+}
+
+//全画面の解除
+function exitFull(){
+	var exitMethod = get_exitFullScreenMethod();
+	if(exitMethod){
+		exitMethod.call(document);
+	}else if(typeof window.ActiveXObject !== "undefined"){
+		//for Internet Explorer
+		var wscript = new ActiveXObject("WScript.Shell");
+		if(wscript !== null) wscript.SendKeys("{F11}");
+	}
+}
+
+//クロースブラウザ対応の全画面解除API
+function get_exitFullScreenMethod(){
+	var exitMethod =
+		document.exitFullscreen ||		//W3C
+		document.exitFullScreen ||		//W3C
+		document.webkitExitFullscreen ||	//Chrome等
+		document.webkitExitFullScreen ||	//Chrome等
+		document.webkitCancelFullscreen ||	//Chrome等
+		document.webkitCancelFullScreen ||	//Chrome等
+		document.mozCancelFullscreen ||		//FireFox
+		document.mozCancelFullScreen ||		//FireFox
+		document.mozExitFullscreen ||		//FireFox
+		document.mozExitFullScreen ||		//FireFox
+		document.msExitFullscreen ||		//IE11
+		document.msExitFullScreen;		//IE11
+
+	return exitMethod;
+}
+
+
+</script>
+</html>
