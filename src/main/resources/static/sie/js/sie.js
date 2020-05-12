@@ -5,10 +5,16 @@ $.fn.extend(new function(){
 	this.windows = new Array();
 	this.windowIndex = 100;
 
-	this.sie=function(platform){
+	this.sie=function(platform, options){
 		var _self = this;
 		var command = 'this.platform = new SiePlatform' + platform.charAt(0).toUpperCase() + platform.slice(1) + "(this)";
 		eval(command);
+
+		if(options !=null){
+			$.each(options,function(key, value){
+				_self.platform.$window.css(key, value);	
+			});
+		}
 
 		$(window).resize(function(){
 			_self.platform.resizeWindow();

@@ -124,9 +124,11 @@ CREATE TABLE completions (
 ALTER TABLE completions ADD CONSTRAINT PK_completions PRIMARY KEY (id);
 
 
-CREATE TABLE modules (
+CREATE TABLE extensions (
  id BIGSERIAL NOT NULL,
- module_name VARCHAR(256) NOT NULL,
+ virtual_machine_id BIGINT NOT NULL,
+ extension_code SMALLINT NOT NULL,
+ extension_name VARCHAR(256) NOT NULL,
  note TEXT,
  order_number INT NOT NULL,
  is_invalided BOOLEAN DEFAULT false NOT NULL,
@@ -134,16 +136,15 @@ CREATE TABLE modules (
  created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
  updated_at TIMESTAMP WITHOUT TIME ZONE,
  created_by BIGINT NOT NULL,
- updated_by BIGINT,
- id_0 BIGSERIAL
+ updated_by BIGINT
 );
 
-ALTER TABLE modules ADD CONSTRAINT PK_modules PRIMARY KEY (id);
+ALTER TABLE extensions ADD CONSTRAINT PK_extensions PRIMARY KEY (id);
 
 
-CREATE TABLE moudle_properties (
+CREATE TABLE extension_properties (
  id BIGSERIAL NOT NULL,
- moudule_id BIGSERIAL NOT NULL,
+ extension_id BIGSERIAL NOT NULL,
  property_name VARCHAR(512),
  property_value VARCHAR(512),
  method TEXT,
@@ -154,7 +155,7 @@ CREATE TABLE moudle_properties (
  updated_by BIGINT
 );
 
-ALTER TABLE moudle_properties ADD CONSTRAINT PK_moudle_properties PRIMARY KEY (id);
+ALTER TABLE extension_properties ADD CONSTRAINT PK_extension_properties PRIMARY KEY (id);
 
 
 COMMENT ON TABLE records IS 'セッション受講履歴';
@@ -268,30 +269,43 @@ COMMENT ON TABLE completions IS '完了結果';
 COMMENT ON COLUMN completions.id IS '受講結果ID';
 COMMENT ON COLUMN completions.user_id IS 'ユーザID';
 COMMENT ON COLUMN completions.completion_condition_id IS '完了条件ID';
-COMMENT ON TABLE modules IS 'モジュール';
-COMMENT ON COLUMN modules.id IS 'モジュールID';
-COMMENT ON COLUMN modules.module_name IS 'モジュール名';
-COMMENT ON COLUMN modules.note IS '備考';
-COMMENT ON COLUMN modules.order_number IS '表示順';
-COMMENT ON COLUMN modules.is_invalided IS '無効フラグ
+COMMENT ON TABLE extensions IS '拡張機能';
+COMMENT ON COLUMN extensions.id IS 'モジュールID';
+COMMENT ON COLUMN extensions.virtual_machine_id IS '';
+COMMENT ON COLUMN extensions.extension_code IS '拡張機能コード
+1:マーカー
+2:Chrome
+3:デスクトップアイコン
+4:エクスプローラー
+5:gmail
+6:ImageView
+7:メモ帳
+8:outlook
+9:WannaCry
+10:Word
+
+';
+COMMENT ON COLUMN extensions.extension_name IS '拡張機能名';
+COMMENT ON COLUMN extensions.note IS '備考';
+COMMENT ON COLUMN extensions.order_number IS '表示順';
+COMMENT ON COLUMN extensions.is_invalided IS '無効フラグ
 true:無効
 false:有効';
-COMMENT ON COLUMN modules.is_deleted IS '削除フラグ
+COMMENT ON COLUMN extensions.is_deleted IS '削除フラグ
 true:削除
 false:有効';
-COMMENT ON COLUMN modules.created_at IS 'レコード作成日';
-COMMENT ON COLUMN modules.updated_at IS 'レコード更新日';
-COMMENT ON COLUMN modules.created_by IS 'レコード作成ユーザID';
-COMMENT ON COLUMN modules.updated_by IS 'レコード更新ユーザID';
-COMMENT ON COLUMN modules.id_0 IS '';
-COMMENT ON TABLE moudle_properties IS 'モジュール汎用プロパティ';
-COMMENT ON COLUMN moudle_properties.id IS 'モジュールプロパティID';
-COMMENT ON COLUMN moudle_properties.moudule_id IS 'モジュールID';
-COMMENT ON COLUMN moudle_properties.property_name IS '設定名';
-COMMENT ON COLUMN moudle_properties.property_value IS '設定値';
-COMMENT ON COLUMN moudle_properties.method IS 'メソッド';
-COMMENT ON COLUMN moudle_properties.order_number IS '順番';
-COMMENT ON COLUMN moudle_properties.created_at IS 'レコード作成日';
-COMMENT ON COLUMN moudle_properties.updated_at IS 'レコード更新日';
-COMMENT ON COLUMN moudle_properties.created_by IS 'レコード作成ユーザID';
-COMMENT ON COLUMN moudle_properties.updated_by IS 'レコード更新ユーザID';
+COMMENT ON COLUMN extensions.created_at IS 'レコード作成日';
+COMMENT ON COLUMN extensions.updated_at IS 'レコード更新日';
+COMMENT ON COLUMN extensions.created_by IS 'レコード作成ユーザID';
+COMMENT ON COLUMN extensions.updated_by IS 'レコード更新ユーザID';
+COMMENT ON TABLE extension_properties IS '拡張機能汎用プロパティ';
+COMMENT ON COLUMN extension_properties.id IS 'モジュールプロパティID';
+COMMENT ON COLUMN extension_properties.extension_id IS '拡張機能ID';
+COMMENT ON COLUMN extension_properties.property_name IS '設定名';
+COMMENT ON COLUMN extension_properties.property_value IS '設定値';
+COMMENT ON COLUMN extension_properties.method IS 'メソッド';
+COMMENT ON COLUMN extension_properties.order_number IS '順番';
+COMMENT ON COLUMN extension_properties.created_at IS 'レコード作成日';
+COMMENT ON COLUMN extension_properties.updated_at IS 'レコード更新日';
+COMMENT ON COLUMN extension_properties.created_by IS 'レコード作成ユーザID';
+COMMENT ON COLUMN extension_properties.updated_by IS 'レコード更新ユーザID';

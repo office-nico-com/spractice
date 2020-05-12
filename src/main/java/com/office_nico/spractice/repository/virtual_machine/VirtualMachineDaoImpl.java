@@ -1,4 +1,4 @@
-package com.office_nico.spractice.repository;
+package com.office_nico.spractice.repository.virtual_machine;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import com.office_nico.spractice.domain.VirtualMachine;
 
 @Repository
 public class VirtualMachineDaoImpl implements VirtualMachineDao<VirtualMachine> {
+
+	private static final long serialVersionUID = 7805378019491838361L;
 
 	@PersistenceContext
 	private EntityManager entityManager = null;

@@ -1,64 +1,37 @@
 package com.office_nico.spractice.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Where;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "courses")
+@Table(name = "organizations")
 @Data
-public class Course {
+public class Organization {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Column(nullable = false)
-	private String courseName;
+	private String organizationName = null;
 
 	@Column(nullable = false)
-	private String courseNameJa;
-
-	@Column(nullable = true)
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] thumbnail;
-
-	@Column(nullable = true)
 	private String description = null;
-
-	@Column(nullable = false)
-	private LocalDate startDate = null;
-
-	@Column(nullable = false)
-	private LocalDate endDate = null;
-
+	
 	@Column(nullable = true)
-	private String note = null;
-
-	@Column(nullable = false)
-	private Integer orderNumber = null;
-
-	@Column(nullable = false)
 	private Boolean isInvalided = null;
 
 	@Column(nullable = false)
@@ -76,13 +49,14 @@ public class Course {
 	@Column(nullable = true)
 	private Long updatedBy = null;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	// @NotFound(action = NotFoundAction.IGNORE)
-	private Organization organization = null;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
 	@OrderBy("orderNumber ASC")
 	@Where(clause = "is_deleted = false")
-	private List<VirtualMachine> virtualMachines = null;
+	private List<Course> courses = null;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
+	@OrderBy("family_name ASC")
+	@Where(clause = "is_deleted = false")
+	private List<User> users = null;
+	
 }

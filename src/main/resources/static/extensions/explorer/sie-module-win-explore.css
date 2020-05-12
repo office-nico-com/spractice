@@ -86,7 +86,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-pin{
 	width:90px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-pin.png");
+	background-image:url("img/sie-module-win-explore/icon-header-pin.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -100,7 +100,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-copy{
 	width:40px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-copy.png");
+	background-image:url("img/sie-module-win-explore/icon-header-copy.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -114,7 +114,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-paste{
 	width:45px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-paste.png");
+	background-image:url("img/sie-module-win-explore/icon-header-paste.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -129,7 +129,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-cut{
 	top:5px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-cut.png");
+	background-image:url("img/sie-module-win-explore/icon-header-cut.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -143,7 +143,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-pathcopy{
 	top:30px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-pathcopy.png");
+	background-image:url("img/sie-module-win-explore/icon-header-pathcopy.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -157,7 +157,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-shortcut{
 	top:55px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-shortcut.png");
+	background-image:url("img/sie-module-win-explore/icon-header-shortcut.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -170,7 +170,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-moveto{
 	width:40px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-moveto.png");
+	background-image:url("img/sie-module-win-explore/icon-header-moveto.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -184,7 +184,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-copyto{
 	width:45px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-copyto.png");
+	background-image:url("img/sie-module-win-explore/icon-header-copyto.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -198,7 +198,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-delete{
 	width:40px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-delete.png");
+	background-image:url("img/sie-module-win-explore/icon-header-delete.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -212,7 +212,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-rename{
 	width:40px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-rename.png");
+	background-image:url("img/sie-module-win-explore/icon-header-rename.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -227,7 +227,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-newfolder{
 	width:60px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-newfolder.png");
+	background-image:url("img/sie-module-win-explore/icon-header-newfolder.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -242,7 +242,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-newitem{
 	top:5px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-newitem.png");
+	background-image:url("img/sie-module-win-explore/icon-header-newitem.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -256,7 +256,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-newshortcut{
 	top:30px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-newshortcut.png");
+	background-image:url("img/sie-module-win-explore/icon-header-newshortcut.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -269,7 +269,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-property{
 	width:60px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-property.png");
+	background-image:url("img/sie-module-win-explore/icon-header-property.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -285,7 +285,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-open{
 	top:5px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-open.png");
+	background-image:url("img/sie-module-win-explore/icon-header-open.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -299,7 +299,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-edit{
 	top:30px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-edit.png");
+	background-image:url("img/sie-module-win-explore/icon-header-edit.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -313,7 +313,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-history{
 	top:55px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-history.png");
+	background-image:url("img/sie-module-win-explore/icon-header-history.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -327,7 +327,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-selectall{
 	top:5px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-selectall.png");
+	background-image:url("img/sie-module-win-explore/icon-header-selectall.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -341,7 +341,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-selectcancel
 	top:30px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-selectcancel.png");
+	background-image:url("img/sie-module-win-explore/icon-header-selectcancel.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -355,7 +355,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-selectchange
 	top:55px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-selectchange.png");
+	background-image:url("img/sie-module-win-explore/icon-header-selectchange.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -370,7 +370,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-share{
 	width:50px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-share.png");
+	background-image:url("img/sie-module-win-explore/icon-header-share.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -384,7 +384,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-email{
 	width:50px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-email.png");
+	background-image:url("img/sie-module-win-explore/icon-header-email.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -398,7 +398,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-zip{
 	width:45px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-zip.png");
+	background-image:url("img/sie-module-win-explore/icon-header-zip.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -414,7 +414,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-write{
 	top:5px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-write.png");
+	background-image:url("img/sie-module-win-explore/icon-header-write.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -428,7 +428,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-print{
 	top:30px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-print.png");
+	background-image:url("img/sie-module-win-explore/icon-header-print.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -442,7 +442,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-fax{
 	top:55px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-fax.png");
+	background-image:url("img/sie-module-win-explore/icon-header-fax.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -456,7 +456,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-access{
 	width:122px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-access.png");
+	background-image:url("img/sie-module-win-explore/icon-header-access.png");
 	background-repeat: no-repeat;
 	background-position: center center;
 	text-align:center;
@@ -470,7 +470,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-lock{
 	width:60px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-lock.png");
+	background-image:url("img/sie-module-win-explore/icon-header-lock.png");
 	background-repeat: no-repeat;
 	background-position: 10px 12px;
 	text-align:left;
@@ -484,7 +484,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-securite{
 	width:85px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-securite.png");
+	background-image:url("img/sie-module-win-explore/icon-header-securite.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -500,7 +500,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-navi{
 	width:80px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-navi.png");
+	background-image:url("img/sie-module-win-explore/icon-header-navi.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -515,7 +515,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-preview{
 	top:15px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-preview.png");
+	background-image:url("img/sie-module-win-explore/icon-header-preview.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -529,7 +529,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-detail{
 	top:40px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-detail.png");
+	background-image:url("img/sie-module-win-explore/icon-header-detail.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -543,7 +543,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layoutbg{
 	top:5px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layoutbg.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layoutbg.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -557,7 +557,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-1{
 	top:15px;
 	height:18px;
 /*	background-color:red; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-1.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-1.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -571,7 +571,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-2{
 	top:34px;
 	height:18px;
 /*	background-color:blue; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-2.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-2.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -585,7 +585,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-3{
 	top:53px;
 	height:18px;
 /*	background-color:red; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-3.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-3.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -599,7 +599,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-4{
 	top:15px;
 	height:18px;
 /*	background-color:blue; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-4.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-4.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -613,7 +613,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-5{
 	top:34px;
 	height:18px;
 /*	background-color:red; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-5.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-5.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -627,7 +627,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-6{
 	top:53px;
 	height:18px;
 /*	background-color:blue; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-6.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-6.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -641,7 +641,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-7{
 	top:15px;
 	height:18px;
 /*	background-color:red; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-7.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-7.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -655,7 +655,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-layout-8{
 	top:34px;
 	height:18px;
 /*	background-color:blue; */
-	background-image:url("../img/sie-module-win-explore/icon-header-layout-8.png");
+	background-image:url("img/sie-module-win-explore/icon-header-layout-8.png");
 	background-repeat: no-repeat;
 	background-position: 2px center;
 	line-height:18px;
@@ -673,7 +673,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-sort{
 	width:45px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-sort.png");
+	background-image:url("img/sie-module-win-explore/icon-header-sort.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -688,7 +688,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-group{
 	top:5px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-group.png");
+	background-image:url("img/sie-module-win-explore/icon-header-group.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -702,7 +702,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-row{
 	top:30px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-row.png");
+	background-image:url("img/sie-module-win-explore/icon-header-row.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -716,7 +716,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-autoresize{
 	top:55px;
 	height:25px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-autoresize.png");
+	background-image:url("img/sie-module-win-explore/icon-header-autoresize.png");
 	background-repeat: no-repeat;
 	background-position: 0px center;
 	line-height:25px;
@@ -779,7 +779,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-hide{
 	width:90px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-hide.png");
+	background-image:url("img/sie-module-win-explore/icon-header-hide.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;
@@ -793,7 +793,7 @@ div.sie-module-win-explore-body div.exp-header div.exp-menu div.exp-option{
 	width:60px;
 	height:76px;
 /*	background-color:yellow; */
-	background-image:url("../img/sie-module-win-explore/icon-header-option.png");
+	background-image:url("img/sie-module-win-explore/icon-header-option.png");
 	background-repeat: no-repeat;
 	background-position: center 12px;
 	text-align:center;

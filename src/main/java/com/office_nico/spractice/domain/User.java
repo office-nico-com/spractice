@@ -1,63 +1,47 @@
 package com.office_nico.spractice.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.annotations.Where;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "courses")
+@Table(name = "users")
 @Data
-public class Course {
-
+public class User {
+	
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Column(nullable = false)
-	private String courseName;
+	private String account = null;
 
 	@Column(nullable = false)
-	private String courseNameJa;
-
-	@Column(nullable = true)
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] thumbnail;
-
-	@Column(nullable = true)
-	private String description = null;
-
+	private String passwd = null;
+	
 	@Column(nullable = false)
-	private LocalDate startDate = null;
-
+	private String familyName = null;
+	
 	@Column(nullable = false)
-	private LocalDate endDate = null;
-
-	@Column(nullable = true)
-	private String note = null;
-
+	private String givenName = null;
+	
 	@Column(nullable = false)
-	private Integer orderNumber = null;
-
+	private String familyNameKana = null;
+	
+	@Column(nullable = false)
+	private String givenNameKana = null;
+	
+	@Column(nullable = false)
+	private Short roleCode = null;
+	
 	@Column(nullable = false)
 	private Boolean isInvalided = null;
 
@@ -79,10 +63,4 @@ public class Course {
 	@ManyToOne(fetch = FetchType.LAZY)
 	// @NotFound(action = NotFoundAction.IGNORE)
 	private Organization organization = null;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-	@OrderBy("orderNumber ASC")
-	@Where(clause = "is_deleted = false")
-	private List<VirtualMachine> virtualMachines = null;
-
 }

@@ -1,4 +1,4 @@
-package com.office_nico.spractice.repository;
+package com.office_nico.spractice.repository.virtual_machine;
 
 import java.io.Serializable;
 
