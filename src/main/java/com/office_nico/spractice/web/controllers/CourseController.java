@@ -15,13 +15,13 @@ public class CourseController {
 		public static final String SHOW = PREFIX + "/show";
 	}
 
-	@GetMapping({"/courses"})
+	@GetMapping({PREFIX})
 	public String  index(Model model) {
 
 		return View.INDEX;
 	}
 
-	@GetMapping({"/course/{courseName}"})
+	@GetMapping({PREFIX + "/{courseName}"})
 	public String  show(Model model) {
 
 		return View.SHOW;

@@ -14,7 +14,7 @@ public class MyController {
 		public static final String INDEX = PREFIX + "/index";
 	}
 
-	@GetMapping({"/" + PREFIX})
+	@GetMapping({PREFIX})
 	public String  container(Model model) {
 		return View.INDEX;
 	}

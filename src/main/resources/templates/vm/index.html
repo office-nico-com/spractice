@@ -4,11 +4,10 @@
 <title>セキュリティインシデント体験ツール</title>
 <meta charset="UTF-8">
 
-<link rel="stylesheet" type="text/css" href="sie/css/bootstrap-reboot.css" th:href="@{/sie/css/bootstrap-reboot.css}">
-<link rel="stylesheet" type="text/css" href="sie/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/sie/font-awesome-4.7.0/css/font-awesome.min.css}">
-<link rel="stylesheet" type="text/css" href="sie/css/sie-platform-win.css" th:href="@{/sie/css/sie-platform-win.css}">
-<th:block th:each="extensionCssPath : ${extensionCssPaths}">
-<link rel="stylesheet" type="text/css" th:href="@{${extensionCssPath}}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-reboot.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/sie-platform-win.css}">
+<th:block th:each="extensionCssPath : ${extensionCssPaths}"><link rel="stylesheet" type="text/css" th:href="@{${extensionCssPath}}">
 </th:block>
 
 <style type="text/css">
@@ -17,24 +16,12 @@
 </head>
 <body></body>
 
-<script src="sie/js/jquery.min.3.3.1.js" th:src="@{/sie/js/jquery.min.3.3.1.js}"></script>
-<script src="sie/js/jquery-ui.min.1.12.1.js" th:src="@{/sie/js/jquery-ui.min.1.12.1.js}"></script>
-<script src="sie/js/sie.js" th:src="@{/sie/js/sie.js}"></script>
-<script src="sie/js/sie-platform-win.js" th:src="@{/sie/js/sie-platform-win.js}"></script>
-<th:block th:each="extensionJsPath : ${extensionJsPaths}">
-<script src="sie/js/sie-module-win-explore.js" th:src="@{${extensionJsPath}}"></script>
+<script th:src="@{/js/jquery.min.3.3.1.js}"></script>
+<script th:src="@{/js/jquery-ui.min.1.12.1.js}"></script>
+<script th:src="@{/js/sie.js}"></script>
+<script th:src="@{/js/sie-platform-win.js}"></script>
+<th:block th:each="extensionJsPath : ${extensionJsPaths}"><script src="sie/js/sie-module-win-explore.js" th:src="@{${extensionJsPath}}"></script>
 </th:block>
-
-
-<!--  script src="sie/js/sie-module-win-explore.js" th:src="@{/sie/js/sie-module-win-explore.js}"></script>
-<script src="sie/js/sie-module-win-notepad.js" th:src="@{/sie/js/sie-module-win-notepad.js}"></script>
-<script src="sie/js/sie-module-win-desktopicon.js" th:src="@{/sie/js/sie-module-win-desktopicon.js}"></script>
-<script src="sie/js/sie-module-win-wannacry.js" th:src="@{/sie/js/sie-module-win-wannacry.js}"></script>
-<script src="sie/js/sie-module-win-imageview.js" th:src="@{/sie/js/sie-module-win-imageview.js}"></script>
-<script src="sie/js/sie-api-marker.js" th:src="@{/sie/js/sie-api-marker.js}"></script>
-<script src="sie/js/sie-api-log.js" th:src="@{/sie/js/sie-api-log.js}"></script>
-<script src="sie/js/sie-api-guide.js" th:src="@{/sie/js/sie-api-guide.js}"></script -->
-
 
 <script th:inline="javascript">
 var sie = null;
@@ -44,15 +31,22 @@ var [# th:utext="${extension.extensionName}" /] = null;
 
 
 $(function(){
-<!--/* ************ Generate Script Start ************ */-->
-sie = $('body').sie('win', {'background-image':'url([[@{/background.png}]])'});
+	sie = $('body').sie('win', {'background-image':'url([[@{/background.png}]])'});
+	
+	[# th:each="extension : ${instruction.virtualMachine.extensions}"]
+	[# th:utext="${extension.extensionName}" /] = new [# th:utext="${extension.className}" /]([# th:utext="${extension.id}" /]);
 
+	// 汎用プロパティの展開
+	[# th:each="extensionProperty : ${extension.extensionProperties}"]
+	[# th:utext="${extension.extensionName}" /].[# th:utext="${extensionProperty.propertyName}" /]=[# th:if="${extensionProperty.isText==true}"][# th:text="${extensionProperty.propertyValue}" /][/][# th:if="${extensionProperty.isText==false}"][# th:utext="${extensionProperty.propertyValue}" /][/];
+	[/]
 
+	// 固有プロパティの展開
+	[# th:utext="${extension.specificProperty}" /]
 
+	[/]
+	
 
-
-
-<!--/* ************ Generate Script Start ************ */-->
 });
 </script>
 </html>

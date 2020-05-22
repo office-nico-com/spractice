@@ -1,22 +1,26 @@
 package com.office_nico.spractice.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
+import java.util.Properties;
 
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceUtil;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.office_nico.spractice.domain.Course;
 import com.office_nico.spractice.domain.Extension;
 import com.office_nico.spractice.domain.VirtualMachine;
+import com.office_nico.spractice.extensions.ExtensionManager;
 import com.office_nico.spractice.repository.course.CourseRepository;
 import com.office_nico.spractice.repository.extension.ExtensionRepository;
 import com.office_nico.spractice.repository.virtual_machine.VirtualMachineRepository;
 import com.office_nico.spractice.service.data.Instruction;
+import com.office_nico.spractice.service.data.SessionData;
 
 /**
  * 受講サービス
@@ -27,13 +31,18 @@ import com.office_nico.spractice.service.data.Instruction;
 @Transactional
 public class InstructionService {
 
-	@Autowired CourseRepository courseRepository = null;
-	@Autowired VirtualMachineRepository virtualMachineRepository = null;
-	@Autowired ExtensionRepository extensionRepository = null;
-	
+	@Autowired 
+	ConfigurableApplicationContext ctx = null;
+	@Autowired 
+	CourseRepository courseRepository = null;
+	@Autowired 
+	VirtualMachineRepository virtualMachineRepository = null;
+	@Autowired 
+	ExtensionRepository extensionRepository = null;
 
 	public Instruction get(Long organizationId, Long userId, String courseName, String virtualMachineName) {
 
+		
 		Instruction instruction = new Instruction();
 		instruction.setResult(Instruction.Result.SUCCESS);
 
@@ -57,27 +66,33 @@ public class InstructionService {
 
 		// 拡張機能を読み込む
 		List<Extension> extensions = extensionRepository.findByVirtualMachineIdAndIsDeletedFalseAndIsInvalidedFalse(instruction.getVirtualMachine().getId());
-		System.out.println(extensions.size());
+		for(Extension extension : extensions) {
+
+			// 拡張機能の固有設定を読み込む
+			String filePath = "../extensions/" + extension.getExtensionType() + "/extension.properties";
+			InputStream in = this.getClass().getResourceAsStream(filePath);
+			if (in == null) {
+				throw new IllegalArgumentException("property file not found." + filePath);
+			}
+			Properties props = new Properties();
+			try {
+				props.load(in);
+				extension.setIcon(props.getProperty("icon"));
+				extension.setClassName(props.getProperty("javascript.class"));
+				String managerClassName = props.getProperty("manager.class");
+				
+				if(managerClassName != null && managerClassName.length() > 0) {
+					ExtensionManager extensionManager = (ExtensionManager)ctx.getBean(Class.forName("com.office_nico.spractice.extensions." + extension.getExtensionType() + "." + managerClassName));
+					String specificPropery = extensionManager.getSpecificProperty(extension.getId(), extension.getExtensionName());
+					extension.setSpecificProperty(specificPropery);
+				}
+			}
+			catch (IOException | BeansException | ClassNotFoundException e) {
+				// TODO:
+				throw new RuntimeException(e);
+			}
+		}
 		instruction.getVirtualMachine().setExtensions(extensions);
-
-		
-//		Optional<Course> a =courseRepository.getY(courseName);
-		
-//		Optional<Course> a = courseRepository.getX(courseName);
-//
-//		if(!a.isEmpty()) {
-//			for(int i=0; i < a.get().getVirtualMachines().size(); i++) {
-//				 System.out.println(a.get().getVirtualMachines().get(i).getVirtualMachineName());
-//			}
-//		}
-//		
-
-//		VirtualMachine v = virtualMachineRepository.getX();
-//		Course c = v.getCourse();
-//		if(c != null) {
-//			System.out.println(c.getId());
-//			System.out.println(c.getCourseName());
-//		}
 
 		return instruction;
 	}

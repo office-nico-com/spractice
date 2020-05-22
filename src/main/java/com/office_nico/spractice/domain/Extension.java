@@ -1,14 +1,21 @@
 package com.office_nico.spractice.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Where;
 
 import lombok.Data;
 
@@ -17,11 +24,11 @@ import lombok.Data;
 @Data
 public class Extension {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(nullable = false)
-	private Short extensionCode = null;
+	private String extensionType = null;
 
 	@Column(nullable = false)
 	private String extensionName = null;
@@ -54,8 +61,16 @@ public class Extension {
 	// @NotFound(action = NotFoundAction.IGNORE)
 	private VirtualMachine virtualMachine = null;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "extension")
+	@OrderBy("orderNumber ASC")
+	private List<ExtensionProperty> extensionProperties = null;
 	
-	public String getX() {
-		return "zzzzzzzzzzz";
-	}
+	@Transient
+	private String icon=null;
+	
+	@Transient
+	private String className=null;
+
+	@Transient
+	private String specificProperty =null;
 }

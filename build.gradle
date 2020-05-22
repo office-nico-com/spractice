@@ -26,10 +26,16 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.flywaydb:flyway-core'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+	compile('org.webjars:jquery:3.5.1')
+	compile('org.webjars:jquery-ui:1.12.1')
+	compile('org.webjars:bootstrap:4.5.0')
+	compile('org.webjars:webjars-locator:0.30')
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>セキュリティインシデント体験ツール</title>
+<meta charset="UTF-8">
+
+<link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" type="text/css" rel="stylesheet">
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/jquery-loading-overlay-master/dist/loadingoverlay.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/loading.js}"></script>
+
+<script type="text/javascript">$(function(){$('[data-toggle="popover"]').popover({
+																																						placement: 'auto',
+																																						trigger:'hover',
+																																						html:true,
+																																						delay:{'show':1200, 'hide':0}
+																																					})});</script>
+	
+
+<style type="text/css">
+
+body{
+	min-width:550px;
+	padding:10px;
+}
+
+.drag_enter{
+	background-color:#D9E4F6;
+	 filter:alpha(opacity=30);
+	-moz-opacity: 0.3;
+	opacity: 0.3;
+}
+
+
+div.upload_file_box{
+	width:100px;
+	height:120px;
+	display: inline-block;
+	margin-right:10px;
+	position:relative;
+	cursor:pointer;
+}
+
+div.upload_file_box div.icon{
+	width:100px;
+	height:100px;
+	box-sizing: border-box;
+	background-color:#fff;
+	border:solid 1px #ddd;
+	text-align:center;
+	line-height:100px;
+	font-size:50px;
+}
+
+div.upload_file_box.selected div.icon{
+	background-color:#FEFDC7;
+	border:solid 1px #CDC803;
+}
+
+div.upload_file_box div.icon:hover{
+	-webkit-box-shadow: 0 0 5px 0 #777; /* Safari, Chrome用 */
+	-moz-box-shadow: 0 0 5px 0 #777; /* Firefox用 */
+	box-shadow: 0 0 5px 0 #777; /* CSS3 */
+	font-size:55px;
+}
+
+
+div.upload_file_box div.icon i{
+	color:#aaa;
+}
+div.upload_file_box div.icon i.fa-file-word-o{
+	color:#3554A0;
+}
+div.upload_file_box div.icon i.fa-file-excel-o{
+	color:#32723E;
+}
+div.upload_file_box div.icon i.fa-file-powerpoint-o{
+	color:#C74600;
+}
+div.upload_file_box div.icon i.fa-file-pdf-o{
+	color:#C24B43;
+}
+div.upload_file_box div.icon i.fa-file-text-o{
+	color:#4B4B4B;
+}
+div.upload_file_box div.icon i.fa-file-archive-o{
+	color:#F0C100;
+}
+div.upload_file_box div.icon i.fa-file-video-o{
+	color:#570485;
+}
+div.upload_file_box div.icon i.fa-file-audio-o{
+	color:#EC7A00;
+}
+
+div.upload_file_box div.icon div.image{
+	width:86px;
+	height:86px;
+	margin-left:6px;
+	margin-top:6px;
+	background-size:contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+div.upload_file_box div.icon:hover div.image{
+	width:89px;
+	height:89px;
+	margin-left:5px;
+	margin-top:5px;
+}
+
+
+div.upload_file_box div.icon div.progress{
+	height:100%;
+	width:0px;
+	background-color:#3F9373;
+	border-radius: 0px;
+	
+}
+
+div.upload_file_box div.filename{
+	width:100px;
+	height:20px;
+	font-size:12px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+
+div.file_list{
+	border:solid 1px #ddd;
+	height:200px;
+	overflow:auto;
+	padding:10px;
+}
+
+span.notes{
+	font-size:12px;
+}
+
+
+
+.selector{
+	position:absolute;
+	top:5px;
+	left:5px;
+}
+
+.information{
+	font-size:16px;
+	position:absolute;
+	top:4px;
+	right:0;
+	margin-right:5px;
+	color:#197F21;
+}
+
+.information:hover{
+	color:#1F9828;
+}
+
+
+button.btn.disabled{
+	pointer-events: none;
+}
+
+button.btn.btn-round{
+	width:40px;
+	border-radius: 1.5em;
+	padding:6px;
+	margin-right:5px;
+}
+
+
+
+button.btn.btn-dialog{
+	font-size:12px;
+}
+
+button.btn.btn-setting{
+	width:40px;
+	font-size:10px;
+	border-radius: 1.5em;
+	padding:6px;
+	width:28px;
+	margin-right:5px;
+}
+
+select.categories{
+	width:300px;
+	display:inline-block;
+	margin-right:20px;
+}
+
+
+ul{
+	list-style-type:none;
+	margin-bottom:0px;
+	padding-left:0px;
+}
+
+ul li input[type=text]{
+	margin-bottom:10px;
+}
+
+ul li hr{
+	margin-top:10px;
+	margin-bottom:15px;
+}
+.remove_category{
+	background-color:#999;
+	color:#ddd;
+	text-decoration: line-through;
+}
+
+ul li span{
+	display:none;
+	color:#D23A49;
+}
+
+ul li.attention span{
+	display:inline;
+}
+
+ul li.attention input[type="text"]{
+	background-color:#D23A49;
+	color:#fff;
+}
+
+
+ul li span.discr{
+	display:inline;
+	font-size:10px;
+	color:#D23A49;
+}
+
+
+p.attention{
+	color:#D23A49;
+}
+
+span.button_discription{
+	display:inline-block;
+}
+
+hr.delim{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container-fluid" id="dropArea">
+<div class="row">
+<div class="col-sm-12 mb-1">
+
+<select class="form-control categories" id="categories">
+<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}" th:selected="${binaryFileCategoryId == category.id}" />
+</select>
+
+<input type="file" id="fileUpload" name="upload" style="display:none;">
+
+<span class="button_discription" data-toggle="popover" data-content="アップロード" >
+<button id="uploadButton" class="btn btn-round btn-light btn-outline-secondary"><i class="fa fa-upload" aria-hidden="true"></i></button>
+</span>
+<span class="button_discription" data-toggle="popover" data-content="ダウンロード">
+<button id="donwloadButton" class="btn btn-round btn-outline-secondary"><i class="fa fa-download" aria-hidden="true"></i></button>
+</span>
+<span class="button_discription" data-toggle="popover" data-content="ファイルの移動">
+<button id="moveButton" class="btn btn-round btn-outline-secondary"><i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+</span>
+<span class="button_discription" data-toggle="popover" data-content="カテゴリの設定">
+<button id="settingButton" class="btn btn-round btn-outline-secondary"><i class="fa fa-wrench" aria-hidden="true"></i></button>
+</span>
+<span class="button_discription" data-toggle="popover" data-content="ファイルの削除">
+<button id="removeButton" class="btn btn-round btn-outline-secondary"><i class="fa fa-trash" aria-hidden="true"></i></button>
+</span>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12 pt-2">
+<div id="fileList" class="file_list"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12 pt-2">
+<span class="notes">画面上にドラッグ&ドロップするとファイルをアップロードすることができます。</span>
+</div>
+</div>
+</div>
+
+
+<!--/* 削除確認ダイアログ */-->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-body">
+削除したファイルは元に戻すことはできません。<br/>本当に削除してもよろしいですか？
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-dialog btn-secondary" data-dismiss="modal">キャンセル</button>
+<button type="button" class="btn btn-dialog btn-danger" onclick="deleteFile();">削除する</button>
+</div>
+</div>
+</div>
+</div>
+<!--/* /削除確認ダイアログ */-->
+
+<!--/* カテゴリ移動ダイアログ */-->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="label2" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal-content">
+<div class="modal-header">
+移動先のカテゴリを選択してください。
+</div>
+<div class="modal-body">
+
+<div class="form-check" th:each="category : ${categories}">
+<input type="radio" name="selectCategoryId" th:id="'selectCategoryId_' + ${category.id}" th:value="${category.id}" th:checked="${binaryFileCategoryId == category.id}">
+<label class="form-check-label" th:for="'selectCategoryId_' + ${category.id}">[[${category.categoryName}]]<th:block th:if="${binaryFileCategoryId == category.id}">（現在のカテゴリ）</th:block></label>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-dialog btn-secondary" data-dismiss="modal">キャンセル</button>
+<button type="button" class="btn btn-dialog btn-primary" onclick="moveFile();">移動する</button>
+</div>
+</div>
+</div>
+</div>
+<!--/* /カテゴリ移動ダイアログ */-->
+
+
+<!--/* カテゴリ編集ダイアログ */-->
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="label3" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal-content">
+<div class="modal-header">
+カテゴリの編集
+</div>
+<div class="modal-body">
+
+<button id="buttonAddCategory" class="btn btn-outline-success btn-setting"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+<ul id="categorySetting"></ul>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-dialog btn-secondary" data-dismiss="modal">キャンセル</button>
+<button type="button" class="btn btn-dialog btn-primary" onclick="confirmCategoryEdit();">編集する</button>
+</div>
+</div>
+</div>
+</div>
+<!--/* /カテゴリ編集イアログ */-->
+
+<!--/* ファイル削除エラー */-->
+<div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="label4" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<p class="attention">別の機能でファイルが使用されているため削除できません。</p>
+<ul id="deleteErrorFiles"></ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-dialog btn-secondary" data-dismiss="modal">閉じる</button>
+</div>
+</div>
+</div>
+</div>
+<!--/* /ファイル削除エラー */-->
+
+
+<!--/* カテゴリ削除確認 */-->
+<div class="modal fade" id="modal5" tabindex="-1" role="dialog" aria-labelledby="label5" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal-content">
+<div class="modal-body">
+カテゴリを削除すると、そのカテゴリに登録されているすべてのファイルが削除されます。
+削除されたファイルは元に戻すことはできません。<br/>本当に削除してもよろしいですか？
+<ul id="deleteErrorFiles"></ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-dialog btn-secondary" data-dismiss="modal">キャンセル</button>
+<button type="button" class="btn btn-dialog btn-danger" onclick="editCategory();">削除する</button>
+</div>
+</div>
+</div>
+</div>
+<!--/* /カテゴリ削除確認 */-->
+
+<!--/* カテゴリ削除エラー */-->
+<div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-labelledby="label6" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<p class="attention">削除するカテゴリの中に、別の機能で使用されているファイルがあるため削除できません。</p>
+<ul id="deleteErrorCategoryFiles"></ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-dialog btn-secondary" data-dismiss="modal">閉じる</button>
+</div>
+</div>
+</div>
+</div>
+<!--/* /カテゴリ削除エラー */-->
+
+</body>
+<script th:inline="javascript">
+$(function(){
+
+	$(window).resize(function() {
+		resizeWindow();
+	});
+	resizeWindow();
+	
+	// ボタンの有効・無効化
+	changeSelectedStatus();
+	
+	$('#uploadButton').click(function(){
+		$('#fileUpload').click();
+	});
+	
+	$('#moveButton').click(function(){
+		$("#modal2").modal('show');
+	})
+
+		$('#settingButton').click(function(){
+			$('#categorySetting').empty();
+			[# th:each="category : ${categories}"]
+			createCategorySetting([# th:utext="${category.id}" /], [# th:text="${category.categoryName}" /], false, null, false, [# th:text="${category.canDelete}" /]);
+			[/]
+			$("#modal3").modal('show');
+	})
+
+	$('#removeButton').click(function(){
+		confirmRemove();
+	})
+	
+	$('#fileUpload').change(function(e){
+		execUpload(e.target.files);
+		$('#fileUpload').val('');
+	});
+	
+	$(window).on('dragenter', function (e){
+		$('body').addClass('drag_enter');
+		$(this).css('background-color', 'red');
+		e.stopPropagation();
+		e.preventDefault();
+	})
+	.on('dragover', function (e){
+		$('body').addClass('drag_enter');
+		e.stopPropagation();
+		e.preventDefault();
+	})
+	.on('dragleave', function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		$('body').removeClass('drag_enter');
+	})
+	.on('drop', function (e){
+		e.stopPropagation();
+		e.preventDefault();
+		$('body').removeClass('drag_enter');
+
+		var items = e.originalEvent.dataTransfer.items;
+		for (var i=0; i<items.length; i++) {
+			if(items[i].webkitGetAsEntry().isDirectory){
+				alert('The directory is included in the uploaded items. Please specify a file.');
+				return;
+			}
+		}
+
+		var files = e.originalEvent.dataTransfer.files;
+		execUpload(files);
+	});
+
+	$('#categories').change(function(){
+		var id=$(this).val();
+		location.href=[[@{/admin/storages}]] + "/" + id;
+	});
+
+	
+	$('#donwloadButton').click(function(){
+		download();
+	});
+		
+	[# th:each="storageFile : ${storageFiles}"]
+	var box = new UploadFileBox([# th:text="${storageFile.binaryFile.originalFileName}" /], 
+															formatSizeUnits([# th:utext="${storageFile.binaryFile.fileSize}" /]), 
+															[# th:text="${#temporals.format(storageFile.binaryFile.lastModifiedAt, 'yyyy/M/d H:mm')}" /],
+															[# th:text="${#temporals.format(storageFile.binaryFile.createdAt, 'yyyy/M/d H:mm')}" /],
+															true);
+	box.compleate([# th:utext="${storageFile.binaryFile.id}" /]);
+	[/]
+	
+	
+	$('#buttonAddCategory').click(function(){
+		createCategorySetting(null, null, true, null, true, true);
+	})
+	
+});
+
+function execUpload(files){
+	
+	var formatDate=function(date, format) {
+		format = format.replace(/yyyy/g, date.getFullYear());
+		format = format.replace(/M/g, (date.getMonth() + 1));
+		format = format.replace(/d/g, (date.getDate()));
+		format = format.replace(/H/g, (date.getHours()));
+		format = format.replace(/mm/g, ('0' + date.getMinutes()).slice(-2));
+		format = format.replace(/ss/g, ('0' + date.getSeconds()).slice(-2));
+		format = format.replace(/SSS/g, ('00' + date.getMilliseconds()).slice(-3));
+		return format;
+	};
+	
+	for (var i = 0; i < files.length; i++){
+		var name = files[i].name;
+		var size = files[i].size;
+		var type = files[i].type;
+		var  lastModified = new Date(files[i].lastModified);
+		var lastModifiedDate = lastModified.toLocaleDateString();
+		var lastModifiedTime =lastModified.toLocaleTimeString();
+		var fd = new FormData();
+		fd.append('file', files[i]);
+		fd.append('lastModifiedDate', lastModifiedDate);
+		fd.append('lastModifiedTime', lastModifiedTime);
+		if(type == null || type == ''){
+			type = 'application/octet-stream';
+		}
+		fd.append('mimeType', type);
+		fd.append('binaryFileCategoryId', [[${binaryFileCategoryId}]]);
+		var uploadFileBox = new UploadFileBox(name, formatSizeUnits(size), formatDate(lastModified, 'yyyy/M/d H:mm'), formatDate(new Date(), 'yyyy/M/d H:mm'), false);
+		sendFile(fd, uploadFileBox);
+	}
+}
+
+function sendFile(formData, uploadFileBox){
+	var uploadURL = [[@{/admin/storages}]];
+	var jqXHR=$.ajax({
+		url: uploadURL, type: "POST",
+		contentType:false,
+		processData: false,
+		dataType : "json",
+		cache: false,
+		data: formData,
+		xhr: function() {
+				var xhrobj = $.ajaxSettings.xhr();
+				if (xhrobj.upload) {
+					xhrobj.upload.addEventListener('progress', function(event) {
+						var percent = 0;
+						var position = event.loaded || event.position;
+						var total = event.total;
+						if (event.lengthComputable) {
+							percent = Math.ceil(position / total * 100);
+						}
+						uploadFileBox.setProgress(percent);
+					}, false);
+				}
+				return xhrobj;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+			uploadFileBox.error("A communication error has occurred. Please reload the screen and try again.");
+		},
+		success: function(data, textStatus, jqXHR){
+			if(data.result != 1){
+				uploadFileBox.error("There was an error uploading the file. please try again.");
+			}
+			else{
+				uploadFileBox.compleate(data.id);
+			}
+		}
+	});
+}
+
+var UploadFileBox=function(fileName, size, lastModified, created, append){
+	
+	if(append){
+		this.$uplopadBox = $('<div class="upload_file_box"></div>').appendTo('#fileList');
+	}
+	else{
+		this.$uplopadBox = $('<div class="upload_file_box"></div>').prependTo('#fileList');
+	}
+	this.$icon = $('<div class="icon"></div>').appendTo(this.$uplopadBox);
+	this.$name = $('<div class="filename"><div>').appendTo(this.$uplopadBox);
+	this.$progress = $('<div class="progress"></div>').appendTo(this.$icon);
+	this.$selector = null;
+	this.$name.text(fileName);
+
+	this.setProgress=function(percent){
+		this.$progress.css("width", percent + "%");
+	}
+
+	this.compleate=function(id){
+		var _self = this;
+		
+		this.$uplopadBox.attr('id', "binalyFileId_" + id);
+
+		var contentMap = {
+				"doc" : '<i class="fa fa-file-word-o" aria-hidden="true"></i>',
+				"docx" : '<i class="fa fa-file-word-o" aria-hidden="true"></i>',
+
+				"xls" : '<i class="fa fa-file-excel-o" aria-hidden="true"></i>',
+				"xlsx" : '<i class="fa fa-file-excel-o" aria-hidden="true"></i>',
+
+				"ppt" : '<i class="fa fa-file-powerpoint-o" aria-hidden="true"></i>',
+				"pptx" : '<i class="fa fa-file-powerpoint-o" aria-hidden="true"></i>',
+
+				"pdf" : '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>',
+
+				"txt" : '<i class="fa fa-file-text-o" aria-hidden="true"></i>',
+
+				"zip" : '<i class="fa fa-file-archive-o" aria-hidden="true"></i>',
+
+				"avi" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+				"mov" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+				"wmv" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+				"mkv" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+				"mpeg" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+				"mp4" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+				"webm" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+				"ts" : '<i class="fa fa-file-video-o" aria-hidden="true"></i>',
+
+				"mp3" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"aif" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"wma" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"asf" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"3gp" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"3g2" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"aac" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"wav" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+				"m4a" : '<i class="fa fa-file-audio-o" aria-hidden="true"></i>',
+
+				"png" : 'image',
+				"jpeg" : 'image',
+				"jpg" : 'image',
+				"gif" : 'image',
+				"bmp" : 'image',
+				
+				"__dummy__":"dummy"
+		}
+		
+		var content = contentMap[getExt(this.$name.text())];
+		if(content == null){
+			content = '<i class="fa fa-file" aria-hidden="true"></i>';
+		}
+		else if(content == 'image'){
+			var imageUrl = [[@{/admin/storages/image}]] + "/" + id;
+			content = '<div class="image" style="background-image:url(' + "'" + imageUrl + "'" + ')"/>';
+		}
+		this.$progress.hide();
+		this.$icon.append(content);
+		
+		this.$selector = $('<input type="checkbox" name="selector" value="' + id + '" class="selector"/>').appendTo(this.$uplopadBox);
+		this.$selector.change(function(){
+			var $_selector = $(this);
+			if($(this).prop('checked')){
+				$_selector.parent().addClass("selected")
+			}
+			else{
+				$_selector.parent().removeClass("selected")
+			}
+			changeSelectedStatus();
+		});
+		this.$icon.click(function(){
+			_self.$selector.click();
+		});
+
+		this.$info = $('<i class="fa fa-info-circle information" aria-hidden="true"></i>').appendTo(this.$uplopadBox);
+		var content = '';
+		content += escapeHtml(fileName) + "<br/>";
+		content += '<hr class="delim"/>';
+		content += 'ファイルサイズ：' + size + "<br/>";
+		content += '最終更新日時：' + lastModified + "<br/>";
+		content += 'アップロード日時：' + created + "<br/>";
+
+		this.$info.popover({
+				placement: 'auto',
+				trigger:'hover',
+				content:content,
+				html:true,
+				delay:{'show':100, 'hide':0}
+		});
+		
+	}
+
+	this.error=function(message){
+		var _self=this;
+		this.$progress.css({"width":"100%", "background-color":"red"});
+		setTimeout(function(){
+			alert(message);
+			_self.$uplopadBox.hide();
+		}, 10);
+	}
+}
+
+function resizeWindow(){
+	var winHeight = $(window).height();
+	
+	if(winHeight < 300){
+		winHeight = 300;
+	}
+	$('#fileList').height(winHeight - 130);
+	
+}
+
+function getExt(fileName){
+	var pos = fileName.lastIndexOf('.');
+	if (pos === -1){
+		return '';
+	}
+	return fileName.slice(pos + 1).toLowerCase();
+}
+
+function changeSelectedStatus(){
+	setTimeout(function(){
+		if($(".selector:checked").length > 0){
+			$('#donwloadButton').prop("disabled", false);
+			$('#donwloadButton').addClass("btn-light");
+			$('#donwloadButton').removeClass("disabled");
+			$('#moveButton').prop("disabled", false);
+			$('#moveButton').addClass("btn-light");
+			$('#moveButton').removeClass("disabled");
+			$('#removeButton').prop("disabled", false);
+			$('#removeButton').addClass("btn-outline-danger");
+			$('#removeButton').removeClass("btn-outline-secondary");
+			$('#removeButton').removeClass("disabled");
+		}
+		else{
+			$('#donwloadButton').prop("disabled", true);
+			$('#donwloadButton').removeClass("btn-light");
+			$('#donwloadButton').addClass("disabled");
+			$('#moveButton').prop("disabled", true);
+			$('#moveButton').removeClass("btn-light");
+			$('#moveButton').addClass("disabled");
+			$('#removeButton').prop("disabled", true);
+			$('#removeButton').removeClass("btn-outline-danger");
+			$('#removeButton').addClass("btn-outline-secondary");
+			$('#removeButton').addClass("disabled");
+		}
+	}, 10);
+}
+
+function download(){
+	
+	loading.start();
+
+	var params='';
+	$(".selector:checked").each(function(index, element){
+		if(params != ''){
+			params += '&';
+		}
+		params += 'binaryFileIds=' + $(element).val();
+	});
+	location.href=[[@{/admin/storages/download}]] + "?" + params;
+}
+
+function confirmRemove(){
+
+	var params='';
+	$(".selector:checked").each(function(index, element){
+		if(params != ''){
+			params += '&';
+		}
+		params += 'binaryFileIds=' + $(element).val();
+	});
+	var url = [[@{/admin/storages/canRemoveFile}]] + "?" + params;
+	$.getJSON(url, function(json){
+		if(json.result == 1){
+			$("#modal1").modal('show');
+		}
+		else{
+			$.each(json.fileNames, function(index, value){
+				$('#deleteErrorFiles').append('<li>' + value + '</li>');
+				$('#modal4').modal('show');
+			});
+			return;
+		}
+	});
+}
+
+
+function deleteFile(){
+	
+	var params=[];
+	$(".selector:checked").each(function(index, element){
+		params.push($(element).val());
+	});
+	
+	var url=[[@{/admin/storages/remove}]];
+	$.ajax({
+		type:"post",
+		url:url,
+		data:JSON.stringify(params),
+		contentType: 'application/json',
+		dataType: "json",
+		success: function(data, textStatus, jqXHR){
+			if(data.result != 1){
+				alert("There was an error uploading the file. please try again.");
+			}
+			else{
+				$.each(data.binaryFileIds, function(index, value) {
+					$("#binalyFileId_" + value).remove();
+				});
+				changeSelectedStatus();
+			}
+			$("#modal1").modal('hide');
+		},
+		error: function() {
+			$("#modal1").modal('hide');
+			alert("Server Error. Pleasy try again later.");
+		}
+	});
+}
+
+
+function moveFile(){
+	
+	var params=[];
+	$(".selector:checked").each(function(index, element){
+		params.push($(element).val());
+	});
+	
+	var moveToCategoryId=$("input[name=selectCategoryId]:checked").val();
+	if(moveToCategoryId == [# th:text="${binaryFileCategoryId}" /]){
+		// 移動なし
+		$("#modal2").modal('hide');
+		return;
+	}
+	var url=[[@{/admin/storages/move}]] + "?binaryFileCategoryId=" + moveToCategoryId;
+	$.ajax({
+		type:"post",
+		url:url,
+		data:JSON.stringify(params),
+		contentType: 'application/json',
+		dataType: "json",
+		success: function(data, textStatus, jqXHR){
+			if(data.result != 1){
+				alert("There was an error uploading the file. please try again.");
+			}
+			else{
+				$.each(data.binaryFileIds, function(index, value) {
+					$("#binalyFileId_" + value).remove();
+				});
+				changeSelectedStatus();
+			}
+			$("#modal2").modal('hide');
+		},
+		error: function() {
+			$("#modal2").modal('hide');
+			alert("Server Error. Pleasy try again later.");
+		}
+	});
+}
+
+var seq=1;
+function createCategorySetting(id, categoryName, first, $target, fade, canDelete){
+
+	var $li = null;
+	if($target == null && !first){
+		$li = $('<li id="settingCategory_' + seq + '"></li>').appendTo($('#categorySetting'));
+	}
+	else if($target == null && first){
+		$li = $('<li id="settingCategory_' + seq + '"></li>').prependTo($('#categorySetting'));
+	}
+	else{
+		$li = $('<li id="settingCategory_' + seq + '"></li>').insertAfter($target);
+	}
+	if(fade){
+		$li.hide();
+		$li.fadeIn("normal");
+	}
+	var $hr = $('<hr/>').appendTo($li);
+	var $hidden = $('<input type="hidden" class="form-control" value=""/>').appendTo($li);
+	if(id != null){
+		$hidden.val(id);
+	}
+	
+	var $attention = $('<span>カテゴリ名を指定してください。</span>').appendTo($li);
+	var $input = $('<input type="text" class="form-control" value=""/>').appendTo($li);
+	if(id != null && categoryName != null){
+		$input.val(categoryName);
+	}
+	var $btnNew = $('<button class="btn btn-outline-success btn-setting" data-seq="' + seq + '"><i class="fa fa-plus" aria-hidden="true"></i></button>').appendTo($li);
+	var $btnUp = $('<button class="btn btn-outline-secondary btn-setting" data-seq="' + seq + '"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>').appendTo($li);
+	var $btnDown = $('<button class="btn btn-outline-secondary btn-setting" data-seq="' + seq + '"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>').appendTo($li);
+	var $btnDel = $('<button class="btn btn-outline-danger btn-setting" data-seq="' + seq + '"><i class="fa fa-times" aria-hidden="true"></i></button>').appendTo($li);
+	var $btnUndo = $('<button class="btn btn-outline-primary btn-setting" data-seq="' + seq + '"><i class="fa fa-undo" aria-hidden="true"></i></button>').appendTo($li);
+	$btnUndo.hide();
+	seq++;
+	
+	if(!canDelete){
+		$btnDel.prop("disabled", true);
+		var $span = $('<span class="discr">初期カテゴリは削除できません<span>').appendTo($li);
+	}
+	
+	$btnUp.click(function(){
+		up($(this));
+	});
+	$btnDown.click(function(){
+		down($(this));
+	});
+	$btnDel.click(function(){
+		del($(this));
+	});
+	$btnUndo.click(function(){
+		undo($(this));
+	});
+	$btnNew.click(function(){
+		add($(this));
+	});
+
+}
+
+function up($button){
+	var _seq = $button.data("seq");
+
+	var $target = $('#settingCategory_' + _seq);
+	if($target.length == 0){
+		return;
+	}
+
+	var $prev = $('#settingCategory_' + _seq).prev();
+	if($prev.length == 0){
+		return;
+	}
+	
+	$prev.fadeOut('fast', function(){$prev.fadeIn('fast');});
+	$target.fadeOut('fast', function(){$prev.before($target);$target.fadeIn('fast');});
+}
+
+function down($button){
+	var _seq = $button.data("seq");
+
+	var $target = $('#settingCategory_' + _seq);
+	if($target.length == 0){
+		return;
+	}
+
+	var $next = $('#settingCategory_' + _seq).next();
+	if($next.length == 0){
+		return;
+	}
+	
+	$next.fadeOut('fast', function(){$next.fadeIn('fast');});
+	$target.fadeOut('fast', function(){$next.after($target);$target.fadeIn('fast');});
+}
+
+function del($button){
+	var _seq = $button.data("seq");
+	var $id = $('#settingCategory_' + _seq + ' input[type=hidden]');
+	if($id.val() == ''){
+		 $('#settingCategory_' + _seq).fadeOut('fast', function(){$(this).remove()});
+		 return;
+	}
+
+	var $target = $('#settingCategory_' + _seq + ' input[type=text]');
+	if($target.length == 0){
+		return;
+	}
+	$target.addClass("remove_category");
+	$button.hide();
+	$button.next().show();
+}
+
+function undo($button){
+	var _seq = $button.data("seq");
+
+	var $target = $('#settingCategory_' + _seq + ' input[type=text]');
+	if($target.length == 0){
+		return;
+	}
+	$target.removeClass("remove_category");
+	$button.hide();
+	$button.prev().show();
+}
+
+function add($button){
+	var _seq = $button.data("seq");
+
+	var $target = $('#settingCategory_' + _seq);
+	if($target.length == 0){
+		return;
+	}
+	createCategorySetting(null, null, false, $target, true, true);
+}
+
+
+function confirmCategoryEdit(){
+
+	$('#modal3').modal('hide');
+	var params='';
+	var isDelete=false;
+	$('#categorySetting').children('li').each(function(index, element) {
+		$li=$(element);
+		if($li.find('input[type=text]').hasClass('remove_category')){
+			isDelete=true;
+			if($li.find('input[type=hidden]').val() != ''){
+				if(params != ''){
+					params += '&';
+				}
+				params += 'binaryFileCategoryIds=' + $li.find('input[type=hidden]').val();
+			}
+		}
+	});
+
+	if(isDelete){
+		var url = [[@{/admin/storages/canRemoveCategory}]] + "?" + params;
+		$.getJSON(url, function(json){
+			if(json.result == 1){
+				$('#modal5').modal('show');
+			}
+			else{
+				$.each(json.fileNames, function(index, value){
+					$('#deleteErrorCategoryFiles').append('<li>' + value + '</li>');
+					$('#modal6').modal('show');
+				});
+				return;
+			}
+		});
+	}
+	else{
+		editCategory();
+	}
+}
+
+function editCategory(){
+	var params=[];
+	var error=false;
+	
+	$('.attention').removeClass('attention');
+	$('#categorySetting').children('li').each(function(index, element) {
+		$li=$(element);
+		var category={};
+		category['id']=$li.find('input[type=hidden]').val();
+		category['category_name']=$li.find('input[type=text]').val();
+		category['order_number']=index+1;
+		if($li.find('input[type=text]').hasClass('remove_category')){
+			category['is_delete']=true;
+		}
+		else{
+			category['is_delete']=false;
+		}
+		params.push(category);
+		if(category['category_name'] == ''){
+			error = true;
+			$li.addClass('attention');
+		}
+	});
+	
+	if(error){
+		return;
+	}
+	
+	var url=[[@{/admin/storages/editCategory}]];
+	$.ajax({
+		type:"post",
+		url:url,
+		data:JSON.stringify(params),
+		contentType: 'application/json',
+		dataType: "json",
+		success: function(data, textStatus, jqXHR){
+			if(data.result != 1){
+				alert("There was an error uploading the file. please try again.");
+			}
+			else{
+				location.reload();
+			}
+		},
+		error: function() {
+			$("#modal2").modal('hide');
+			alert("Server Error. Pleasy try again later.");
+		}
+	});
+}
+
+function escapeHtml(str){
+	str = str.replace(/&/g, '&amp;');
+	str = str.replace(/>/g, '&gt;');
+	str = str.replace(/</g, '&lt;');
+	str = str.replace(/"/g, '&quot;');
+	str = str.replace(/'/g, '&#x27;');
+	str = str.replace(/`/g, '&#x60;');
+	return str;
+}
+
+function formatSizeUnits(bytes){
+	if(bytes >= 1073741824) {
+		bytes = (bytes / 1073741824).toFixed(2) + " GB";
+	}
+	else if(bytes >= 1048576){
+		bytes = (bytes / 1048576).toFixed(2) + " MB";
+	}
+	else if(bytes >= 1024){
+		bytes = (bytes / 1024).toFixed(2) + " KB";
+	}
+	else if(bytes > 1){
+			bytes = bytes + " bytes";
+	}
+	else if(bytes == 1){
+		bytes = bytes + " byte";
+	}
+	else{
+		bytes = "0 bytes";
+	}
+	return bytes;
+}
+
+</script>
+</html>

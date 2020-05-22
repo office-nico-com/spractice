@@ -42,7 +42,7 @@ public class VmController {
 		public static final String INDEX = PREFIX + "/index";
 	}
 
-	@GetMapping({ "/course/{courseName}/{virtualMachineName}" })
+	@GetMapping({ "course/{courseName}/{virtualMachineName}" })
 	public String index(Model model, @PathVariable("courseName") String courseName, @PathVariable("virtualMachineName") String virtualMachineName) {
 
 		session.setUserId(1L);

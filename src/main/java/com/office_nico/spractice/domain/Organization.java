@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -22,11 +23,14 @@ import lombok.Data;
 public class Organization {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false)
 	private String organizationName = null;
+
+	@Column(nullable = false)
+	private String organizationNameJa = null;
 
 	@Column(nullable = false)
 	private String description = null;
@@ -54,9 +58,4 @@ public class Organization {
 	@Where(clause = "is_deleted = false")
 	private List<Course> courses = null;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
-	@OrderBy("family_name ASC")
-	@Where(clause = "is_deleted = false")
-	private List<User> users = null;
-	
 }

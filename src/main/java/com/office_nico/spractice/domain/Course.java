@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -29,7 +30,7 @@ import lombok.Data;
 public class Course {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false)
@@ -39,9 +40,7 @@ public class Course {
 	private String courseNameJa;
 
 	@Column(nullable = true)
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] thumbnail;
+	private Long thumbnailBinaryFileId;
 
 	@Column(nullable = true)
 	private String description = null;

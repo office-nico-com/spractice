@@ -762,9 +762,9 @@ var SieModuleWinExplore = function(moduleId){
 		var property = null;
 
 		// 画面全体を保護
-		var contextBackground = $('<div class="sie-module-win-explore-context-background"></div>').prependTo(_self.home);
+		var contextBackground = $('<div class="sie-module-win-explore-body-context-background"></div>').prependTo(_self.home);
 
-		var contextMenu = $('<div class="sie-module-win-explore-context-menu"></div>').prependTo(_self.home);
+		var contextMenu = $('<div class="sie-module-win-explore-body-context-menu"></div>').prependTo(_self.home);
 		contextMenu.css({
 				width:to_px(contextMenuWidth),
 				height:to_px(contextMenuHeight),
@@ -811,7 +811,7 @@ var SieModuleWinExplore = function(moduleId){
 		li13.click(function(e){
 			contextMenu.remove();
 			// プロパティウィンドウを表示
-			property = $('<div class="sie-module-win-explore-context-property"></div>').prependTo(_self.home);
+			property = $('<div class="sie-module-win-explore-body-context-property"></div>').prependTo(_self.home);
 			property.css({
 				top:to_px(e.pageY - 300), 
 				left:to_px(e.pageX - 190)
