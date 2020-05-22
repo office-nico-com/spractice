@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.office_nico.spractice.domain.Course;
 import com.office_nico.spractice.domain.Extension;
 import com.office_nico.spractice.domain.VirtualMachine;
-import com.office_nico.spractice.extensions.ExtensionManager;
+import com.office_nico.spractice.extension.ExtensionManager;
 import com.office_nico.spractice.repository.course.CourseRepository;
 import com.office_nico.spractice.repository.extension.ExtensionRepository;
 import com.office_nico.spractice.repository.virtual_machine.VirtualMachineRepository;

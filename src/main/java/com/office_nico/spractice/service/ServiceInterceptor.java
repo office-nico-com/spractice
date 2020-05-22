@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.office_nico.spractice.exceptions.AppRunnableException;
+import com.office_nico.spractice.exception.AppRunnableException;
 import com.office_nico.spractice.service.annotation.ValidateSession;
 import com.office_nico.spractice.service.data.SessionData;
 

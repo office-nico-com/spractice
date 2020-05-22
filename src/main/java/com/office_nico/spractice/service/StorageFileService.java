@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 import com.office_nico.spractice.domain.BinaryFile;
 import com.office_nico.spractice.domain.BinaryFileCategory;
-import com.office_nico.spractice.exceptions.AppRunnableException;
+import com.office_nico.spractice.exception.AppRunnableException;
 import com.office_nico.spractice.repository.binary_file.BinaryFileRepository;
 import com.office_nico.spractice.repository.binary_file_category.BinaryFileCategoryRepository;
 import com.office_nico.spractice.service.annotation.ValidateSession;

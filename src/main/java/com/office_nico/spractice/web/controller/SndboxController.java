@@ -1,4 +1,4 @@
-package com.office_nico.spractice.web.controllers;
+package com.office_nico.spractice.web.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.office_nico.spractice.extensions.ExtensionManager;
+import com.office_nico.spractice.extension.ExtensionManager;
 import com.office_nico.spractice.extensions.explorer.ExplorerExtensionManager;
 
 @Controller

@@ -1,4 +1,4 @@
-package com.office_nico.spractice.exceptions;
+package com.office_nico.spractice.exception;
 
 import org.slf4j.Logger;
 

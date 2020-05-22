@@ -1,4 +1,4 @@
-package com.office_nico.spractice.web.controllers;
+package com.office_nico.spractice.web.controller;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -35,19 +35,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.office_nico.spractice.domain.BinaryFileCategory;
-import com.office_nico.spractice.exceptions.AppRunnableException;
-import com.office_nico.spractice.exceptions.BadDownloadResponseException;
-import com.office_nico.spractice.exceptions.BadHtmlResponseException;
-import com.office_nico.spractice.exceptions.BadHtmlResponseException.NextAction;
-import com.office_nico.spractice.exceptions.BadImageResponseException;
-import com.office_nico.spractice.exceptions.BadJsonResponseException;
+import com.office_nico.spractice.exception.AppRunnableException;
+import com.office_nico.spractice.exception.BadDownloadResponseException;
+import com.office_nico.spractice.exception.BadHtmlResponseException;
+import com.office_nico.spractice.exception.BadImageResponseException;
+import com.office_nico.spractice.exception.BadJsonResponseException;
+import com.office_nico.spractice.exception.BadHtmlResponseException.NextAction;
 import com.office_nico.spractice.service.StorageFileService;
 import com.office_nico.spractice.service.data.SessionData;
 import com.office_nico.spractice.service.data.StorageFile;
 import com.office_nico.spractice.service.data.StorageFile.Result;
 import com.office_nico.spractice.web.JsonResponse;
 import com.office_nico.spractice.web.JsonResponse.ResponseCode;
-import com.office_nico.spractice.web.forms.UploadForm;
+import com.office_nico.spractice.web.form.UploadForm;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.office_nico.spractice.web.controllers;
+package com.office_nico.spractice.web.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.office_nico.spractice.service.InstructionService;
 import com.office_nico.spractice.service.data.Instruction;
-import com.office_nico.spractice.utils.ExtensionUtils;
+import com.office_nico.spractice.util.ExtensionUtil;
 import com.office_nico.spractice.web.SessionAttributes;
 
 import org.springframework.core.io.Resource;
@@ -53,8 +53,8 @@ public class VmController {
 		model.addAttribute("instruction", instruction);
 
 		
-		model.addAttribute("extensionCssPaths", ExtensionUtils.getCssPaths(resourceLoader));
-		model.addAttribute("extensionJsPaths", ExtensionUtils.getJsPaths(resourceLoader));
+		model.addAttribute("extensionCssPaths", ExtensionUtil.getCssPaths(resourceLoader));
+		model.addAttribute("extensionJsPaths", ExtensionUtil.getJsPaths(resourceLoader));
 
 		return View.INDEX;
 	}

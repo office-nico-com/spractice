@@ -1,4 +1,4 @@
-package com.office_nico.spractice.utils;
+package com.office_nico.spractice.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-public class ExtensionUtils {
+public class ExtensionUtil {
 
 	private static String STATIC_FILE_ROOT_PATH="static";
 	private static String EXTENTION_FILE_PATH= "/extensions";

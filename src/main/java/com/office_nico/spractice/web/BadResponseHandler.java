@@ -28,11 +28,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.office_nico.spractice.exceptions.AppRunnableException;
-import com.office_nico.spractice.exceptions.BadDownloadResponseException;
-import com.office_nico.spractice.exceptions.BadHtmlResponseException;
-import com.office_nico.spractice.exceptions.BadImageResponseException;
-import com.office_nico.spractice.exceptions.BadJsonResponseException;
+import com.office_nico.spractice.exception.AppRunnableException;
+import com.office_nico.spractice.exception.BadDownloadResponseException;
+import com.office_nico.spractice.exception.BadHtmlResponseException;
+import com.office_nico.spractice.exception.BadImageResponseException;
+import com.office_nico.spractice.exception.BadJsonResponseException;
 import com.office_nico.spractice.service.LogService;
 import com.office_nico.spractice.web.JsonResponse.ResponseCode;
 

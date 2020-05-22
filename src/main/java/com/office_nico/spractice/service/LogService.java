@@ -5,7 +5,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.office_nico.spractice.exceptions.AppRunnableException;
+import com.office_nico.spractice.exception.AppRunnableException;
 
 @Service
 @Transactional

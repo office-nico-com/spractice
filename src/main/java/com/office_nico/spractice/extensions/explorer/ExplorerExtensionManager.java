@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.office_nico.spractice.extensions.ExtensionManager;
+import com.office_nico.spractice.extension.ExtensionManager;
 import com.office_nico.spractice.extensions.explorer.domain.ExtensionExplorerProperty;
 import com.office_nico.spractice.extensions.explorer.repository.ExtensionExplorerPropertyRepository;
 import com.office_nico.spractice.repository.extension.ExtensionRepository;

@@ -1,4 +1,4 @@
-package com.office_nico.spractice.web.forms;
+package com.office_nico.spractice.web.form;
 
 import org.springframework.web.multipart.MultipartFile;
 
