@@ -1,2 +1,0 @@
-INSERT INTO extension_properties (extension_id, property_name, property_value, is_text, method, order_number, created_at, updated_at, created_by, updated_by) values (1, 'isShowDeskTop', 'false', false, null, 1,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
-INSERT INTO extension_properties (extension_id, property_name, property_value, is_text, method, order_number, created_at, updated_at, created_by, updated_by) values (1, 'isClosable', 'false', false, null, 2,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);

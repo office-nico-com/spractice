@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>シナリオ照会｜Secure Practice Admin</title>
+
+</head>
+
+<body th:with="menuCode=101005,length=${T(com.office_nico.spractice.constants.Length)}">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/scenarios}" th:text="シナリオ管理"/></li>
+	<li class="breadcrumb-item active" aria-current="page"><th:block th:text="${scenario.scenarioName}" /></li>
+</ol>
+</nav>
+
+<div class="card mb-3">
+<div class="card-header function-title-bar">「<th:block th:text="${scenario.scenarioName}"/>」の登録情報照会<button class="btn btn-outline-danger btn-sm ml-sm-2 float-right btn-round" data-toggle="modal" data-target="#modal1">削除する</button><button class="btn btn-outline-warning btn-sm ml-sm-2 float-right btn-round" onclick="preview();">プレビュー</button><button class="btn btn-outline-success btn-sm ml-sm-2 float-right btn-round" data-toggle="modal" data-target="#modal2">コピーする</button><button class="btn btn-outline-info btn-sm ml-sm-2 float-right btn-round" onclick="edit();">編集する</button></div>
+
+<div class="card-body">
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					シナリオコード
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" th:text="${scenario.scenarioKeycode}"/>
+			</div>
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					サムネイル
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8">
+				<img th:src="@{/t06o1ny8/storages/image/} + ${scenario.thumbnailBinaryFileId}" width="200" th:if="${scenario.thumbnailBinaryFileId != null}" />
+				</div>
+			</div>
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					シナリオ名
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" th:text="${scenario.scenarioName}"/>
+			</div>
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					メモ
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" ex:hbr="${scenario.description}"/>
+			</div>
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					解説
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" ex:br="${scenario.note}"/>
+			</div>
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					状態
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" th:text="${@invalidStatus.label(scenario.isInvalided)}"/>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-sm-12 text-right text-center">
+					<a th:href="@{/t06o1ny8/scenarios/content/{scenarioId}(scenarioId=${scenario.id})}" href="#" class="mr-sm-3 btn btn-primary">コンテンツ</a>
+					<a th:href="@{/t06o1ny8/scenarios/guidance/{scenarioId}(scenarioId=${scenario.id})}" class="mr-sm-3 btn btn-primary">ガイダンス</a>
+					<!--/* a th:href="@{/t06o1ny8/scenarios/completion/{scenarioId}(scenarioId=${scenario.id})}" class="mr-sm-3 btn btn-primary">履修ポイント</a */-->
+				</div>
+			</div>
+
+		</div>
+</div>
+
+
+
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-body">
+削除した情報は元に戻すことはできません。<br/>本当に削除してよろしいですか？
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-danger" onclick="destory();">削除する</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h6 class="modal-title">シナリオをコピーします。コピー先のプロパティを指定してください。</h6>
+</div>
+<div class="modal-body">
+
+	<div class="form-row">
+		<div class="form-group col-sm-3 d-flex align-items-center justify-content-end">
+			シナリオコード
+		</div>
+		<div class="form-group col-sm-9" id="idScenarioKeycodeField">
+			<input type="text" class="form-control" th:value="${scenario.scenarioKeycode}" id="idScenarioKeycode" th:maxlength="${length.scenarioName}"/>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-sm-3 d-flex align-items-center justify-content-end">
+			シナリオ名
+		</div>
+		<div class="form-group col-sm-9"  id="idScenarioNameField">
+			<input type="text" class="form-control" th:value="${scenario.scenarioName}" id="idScenarioName" th:maxlength="${length.scenarioName}"/>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-sm-3 d-flex align-items-center justify-content-end">
+			履修ポイントを作成する
+		</div>
+		<div class="form-group col-sm-9">
+				<div class="form-group-frame-full">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="cp" type="radio" value="true" id="c1" checked/>
+					<label class="form-check-label" for="c1">する</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="cp" type="radio" value="false" id="c2"/>
+					<label class="form-check-label" for="c2">しない</label>
+				</div>
+				</div>
+		</div>
+	</div>
+
+
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="execCopy();">実行する</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-body" id="idModal3message">
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+const destory = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios/destroy/{scenarioId}(scenarioId=${scenario.id})}" /];
+}
+
+const edit = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios/edit/{scenarioId}(scenarioId=${scenario.id})}" /];
+};
+
+const list = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios}" /];
+};
+
+
+const execCopy = () => {
+
+	$('#idScenarioKeycodeField').removeClass('form-attention');
+	$('#idScenarioNameField').removeClass('form-attention');
+	
+	$.LoadingOverlay("show", {
+		background: "rgba(255, 255, 255, 0.6)",
+		size: 8
+	});
+
+	var formData = {};
+	formData['scenarioKeycode']=$('#idScenarioKeycode').val();
+	formData['scenarioName']=$('#idScenarioName').val();
+	formData['copyCompletionpoint']=$('input:radio[name="cp"]:checked').val();
+	
+	$.getJSON([# th:text="@{/t06o1ny8/scenarios/copy/{scenarioId}(scenarioId=${scenario.id})}" /], formData)
+		.done(function(json) {
+
+			if(json['result'] == 'ok'){
+				$('#modal2').modal('hide');
+				var html = "シナリオをコピーしました。コピーしたシナリオは、<a href='" + [# th:text="@{/t06o1ny8/scenarios/show/}" /] + json['scenario']['id'] + "'>";
+				html += hbr(json['scenario']['scenarioKeycode']);
+				html += ":";
+				html += hbr(json['scenario']['scenarioName']);
+				html += '</a>です。';
+				$('#idModal3message').html(html);
+				$('#modal3').modal('show');
+			}
+			else{
+				$.each(json['errors'], function(i, data){
+					if(data["key"] == 'scenarioKeycode'){
+						$('#idScenarioKeycodeField').addClass('form-attention');
+						$('#idScenarioKeycodeField span').text(data["value"]);
+					}
+					if(data["key"] == 'scenarioName'){
+						$('#idScenarioNameField').addClass('form-attention');
+						$('#idScenarioNameField span').text(data["value"]);
+					}
+				});
+			}
+			
+			
+			$.LoadingOverlay("hide");
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			$.LoadingOverlay("hide");
+			// エラー
+			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+			alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+		});
+}
+
+// プレビュー
+const preview = () => {
+	const winWidth = 1920;
+	const winHeight = 1080;
+	const subx = ( screen.availWidth - winWidth ) / 2;
+	const suby = ( screen.availHeight - winHeight ) / 2;
+	window.open( [# th:text="@{/t06o1ny8/scenarios/preview/{scenarioKeycode}(scenarioKeycode=${scenario.scenarioKeycode})}" /] , "preview", 'width=' + winWidth + ',height=' + winHeight+ ',left=' + subx+ ',top=' + suby + ',menubar=false,toolbar=false,location=false' );
+}
+
+$(function(){
+	$('#modal2').on('show.bs.modal', function () { 
+		$('#idScenarioKeycode').val([# th:text="${scenario.scenarioKeycode}" /]);
+			$('#idScenarioName').val([# th:text="${scenario.scenarioName}" /]);
+			$('#c1').prop('checked', true);
+	}).on('shown.bs.modal', function () { 
+		$('#idScenarioKeycode').focus();
+	}).on('hide.bs.modal', function () { 
+		$('#idScenarioKeycodeField').removeClass('form-attention');
+		$('#idScenarioNameField').removeClass('form-attention');
+	});
+});
+</script>
+</th:block>
+
+</html>
+

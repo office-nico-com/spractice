@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title th:text="${targetScenario.scenarioName} + '｜Secure Practice'"/>
+<meta charset="UTF-8">
+
+<link th:href="@{/fontawesome/font-awesome-4.7.0/css/font-awesome.min.css}" type="text/css" rel="stylesheet">
+<!--/*  link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/all.min.css}"/ */-->
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/jquery-ui.1.12.1.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/bootstrap-reboot.css}">
+
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-platform-win.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-api-guide.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-api-marker.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-api-controller.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-explore.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-notepad.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-wannacry.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-imageview.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-gmail.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-word.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-outlook.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-chrome.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-eventviewer.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-runwindow.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/spractice-core/css/sie-module-win-videoview.css}"/>
+
+<style type="text/css" th:inline="javascript">
+[# th:utext="${targetScenario.contentCss}" /]
+</style>
+
+</head>
+<body>
+<th:block th:utext="${targetScenario.contentBody}" />
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/jquery-ui.min.1.12.1.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie.js}"></script>
+
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-platform-win.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-api-marker.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-api-log.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-api-guide.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-api-controller.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-explore.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-notepad.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-desktopicon.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-wannacry.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-imageview.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-gmail.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-word.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-outlook.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-chrome.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-eventviewer.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-runwindow.js}"></script>
+<script type="text/javascript" th:src="@{/spractice-core/js/sie-module-win-videoview.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+
+var sie = $('body').sie('win');
+var desktopicon1 = new SieModuleWinDesktopicon(9999999);
+desktopicon1.icon= [# th:text='@{/spractice-core/img/icon-dustbox.png}' /];
+desktopicon1.title='ごみ箱'
+sie.setModule(desktopicon1);
+
+var logger = new SieApiLog(
+	[# th:text="@{/front/logs/operation}" /],	
+	[# th:text="@{/front/logs/completion}" /],	
+	[# th:text="@{/front/logs/isCompletion}" /],	
+	[# th:text="${clientKeycode}" /],	
+	false
+);
+
+var sieController = new SieApiController(sie, [# th:text="@{/{clientKeycode}/{scenarioKeycode}(clientKeycode=${clientKeycode},scenarioKeycode=${scenarioKeycode})}" /], [# th:text="${production}" /]);
+var sieGuide = new SieApiGuide(sie, logger);
+
+[# th:each="guidance:${targetScenario.guidances}"]
+sieGuide.setMessage([# th:text="${guidance.guidanceKeycode}" /], [# th:utext="'\\'' + ${#strings.replace(#strings.replace(guidance.guidanceText, '\r', ''), '\n', '\\n')} + '\\''" /], 
+[
+[# th:each="guidanceAction,status:${guidance.guidanceActions}"][# th:if="${status.index > 0}"],[/]
+	[# th:if="${guidanceAction.actionTypeCode == @actionTypeCode.guidance}" ]{next:[# th:text="${guidanceAction.nextGuidanceKeycode}"/], label:[# th:text="${guidanceAction.label}"/]}[/]
+	[# th:if="${guidanceAction.actionTypeCode == @actionTypeCode.script}" ]{next:'script', label:[# th:text="${guidanceAction.label}"/], script:[# th:utext="${guidanceAction.body}"/]}[/]
+	[# th:if="${guidanceAction.actionTypeCode == @actionTypeCode.link}" ]{next:'url', label:[# th:text="${guidanceAction.label}"/], url:[# th:utext="'\\'' + ${guidanceAction.body} + '\\''"/], openWindow:[# th:utext=${guidanceAction.openWindowFlag} /] }[/]
+	[# th:if="${guidanceAction.actionTypeCode == @actionTypeCode.max}" ]{next:'script', label:[# th:text="${guidanceAction.label}"/], script:function(){requestFullScreen(document.documentElement);}}[/]
+	[# th:if="${guidanceAction.actionTypeCode == @actionTypeCode.end}" ]{next:'url', label:[# th:text="${guidanceAction.label}"/], url:[# th:text="@{/{clientKeycode}/{scenarioKeycode}(clientKeycode=${clientKeycode},scenarioKeycode=${scenarioKeycode})}" /]}[/]
+[/]
+], 
+{
+	[# th:if="${!guidance.isFullHeight && guidance.height != null}" th:utext="'height:' + ${guidance.height} + ','" /]
+	[# th:if="${guidance.isFullHeight}"]height:'full',[/]
+	[# th:if="${guidance.delayMs != null}" th:utext="'delay:' + ${guidance.delayMs} + ','" /]
+	[# th:if="${guidance.positionCode != null && guidance.positionCode == 2}" th:utext="'position:\\'top\\','" /]
+	[# th:if="${guidance.backgroundColor != null && guidance.backgroundColor != ''}" th:utext="'backgroundColor:\\'' + ${guidance.backgroundColor} + '\\','" /]
+	[# th:if="${guidance.drawingSpeed != null}" th:utext="'drawingSpeed:\\'' + ${guidance.drawingSpeed} + '\\','" /]
+	[# th:if="${guidance.preScript != null && guidance.preScript != ''}" th:utext="'beforeAction:' + ${guidance.preScript} + ','" /]
+	[# th:if="${guidance.preScriptDelayMs != null}" th:utext="'beforeActionDelay:' + ${guidance.preScriptDelayMs} + ','" /]
+	[# th:if="${guidance.postScript != null && guidance.postScript != ''}" th:utext="'afterAction:' + ${guidance.postScript} + ','" /]
+	[# th:if="${guidance.postScriptDelayMs != null}" th:utext="'afterActionDelay:' + ${guidance.postScriptDelayMs} + ','" /]
+	[# th:if="${production}"]
+	[# th:if="${guidance.startCompletionPointKeycode != null}" th:utext="'startCompletionPointKeycode:\\'' + ${guidance.startCompletionPointKeycode} + '\\','" /]
+	[# th:if="${guidance.endCompletionPointKeycode != null}" th:utext="'endCompletionPointKeycode:\\'' + ${guidance.endCompletionPointKeycode} + '\\','" /]
+	[/]
+	dummy:null
+}
+);
+[/]
+
+// ***
+[# th:utext="${targetScenario.contentScript}" /]
+// ***
+
+
+$(function(){
+	[# th:if="${targetScenario.startGuidanceKeycode != null}" ]
+	sieGuide.exec( [# th:text="${targetScenario.startGuidanceKeycode}" /] );
+	[/]
+});
+
+
+//全画面表示
+function requestFullScreen(element){
+	var isFullScreen = false;
+	var requestMethod = get_fullScreenMethod(element);
+	if(requestMethod){
+		requestMethod.call(element);
+		isFullScreen = true;
+	}
+	else if(typeof window.ActiveXObject !== "undefined"){
+		//for Internet Explorer
+		var wscript = new ActiveXObject("WScript.Shell");
+		if(wscript !== null){
+			wscript.SendKeys("{F11}");
+			isFullScreen = true;
+		}
+	}
+	return isFullScreen;
+}
+
+//クロスブラウザ対応の全画面表示API
+function get_fullScreenMethod(element){
+	var requestMethod =
+		element.requestFullscreen ||		//W3C
+		element.requestFullScreen ||		//W3C
+		element.webkitRequestFullscreen ||	//Chrome等
+		element.webkitRequestFullScreen ||	//Chrome等
+		element.mozRequestFullscreen ||		//FireFox
+		element.mozRequestFullScreen ||		//FireFox
+		element.msRequestFullscreen ||		//IE11
+		element.msRequestFullScreen;		//IE11
+	return requestMethod;
+}
+
+//全画面の解除
+function exitFull(){
+	var exitMethod = get_exitFullScreenMethod();
+	if(exitMethod){
+		exitMethod.call(document);
+	}
+	else if(typeof window.ActiveXObject !== "undefined"){
+		//for Internet Explorer
+		var wscript = new ActiveXObject("WScript.Shell");
+		if(wscript !== null) wscript.SendKeys("{F11}");
+	}
+}
+
+//クロースブラウザ対応の全画面解除API
+function get_exitFullScreenMethod(){
+	var exitMethod =
+		document.exitFullscreen ||		//W3C
+		document.exitFullScreen ||		//W3C
+		document.webkitExitFullscreen ||	//Chrome等
+		document.webkitExitFullScreen ||	//Chrome等
+		document.webkitCancelFullscreen ||	//Chrome等
+		document.webkitCancelFullScreen ||	//Chrome等
+		document.mozCancelFullscreen ||		//FireFox
+		document.mozCancelFullScreen ||		//FireFox
+		document.mozExitFullscreen ||		//FireFox
+		document.mozExitFullScreen ||		//FireFox
+		document.msExitFullscreen ||		//IE11
+		document.msExitFullScreen;		//IE11
+	return exitMethod;
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,93 @@
+div.sie-api-controller{
+	width:210px;
+	height:50px;
+	background-color:black;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	opacity: 0.75;
+	z-index:2000000001;
+	top:10px;
+	left:calc(100% - 230px);
+}
+
+div.sie-api-controller-panel{
+	width:210px;
+	height:50px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	z-index:2000000002;
+	top:10px;
+	left:calc(100% - 230px);
+	user-select: none;
+}
+
+div.sie-api-controller-panel button{
+	margin-top:5px;
+	line-height:38px;
+	border:none;
+	outline:none;
+	background-color:transparent;
+/*	background-color:red; */
+	color:#fff;
+/*	font-weight:bold; */
+	font-size:16px;
+	margin-left:10px;
+	cursor:pointer;
+	user-select: none;
+}
+
+div.sie-api-controller-panel button:hover{
+	text-decoration:underline;
+	font-weight:bold;
+}
+
+div.sie-api-controller-dialog {
+	width:460px;
+	height:160px;
+	left:calc(50% - 230px);
+	top:calc(50% - 80px);
+	background-color:#fff;
+	z-index:2000000003;
+	text-align:center;
+	font-size:18px;
+	font-weight:bold;
+	line-height:100px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	background-color:#f9f9f9;
+	user-select: none;
+	/*
+  -webkit-box-shadow: 0 0 5px 0 #fff;
+  -moz-box-shadow: 0 0 5px 0 #fff;
+  box-shadow: 0 0 5px 0 #fff;
+  */
+	border:solid 1px #999;
+}
+
+div.sie-api-controller-dialog div.button{
+	top:90px;
+	border:solid 1px #999;
+	position:absolute;
+	display:block;
+	line-height:36px;
+	padding-left:20px;
+	padding-right:20px;
+	cursor:pointer;
+	background-color:#f9f9f9;
+	user-select: none;
+}
+
+div.sie-api-controller-dialog div.button:hover{
+	background-color:#fcfcfc;
+	}
+
+
+div.sie-api-controller-dialog div.button.no{
+	left:140px;
+}
+
+div.sie-api-controller-dialog div.button.yes{
+	left:240px;
+}
+
+

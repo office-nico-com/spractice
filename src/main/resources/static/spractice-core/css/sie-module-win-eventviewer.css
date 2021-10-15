@@ -1,0 +1,600 @@
+@charset "utf-8";
+
+div.sie-module-win-eventviewer-body{
+	width:100%;
+	height:100%;
+	overflow:hidden;		/* 超重要、これがないとドラッグした際にスクロールが発生してドラッグバーの位置がずれる。 */
+}
+
+div.sie-module-win-eventviewer-body div.menu-bar{
+	height:50px;
+	width:100%;
+	line-height:18px;
+	overflow:hidden;
+	white-space: nowrap;
+	border-bottom:solid 2px #F2F2F2;
+}
+
+div.sie-module-win-eventviewer-body div.menu{
+	width:55px;
+}
+
+div.sie-module-win-eventviewer-body div.menu-1{
+	left:10px;
+}
+
+div.sie-module-win-eventviewer-body div.menu-2{
+	left:80px;
+}
+div.sie-module-win-eventviewer-body div.menu-3{
+	left:150px;
+}
+
+div.sie-module-win-eventviewer-body div.menu-4{
+	left:220px;
+}
+
+div.sie-module-win-eventviewer-body div.menu-icon-block{
+	top:20px;
+	width:100%;
+	height:28px;
+	border-top:solid 1px #ccc;
+}
+
+div.sie-module-win-eventviewer-body div.menu-icon-block i{
+	font-size:20px;
+	line-height:28px;
+	padding-left:5px;
+	font-style: normal;
+}
+
+
+div.sie-module-win-eventviewer-body div.body{
+	padding-left:3px;
+	top:50px;
+	width:100%;
+	overflow:auto;
+	background-color:yellow;
+	background-color:#fff;
+	white-space: nowrap;
+	height:100%;
+	background-color:#F0F0F0;
+	overflow:hidden;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window{
+	left:0px;
+	top:5px;
+	width:200px;
+	background-color:#fff;
+	height:calc(100% - 90px);
+	border:solid 1px #828790;
+	overflow:hidden;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.local{
+	font-size:12px;
+	padding-left:5px;
+	padding-top:5px;
+}
+div.sie-module-win-eventviewer-body div.body div.left-window div.local span{
+	font-size:12px;
+	display:inline-block;
+	margin-left:20px;
+}
+
+
+div.sie-module-win-eventviewer-body div.body div.left-window ul{
+	list-style:none;
+	padding-left:5px;
+	padding-top:25px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window ul li{
+	list-style:none;
+	display:block;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window ul i{
+	font-size:12px;
+	color:#a6a6a6;
+	vertical-align:top;
+	margin-top:6px;
+	transition: all .2s;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window ul i.selected{
+	transform: rotate(90deg);
+}
+div.sie-module-win-eventviewer-body div.body div.left-window ul li div.menu{
+	display:inline-block;
+	position:static;
+	cursor:pointer;
+	width:auto;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window ul li div.menu div.route_menu_text{
+	display:block;position:static;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window ul li span{
+	font-size:12px;
+	display:inline-block;
+	line-height:16px;
+	margin-left:22px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon{
+	width:16px;
+	height:16px;
+	display:inline-block;
+	margin-left:4px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon1{
+	background-image: url("../img/sie-module-win-eventviewer/icon1.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon2{
+	background-image: url("../img/sie-module-win-eventviewer/icon2.png");
+	margin-top:5px;
+}
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon3{
+	background-image: url("../img/sie-module-win-eventviewer/icon3.png");
+	margin-top:5px;
+}
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon4{
+	background-image: url("../img/sie-module-win-eventviewer/icon4.png");
+	margin-top:5px;
+}
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon5{
+	background-image: url("../img/sie-module-win-eventviewer/icon5.png");
+	margin-top:5px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon6{
+	background-image: url("../img/sie-module-win-eventviewer/icon6.png");
+	margin-top:5px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon7{
+	background-image: url("../img/sie-module-win-eventviewer/icon7.png");
+	margin-top:5px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu_icon.menu_icon8{
+	background-image: url("../img/sie-module-win-eventviewer/icon8.png");
+	margin-top:5px;
+}
+
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu div.sub_menu{
+	position:static;
+	display:none;
+	font-size:12px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu div.sub_menu ul{
+	padding-top:0px;
+	margin-top:2px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu div.sub_menu ul li{
+	height:16px;
+	margin-top:3px;
+/*	width:200px; */
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu div.sub_menu ul li div.menu_icon{
+	margin-top:0px;
+	position:static;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu div.sub_menu ul li span{
+	margin-left:2px;
+	vertical-align:top;
+	display:inline-block;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu div.sub_menu ul li.selectable.selected{
+	background-color:#CDE8FF;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-window div.menu div.sub_menu div span{
+	font-size:12px;
+	margin-left:0px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-bar-containment{
+	left:10px;
+	top:5px;
+	width:calc(40%);		/* 適当です */
+	height:calc(100% - 90px);
+}
+
+div.sie-module-win-eventviewer-body div.body div.left-bar{
+	left:200px;
+	top:5px;
+	width:5px;
+/*	background-color:#f0f; */
+	height:calc(100% - 90px);
+	border:none;
+	cursor:ew-resize;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window{
+	left:205px;
+	top:5px;
+	width:calc(100% - 405px);
+/*	background-color:red; */
+	height:calc(100% - 90px);
+	border:none;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.title{
+	width:100%;
+	height:25px;
+	background-color:#696969;
+	line-height:25px;
+	color:#fff;
+	font-size:14px;
+	padding-left:10px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top{
+	width:100%;
+	top:27px;
+	height:200px;
+/*	background-color:#afa; */
+	border-top:solid 3px #696969;
+	border-left:solid 3px #696969;
+	border-bottom:solid 3px #a9a9a9;
+	border-right:solid 3px #a9a9a9;
+	overflow:auto;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.event_log_title{
+	height:24px;
+	line-height:24px;
+	width:100%;
+/*	background-color:red; */
+	font-size:12px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.event_log_title i{
+	font-size:16px;
+	color:#808080;
+	margin-left:10px;
+	margin-right:5px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list{
+	top:24px;
+	height:calc(100% - 24px);
+	width:100%;
+	border:solid 1px #646464;
+	background-color:#fff;
+	overflow:auto;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table{
+	width:100%;
+	
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table th{
+	font-weight:normal;
+	font-size:12px;
+	border-right:solid 1px #E5E5E5;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table td{
+	padding-left:5px;
+	padding-right:5px;
+	font-size:12px;
+	cursor:pointer;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table td div.level_icon{
+	height:16px;
+	width:16px;
+}
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table td div.level_icon.level_icon_warn{
+	background-image: url("../img/sie-module-win-eventviewer/icon9.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table td div.level_icon.level_icon_error{
+	background-image: url("../img/sie-module-win-eventviewer/icon10.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table td div.level_icon.level_icon_serv{
+	background-image: url("../img/sie-module-win-eventviewer/icon11.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table td span{
+	font-size:12px;
+	margin-left:20px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table tr.selected td{
+	background-color:#0078D7;
+	color:#fff;
+}
+
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table .text-right{
+	text-align:right;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.top div.log_list table .hide{
+	display:none;
+}
+
+
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.center-bar{
+	height:5px;
+	top:calc(27px + 200px);
+/*	background-color:#f0f; */
+	width:100%;
+	border:none;
+	cursor:ns-resize;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.center-bar-containment{
+	top:35px;
+	height:70%;
+	width:100%;
+	border:none;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom{
+	width:100%;
+	top:calc(27px + 200px + 5px);
+	height:calc(100% - (27px + 200px + 5px));
+/*	background-color:#0da; */
+	border-top:solid 3px #696969;
+	border-left:solid 3px #696969;
+	border-bottom:solid 3px #a9a9a9;
+	border-right:solid 3px #a9a9a9;
+	overflow:hidden;
+}
+
+
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.detail_title{
+	font-size:12px;
+	line-height:20px;
+	width:calc(100% - 20px);
+	left:10px;
+	border-bottom:solid 2px #A0A0A0;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.detail_title div.del{
+	left:calc(100% - 20px);
+	display:inline-block;
+	font-weight:bold;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.deital_box{
+	top:50px;
+	height:calc(100% - 60px);
+	width:calc(100% - 30px);
+	left:15px;
+	border:solid 1px #d9d9d9;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.deital_box_inner{
+	top:0px;
+	height:100%;
+	width:100%;
+	left:0px;
+	border:solid 2px #fff;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.tab1{
+	top:27px;
+	left:15px;
+	background-color:#fff;
+	width:48px;
+	height:24px;
+	text-align:center;
+	border-top:solid 1px #D9D9D9;
+	border-left:solid 1px #D9D9D9;
+	border-right:solid 1px #D9D9D9;
+	font-size:12px;
+	line-height:22px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.tab2{
+	top:29px;
+	left:62px;
+	width:48px;
+	height:20px;
+	background-color:#F0F0F0;
+	width:40px;
+	text-align:center;
+	border-top:solid 1px #D9D9D9;
+	border-left:solid 1px #D9D9D9;
+	border-right:solid 1px #D9D9D9;
+	font-size:12px;
+	line-height:20px;
+}
+
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.deital_box_message{
+	height:calc(100% - 200px);
+	top:10px;
+	left:15px;
+	width:calc(100% - 30px);
+/*	background-color:red; */
+	border-top:solid 2px #A0A0A0;
+	border-left:solid 2px #A0A0A0;
+	border-bottom:solid 1px #fff;
+	border-right:solid 1px #fff;
+	padding:5px;
+	font-size:12px;
+	overflow:auto;
+	
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.deital_box_items{
+	height:180px;
+	top:calc(100% - 180px); 
+	width:100%;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.deital_box_items table{
+	position:absolute;
+	left:10px;
+	width:calc(100% - 20px);
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.deital_box_items table td{
+	font-size:13px;
+	line-height:20px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.center-window div.bottom div.deital_box_items table td.log_help{
+	color:#0000FF;
+	text-decoration:underline;
+}
+
+
+
+div.sie-module-win-eventviewer-body div.body div.right-bar{
+	left:calc(100% - 200px);
+	top:5px;
+	width:5px;
+/*	background-color:#f0f; */
+	height:calc(100% - 90px);
+	border:none;
+	cursor:ew-resize;
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-bar-containment{
+	left:calc(50% + 10px);		/* 適当です */
+	top:5px;
+	width:calc(50% - 40px);		/* 適当です */
+	height:calc(100% - 90px);
+}
+
+
+div.sie-module-win-eventviewer-body div.body div.right-window{
+	left:calc(100% - 195px);
+	top:5px;
+	width:200px;
+	background-color:#fff;
+	height:calc(100% - 90px);
+	border:solid 1px #ddd;
+	border-top:solid 2px #A0A0A0;
+	border-left:solid 2px #A0A0A0;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.title{
+	height:20px;
+	font-size:12px;
+	background-color:#F0F0F0;
+	width:100%;
+	padding-left:5px;
+	line-height:20px;
+	font-weight:bold;
+	border-bottom:solid 1px #A0A0A0;
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.head{
+	position:relative;
+	font-size:12px;
+	line-height:26px;
+	padding-left:10px;
+	font-weight:bold;
+	background: linear-gradient(#B7CFE8, #9BB6D3);
+}
+div.sie-module-win-eventviewer-body div.body div.right-window div.head.top{
+	margin-top:20px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item{
+	position:relative;
+	font-size:12px;
+	line-height:26px;
+	padding-left:26px;
+	width:100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item.delim{
+	border-bottom:solid 1px #F0F0F0;
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon{
+	width:16px;
+	height:16px;
+	margin-left:-20px;
+	top:4px;
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon1{
+	background-image: url("../img/sie-module-win-eventviewer/icon12.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon2{
+	background-image: url("../img/sie-module-win-eventviewer/icon13.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon3{
+	background-image: url("../img/sie-module-win-eventviewer/icon14.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon4{
+	background-image: url("../img/sie-module-win-eventviewer/icon15.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon5{
+	background-image: url("../img/sie-module-win-eventviewer/icon16.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon6{
+	background-image: url("../img/sie-module-win-eventviewer/icon17.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon7{
+	background-image: url("../img/sie-module-win-eventviewer/icon18.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon8{
+	background-image: url("../img/sie-module-win-eventviewer/icon19.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon9{
+	background-image: url("../img/sie-module-win-eventviewer/icon20.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon10{
+	background-image: url("../img/sie-module-win-eventviewer/icon21.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon11{
+	background-image: url("../img/sie-module-win-eventviewer/icon22.png");
+}
+
+div.sie-module-win-eventviewer-body div.body div.right-window div.item div.menu-icon.menu-icon12{
+	background-image: url("../img/sie-module-win-eventviewer/icon23.png");
+}
+
+
+
+
+div.sie-module-win-eventviewer-body div.dragging{
+	background-color:#ccc;
+}
+
+
+

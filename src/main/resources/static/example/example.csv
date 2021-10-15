@@ -1,0 +1,3 @@
+アカウント,パスワード,性,名,性（カナ）,名（カナ）,Email,所属クライアントコード,権限（1:管理者、2:利用者）,登録元（1:手動、2:システム連携）,説明
+account1,password,テスト,ユーザー１,テスト,ユーザー１,example1@spractice.com,clientcode001,1,1,手動登録ユーザー
+account2,password,テスト,ユーザー２,テスト,ユーザー２,example2@spractice.com,clientcode001,2,2,システム連携登録ユーザー

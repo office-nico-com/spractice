@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="front/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>レポート｜Secure Practice</title>
+
+<style type="text/css">
+
+div.total_count{
+	font-size:20px;
+	font-weight:bold;
+	padding-bottom:30px;
+	text-align:center;
+}
+
+div.pie_chart_frame{
+	width:340px;
+	height:340px;
+	float:left;
+	margin-right:20px;
+	margin-bottom:40px;
+	
+}
+
+br.clear_both{
+	clear:both;
+}
+
+table.download td.button{
+	width:150px
+}
+table.download td.title{
+	vertical-align:middle;
+}
+
+</style>
+
+</head>
+
+
+<body th:with="length=${T(com.office_nico.spractice.constants.Length)}">
+<header class="container-fluid" th:replace="front/commons::header"/>
+
+
+<div class="container-fluid pb-5 main">
+
+
+<th:block th:replace="front/commons::tabs('report')"/>
+
+<div class="main_body">
+
+
+<h5 class="font-weight-bold title mb-4">総受講者数</h5>
+
+<div class="total_count"><th:block th:text="${#numbers.formatInteger(totalCount, 1, 'COMMA')}"/>名<span class="small">　(<th:block th:text="*{#temporals.format(currentTime, 'yyyy年M月d日')}"/> 現在)</span></div>
+
+
+<h5 class="font-weight-bold title mb-5">訓練時間</h5>
+
+<th:block th:each="report : ${reports}">
+<span class="font-weight-bold" th:text="'[' + ${report.completionPoint.description} + ']'"/>
+<table class="table table-sm mt-2">
+<thead>
+<tr>
+<td class="font-weight-bold">最小時間</td>
+<td class="font-weight-bold">最大時間</td>
+<td class="font-weight-bold">平均時間</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td th:text="${report.minMin != null ? report.minMin + '分' : '－'}"/>
+<td th:text="${report.maxMin != null ? report.maxMin + '分' : '－'}"/>
+<td th:text="${report.avgMin != null ? report.avgMin + '分' : '－'}"/>
+</tr>
+</tbody>
+</table>
+</th:block>
+
+
+
+<h5 class="font-weight-bold title mb-4 mt-5">訓練状況</h5>
+
+
+<div class="pie_chart_frame" th:each="report : ${reports}">
+<canvas th:id="'chart_' + ${report.completionPoint.id}"></canvas>
+</div>
+
+
+<br class="clear_both">
+
+
+
+<h5 class="font-weight-bold title">修了履歴（CSVダウンロード）</h5>
+
+
+<div class="row mt-4 mb-4">
+<div class="col-2 d-flex align-items-center justify-content-center">ダウンロード期間</div>
+<div class="col-2">
+<input type="text" name="fd" th:value="*{#temporals.format(fromDate, 'yyyy/M/d')}" class="form-control form-control-lg" id="idFromDate" placeholder="" autocomplete="off">
+</div>
+<div class="col-1 d-flex align-items-center justify-content-center">～</div>
+<div class="col-2">
+<input type="text" name="td" th:value="*{#temporals.format(toDate, 'yyyy/M/d')}" class="form-control form-control-lg" id="idToDate" placeholder="" autocomplete="off">
+</div>
+</div>
+
+
+<table class="table mt-4 download">
+<tbody>
+<tr th:each="report : ${reports}">
+<td class="button"><button class="btn btn-success" th:onclick="'download(' + ${report.completionPoint.id} + ');'">ダウンロード</button></td>
+<td class="title" th:text="${report.completionPoint.description}"/>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+</div>
+
+
+</div>
+<footer th:replace="front/commons::footer" class="container-fluid"/>
+
+<th:block th:replace="front/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:src="@{/js/front.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+
+	[# th:each="report : ${reports}" ]
+	var ctx = document.getElementById( [# th:text="'chart_' + ${report.completionPoint.id}" /] );
+	var myChart = new Chart(ctx, {
+	  type: 'pie',
+	  data: {
+	    labels: ['修了', '訓練中', '未着手'],
+	    datasets: [{
+	      data: [ [# th:utext="${report.completionCount >= 0 ? report.completionCount : 0}" /] , [# th:utext="${report.worikingCount >= 0 ? report.worikingCount : 0}" /], [# th:utext="${report.unworkedCount >= 0 ? report.unworkedCount : 0}" /] ],
+	      backgroundColor: ['#484', '#F7A047', '#9867FE'],
+	      weight: 100,
+	    }],
+	  },
+	  options: {
+		  plugins: {
+			  title: {
+				  display: true,
+				  text: [# th:text="${report.completionPoint.description}" /]
+			  }
+		  }
+	  }
+	});
+	[/]
+
+	$('#idFromDate').datetimepicker({
+		dayViewHeaderFormat: 'YYYY年 MMMM',
+		format: 'YYYY/M/D',
+		locale: 'ja',
+		useCurrent:false
+	});
+
+	$('#idToDate').datetimepicker({
+		dayViewHeaderFormat: 'YYYY年 MMMM',
+		format: 'YYYY/M/D',
+		locale: 'ja',
+		useCurrent:false
+	});
+});
+
+const download = (id) => {
+	$.LoadingOverlay("show", {
+		background: "rgba(255, 255, 255, 0.6)",
+		size: 8
+	});
+
+	const fd = $('#idFromDate').val();
+	const td = $('#idToDate').val();
+	
+	var url = [# th:text="@{/{clientKeycode}/download/(clientKeycode=${clientKeycode})}" /] + id;
+	url += "?fd=" + fd;
+	url += "&td=" + td;
+	$.fileDownload(url, {
+		successCallback: function (url) {
+			$.LoadingOverlay("hide");
+		},
+		failCallback: function (html, url) {
+			$.LoadingOverlay("hide");
+			alert("データエクスポートに失敗しました。お手数ですが、再実行してください。\n問題が解決しない場合は、システム管理者にお問い合わせください。");
+		}
+	});
+}
+
+
+
+</script>
+</th:block>
+
+</body>
+</html>

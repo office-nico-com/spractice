@@ -20,29 +20,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.office_nico.spractice.domain.BinaryFile;
 import com.office_nico.spractice.domain.BinaryFileCategory;
+import com.office_nico.spractice.domain.User;
 import com.office_nico.spractice.exception.AppRunnableException;
 import com.office_nico.spractice.repository.binary_file.BinaryFileRepository;
 import com.office_nico.spractice.repository.binary_file_category.BinaryFileCategoryRepository;
 import com.office_nico.spractice.service.annotation.ValidateSession;
-import com.office_nico.spractice.service.data.SessionData;
 import com.office_nico.spractice.service.data.StorageFile;
 import com.office_nico.spractice.service.data.StorageFile.Result;
 
 /**
  * ファイルストレージサービス
- * @author fujisawa
- *
  */
 @Service
 @Transactional
 @ValidateSession
 public class StorageFileService {
 
-	private static final Logger logger = LoggerFactory.getLogger(StorageFileService.class);
+	private static final Logger _logger = LoggerFactory.getLogger(StorageFileService.class);
 	
 	@Value("${upload.file.save.path}") 
 	private String savePath = null;
@@ -55,32 +54,36 @@ public class StorageFileService {
 
 	@Autowired
 	private LogService logService = null;
-	
-	@Autowired
-	private SessionData session = null;
+
 	
 	/**
 	 * バイナリファイルカテゴリの取得
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @return BinaryFileCategoryオブジェクト配列
 	 */
-	public List<BinaryFileCategory> getCategories(){
+	public List<BinaryFileCategory> getCategories(Logger logger, Long sessionUserId){
+		logger = (logger == null ? logger : _logger);
 
-		List<BinaryFileCategory> list = binaryFileCategoryRepository.findByOrganizationIdOrderByOrderNumber(session.getOrganizationId());
+		List<BinaryFileCategory> list = binaryFileCategoryRepository.findByOrderBySortOrder();
 
 		return list;
 	}
 
 	/**
 	 * バイナリファイル一覧の取得
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param binaryFileCategoryId バイナリファイルカテゴリID
 	 * @return StorageFileオブジェクト配列
 	 */
-	public List<StorageFile> list(Long binaryFileCategoryId) {
+	public List<StorageFile> list(Logger logger, Long sessionUserId, Long binaryFileCategoryId) {
+		logger = (logger == null ? logger : _logger);
 		
 		Optional<BinaryFileCategory> binaryFileCategory = null;
 		
 		if(binaryFileCategoryId == null) {
-			binaryFileCategory = binaryFileCategoryRepository.getByOrganizationIdOrderByFirstOrderNumber(session.getOrganizationId());
+			binaryFileCategory = binaryFileCategoryRepository.getOrderByFirstSortOrder();
 		}
 		else {
 			binaryFileCategory = binaryFileCategoryRepository.findById(binaryFileCategoryId);
@@ -97,7 +100,7 @@ public class StorageFileService {
 			StorageFile storageFile = new StorageFile();
 			storageFile.setBinaryFile(binaryFile);
 			storageFile.setResult(Result.SUCCESS);
-			String saveFullPath = savePath + "/" + session.getOrganizationId() + "/" + binaryFile.getSubPath() + "/" + binaryFile.getSaveFileName();
+			String saveFullPath = savePath + "/" + binaryFile.getSubPath() + "/" + binaryFile.getSaveFileName();
 			storageFile.setSavePath(saveFullPath);
 			list.add(storageFile);
 		}
@@ -107,6 +110,8 @@ public class StorageFileService {
 	
 	/**
 	 * バイナリファイルの保存
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param body ファイルボディ
 	 * @param originalFileName ファイル名
 	 * @param lastModifiedAt 最終更新日時
@@ -114,7 +119,10 @@ public class StorageFileService {
 	 * @param mimeType MIMEタイプ
 	 * @return StorageFileオブジェクト
 	 */
-	public StorageFile save(byte[] body, String originalFileName, LocalDateTime lastModifiedAt, Long binaryFileCategoryId, String mimeType) {
+	public StorageFile save(Logger logger, Long sessionUserId, byte[] body, String originalFileName, LocalDateTime lastModifiedAt, Long binaryFileCategoryId, String mimeType) {
+		logger = (logger == null ? logger : _logger);
+
+		User sessionuser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		StorageFile storageFile = new StorageFile();
 		storageFile.setResult(Result.SUCCESS);
@@ -135,7 +143,7 @@ public class StorageFileService {
 
 		String subPath = DateTimeFormatter.ofPattern("yyyyMM").format(LocalDateTime.now());
 		
-		File dir = new File(savePath + "/" + session.getOrganizationId() + "/" + subPath);
+		File dir = new File(savePath + "/" + subPath);
 		if(!dir.exists()) {
 			if(!dir.mkdirs()) {
 				throw new AppRunnableException(logger, -9999, "Create directory error. " + dir.getPath());
@@ -143,7 +151,7 @@ public class StorageFileService {
 		}
 		
 		String saveFileName = filename + extention;
-		String saveFullPath = savePath + "/" + session.getOrganizationId() + "/" + subPath + "/" + filename + extention;
+		String saveFullPath = savePath + "/" + subPath + "/" + filename + extention;
 		Path uploadfile = Paths.get(saveFullPath);
 		try (OutputStream os = Files.newOutputStream(uploadfile, StandardOpenOption.CREATE)) {
 			os.write(body);
@@ -162,8 +170,8 @@ public class StorageFileService {
 				lastModifiedAt = LocalDateTime.now();
 			}
 			binaryFile.setLastModifiedAt(lastModifiedAt);
-			binaryFile.setUpdatedBy(session.getUserId());
-			binaryFile.setCreatedBy(session.getUserId());
+			binaryFile.setUpdatedBy(sessionuser.getId());
+			binaryFile.setCreatedBy(sessionuser.getId());
 			binaryFile.setUpdatedAt(LocalDateTime.now());
 			binaryFile.setCreatedAt(LocalDateTime.now());
 
@@ -184,42 +192,48 @@ public class StorageFileService {
 	
 	/**
 	 * バイナリファイルの取得
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param binaryFileId バイナリファイルID
 	 * @return StorageFileオブジェクト
 	 */
-	public StorageFile get(Long binaryFileId) {
+	public StorageFile get(Logger logger, Long sessionUserId, Long binaryFileId) {
+		logger = (logger == null ? logger : _logger);
+
 		StorageFile storageFile = new StorageFile();
 		storageFile.setResult(Result.SUCCESS);
 		
 		Optional<BinaryFile> binaryFile = binaryFileRepository.findById(binaryFileId);
-		if(binaryFile.isEmpty() || !binaryFile.get().getBinaryFileCategory().getOrganizationId().equals(session.getOrganizationId())) {
-			storageFile.setResult(Result.ERROR_NOIMAGE);
-		}
-		else {
-			storageFile.setBinaryFile(binaryFile.get());
-			String saveFullPath = savePath + "/" + session.getOrganizationId() + "/" + binaryFile.get().getSubPath() + "/" + binaryFile.get().getSaveFileName();
-			storageFile.setSavePath(saveFullPath);
-		}
+
+		storageFile.setBinaryFile(binaryFile.get());
+		String saveFullPath = savePath + "/" + binaryFile.get().getSubPath() + "/" + binaryFile.get().getSaveFileName();
+		storageFile.setSavePath(saveFullPath);
 		
 		return storageFile;
 	}
 	
 	/**
 	 * バイナリファイルの削除
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param binaryFileIds バイナリファイルID配列
 	 * @return 削除したバイナリファイルID配列
 	 */
-	public List<Long> remove(List<Long> binaryFileIds){
+	public List<Long> remove(Logger logger, Long sessionUserId, List<Long> binaryFileIds){
+		logger = (logger == null ? logger : _logger);
+
+		User sessionuser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		List<Long> deleteBinaryFileIds = new ArrayList<>();
 		
 		for(Long binaryFileId : binaryFileIds) {
-			StorageFile storageFile = get(binaryFileId);
+			StorageFile storageFile = get(logger, sessionUserId, binaryFileId);
 			if(storageFile.getResult() == Result.SUCCESS) {
 				deleteBinaryFileIds.add(storageFile.getBinaryFile().getId());
 				// ファイルを削除
 				File f = new File(storageFile.getSavePath());
 				if(!f.delete()) {
-					logService.warn(logger, session.getAccount(), "Failed to delete file." + storageFile.getSavePath());
+					logService.warn(logger, sessionuser.getEmail(), "Failed to delete file." + storageFile.getSavePath());
 				}
 				// データを削除
 				binaryFileRepository.delete(storageFile.getBinaryFile());
@@ -231,21 +245,24 @@ public class StorageFileService {
 	
 	/**
 	 * カテゴリの移動
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param moveToBinaryFileCategoryId 移動先バイナリファイルカテゴリID
 	 * @param binaryFileIds バイナリファイルID
 	 * @return 移動したバイナリファイルID配列
 	 */
-	public List<Long> moveFiles(Long moveToBinaryFileCategoryId, List<Long> binaryFileIds){
+	public List<Long> moveFiles(Logger logger, Long sessionUserId, Long moveToBinaryFileCategoryId, List<Long> binaryFileIds){
+		logger = (logger == null ? logger : _logger);
 
 		List<Long> moveBinaryFileIds = new ArrayList<>();
 		
 		// 移動先のカテゴリの存在チェック
-		if(binaryFileCategoryRepository.countByIdAndOrganizationId(moveToBinaryFileCategoryId, session.getOrganizationId()) == 0) {
+		if(binaryFileCategoryRepository.countById(moveToBinaryFileCategoryId) == 0) {
 			return moveBinaryFileIds;
 		}
 		
 		for(Long binaryFileId : binaryFileIds) {
-			StorageFile storageFile = get(binaryFileId);
+			StorageFile storageFile = get(logger, sessionUserId, binaryFileId);
 			if(storageFile.getResult() == Result.SUCCESS) {
 				// カテゴリを移動
 				if(!storageFile.getBinaryFile().getBinaryFileCategory().getId().equals(moveToBinaryFileCategoryId)) {
@@ -262,18 +279,22 @@ public class StorageFileService {
 	
 	/**
 	 * カテゴリの編集
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param binaryFileCategories バイナリファイルカテゴリオブジェクト配列
 	 */
-	public void editCategory(List<BinaryFileCategory> binaryFileCategories) {
-		
+	public void editCategory(Logger logger, Long sessionUserId, List<BinaryFileCategory> binaryFileCategories) {
+		logger = (logger == null ? logger : _logger);
+
+		User sessionuser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		// まずは新規追加
 		for(BinaryFileCategory binaryFileCategory: binaryFileCategories) {
 			if(binaryFileCategory.getId() == null) {
 				// 新規登録
-				binaryFileCategory.setOrganizationId(session.getOrganizationId());
 				binaryFileCategory.setCanDelete(true);
-				binaryFileCategory.setUpdatedBy(session.getUserId());
-				binaryFileCategory.setCreatedBy(session.getUserId());
+				binaryFileCategory.setUpdatedBy(sessionuser.getId());
+				binaryFileCategory.setCreatedBy(sessionuser.getId());
 				binaryFileCategory.setUpdatedAt(LocalDateTime.now());
 				binaryFileCategory.setCreatedAt(LocalDateTime.now());
 				binaryFileCategoryRepository.save(binaryFileCategory);
@@ -281,24 +302,24 @@ public class StorageFileService {
 			else if(binaryFileCategory.getIsDelete() != null && binaryFileCategory.getIsDelete().equals(true)) {
 				// 削除
 				Optional<BinaryFileCategory> _binaryFileCategory = binaryFileCategoryRepository.findById(binaryFileCategory.getId());
-				if(!_binaryFileCategory.isEmpty() && _binaryFileCategory.get().getOrganizationId().equals(session.getOrganizationId()) && _binaryFileCategory.get().getCanDelete().equals(true)) {
+				if(!_binaryFileCategory.isEmpty() && _binaryFileCategory.get().getCanDelete().equals(true)) {
 
 					List<Long> deleteFileId = new ArrayList<>();
 					for(BinaryFile binaryFile : _binaryFileCategory.get().getBinaryFiles()) {
 						deleteFileId.add(binaryFile.getId());
 					}
 					// ファイルの削除
-					remove(deleteFileId);
+					remove(logger, sessionUserId, deleteFileId);
 					binaryFileCategoryRepository.delete(_binaryFileCategory.get());
 				}
 			}
 			else {
 				// 更新
 				Optional<BinaryFileCategory> _binaryFileCategory = binaryFileCategoryRepository.findById(binaryFileCategory.getId());
-				if(!_binaryFileCategory.isEmpty() && _binaryFileCategory.get().getOrganizationId().equals(session.getOrganizationId())) {
+				if(!_binaryFileCategory.isEmpty()) {
 					_binaryFileCategory.get().setCategoryName(binaryFileCategory.getCategoryName());
-					_binaryFileCategory.get().setOrderNumber(binaryFileCategory.getOrderNumber());
-					binaryFileCategory.setUpdatedBy(session.getUserId());
+					_binaryFileCategory.get().setSortOrder(binaryFileCategory.getSortOrder());
+					binaryFileCategory.setUpdatedBy(sessionuser.getId());
 					binaryFileCategory.setUpdatedAt(LocalDateTime.now());
 					binaryFileCategoryRepository.save(_binaryFileCategory.get());
 				}
@@ -308,25 +329,36 @@ public class StorageFileService {
 	
 	/**
 	 * バイナリファイルの利用状況チェック
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param binaryFileIds バイナリファイルID
 	 * @return 利用されているStorageFileオブジェクト配列
 	 */
-	public List<StorageFile> isUsedFile(List<Long> binaryFileIds){
+	public List<StorageFile> isUsedFile(Logger logger, Long sessionUserId, List<Long> binaryFileIds){
+		logger = (logger == null ? logger : _logger);
+
 		List<StorageFile> ret = new ArrayList<>();
+		
+		/*
 		for(Long binaryFileId : binaryFileIds) {
-			StorageFile storageFile = get(binaryFileId);
+			StorageFile storageFile = get(logger, sessionUserId, binaryFileId);
 			// TODO:チェック処理
 			// ret.add(storageFile);
 		}
+		*/
 		return ret;
 	}
 
 	/**
 	 * バイナリファイルカテゴリの利用状況チェック
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
 	 * @param binaryFileCategoryIds バイナリファイルカテゴリID配列
 	 * @return 利用されているStorageFileオブジェクト配列
 	 */
-	public List<StorageFile> isUsedCategory(List<Long> binaryFileCategoryIds){
+	public List<StorageFile> isUsedCategory(Logger logger, Long sessionUserId, List<Long> binaryFileCategoryIds){
+		logger = (logger == null ? logger : _logger);
+
 		List<StorageFile> ret = new ArrayList<>();
 		for(Long binaryFileCategoryId : binaryFileCategoryIds) {
 				Optional<BinaryFileCategory> binaryFileCategory = binaryFileCategoryRepository.findById(binaryFileCategoryId);
@@ -336,7 +368,7 @@ public class StorageFileService {
 					for(BinaryFile binaryFile : binaryFileCategory.get().getBinaryFiles()) {
 						binaryFileIds.add(binaryFile.getId());
 					}
-					List<StorageFile> storageFiles = isUsedFile(binaryFileIds);
+					List<StorageFile> storageFiles = isUsedFile(logger, sessionUserId, binaryFileIds);
 					ret.addAll(storageFiles);
 				}
 		}

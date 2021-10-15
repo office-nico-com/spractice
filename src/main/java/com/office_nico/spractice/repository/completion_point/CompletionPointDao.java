@@ -1,0 +1,13 @@
+package com.office_nico.spractice.repository.completion_point;
+
+import java.io.Serializable;
+import java.util.List;
+
+import com.office_nico.spractice.domain.CompletionPoint;
+
+public interface CompletionPointDao <T> extends Serializable {
+
+	List<CompletionPoint> findByUserIdAndClientIdAndCompletionPointIds(Long userId, Long clientId, List<Long> completionPointIds);
+
+}
+

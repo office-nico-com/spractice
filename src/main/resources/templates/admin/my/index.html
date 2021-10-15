@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>ダッシュボード｜Secure Practice Admin</title>
+
+<style style="text/css">
+
+table.operations{
+	width:100%;
+	border:solid 1px #ddd;
+	margin-bottom:10px;
+}
+
+table.operations td{
+	padding:7px;
+	padding-left:10px;
+	padding-right:10px;
+}
+table.operations td.time{
+	border-bottom:solid 1px #ddd;
+	background-color:#fafafa;
+}
+
+i.pagecontrol{
+	float:right;
+	font-size:20px;
+	margin-left:10px;
+	line-height:30px;
+	color:#666;
+	cursor:pointer;
+}
+
+i.pagecontrol:hover{
+	color:#999;
+}
+
+
+</style>
+
+</head>
+
+<body th:with="menuCode=101001">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item active" aria-current="page">ダッシュボード</li>
+</ol>
+</nav>
+
+<div class="row mb-4">
+<div class="col-sm-12">
+<div class="card">
+	<div class="card-header function-title-bar">共有情報</div>
+	<div class="card-body">
+		<th:block th:if="${informations.size() == 0}">掲載する情報はありません。</th:block>
+		<th:block th:each="information : ${informations}">
+		<table class='operations'><tbody>
+		<tr>
+		<td class='time'>
+			<th:block th:text="*{#temporals.format(information.postedAt, 'yyyy/M/d H:mm')}"/>
+			&nbsp;by
+			<th:block th:text="${information.user.familyName} + ' ' + ${information.user.givenName}"/>
+		</td>
+		</tr>
+		<tr>
+		<td class='message' ex:hbr="${information.message}"/>
+		</tr>
+		</tbody></table>
+		</th:block>
+
+	</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-sm-6">
+<div class="card" id="idList1">
+	<div class="card-header function-title-bar">あなたの操作状況
+	<i class="fas fa-chevron-circle-right pagecontrol" onclick="next('#idList1')"></i>
+	<i class="fas fa-chevron-circle-left pagecontrol" onclick="prev('#idList1')"></i>
+	</div>
+	<div class="card-body">
+	</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="card" id="idList2">
+	<div class="card-header function-title-bar">全体の操作状況
+	<i class="fas fa-chevron-circle-right pagecontrol" onclick="next('#idList2')"></i>
+	<i class="fas fa-chevron-circle-left pagecontrol" onclick="prev('#idList2')"></i>
+	</div>
+	<div class="card-body">
+	</div>
+</div>
+</div>
+
+</div>
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+
+<script type="text/javascript" th:inline="javascript">
+
+var currentPageList1 = 0;
+var currentPageList2 = 0;
+var currentPageList1Stop = false;
+var currentPageList2Stop = false;
+
+$(function(){
+	list('list1', '#idList1', currentPageList1);
+	list('list2', '#idList2', currentPageList2);
+});
+
+
+const prev = (target) => {
+	if(target == '#idList1' && currentPageList1 > 0){
+		currentPageList1--;
+		list('list1', target, currentPageList1)
+	}
+	if(target == '#idList2' && currentPageList2 > 0){
+		currentPageList2--;
+		list('list2', target, currentPageList2)
+	}
+}
+
+const next = (target) => {
+	if(target == '#idList1' && !currentPageList1Stop){
+		currentPageList1++;
+		list('list1', target, currentPageList1)
+	}
+	if(target == '#idList2' && !currentPageList2Stop){
+		currentPageList2++;
+		list('list2', target, currentPageList2)
+	}
+}
+
+const list = (path, target, page) => {
+	var uploadURL = [[@{/t06o1ny8/my/}]] + path + "?p=" + page;
+	var jqXHR=$.ajax({
+		url: uploadURL, type: "GET",
+		contentType:false,
+		processData: false,
+		dataType : "json",
+		cache: false,
+		data: {},
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+			// uploadFileBox.error("A communication error has occurred. Please reload the screen and try again.");
+		},
+		success: function(data, textStatus, jqXHR){
+			
+			if(data.length == 0){
+				if(target == '#idList1'){
+					currentPageList1Stop=true;
+				}
+				if(target == '#idList2'){
+					currentPageList2Stop=true;
+				}
+				$(target + " div.card-body").html('操作の履歴がありません。');
+				return;
+			}
+
+			let html = "";
+			$.each(data, function(index, val){
+				html += "<table class='operations'><tbody>";
+				html += "<tr>";
+				html += "<td class='time'>";
+				html += val["operationTime"];
+				html += "</td>";
+				html += "</tr>";
+				html += "<tr>";
+				html += "<td class='message'>";
+				html += val["message"];
+				html += "</td>";
+				html += "</tr>";
+				html += "</tbody></table>";
+			});
+			$(target + " div.card-body").html(html);
+		}
+	});
+}
+
+</script>
+
+
+</th:block>
+
+</html>
+

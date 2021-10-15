@@ -13,8 +13,8 @@ import com.office_nico.spractice.domain.BinaryFileCategory;
 @Transactional
 public interface BinaryFileCategoryRepository extends JpaRepository<BinaryFileCategory,Long>, BinaryFileCategoryDao<BinaryFileCategory> {
 
-	List<BinaryFileCategory> findByOrganizationIdOrderByOrderNumber(Long organizationId);
+	List<BinaryFileCategory> findByOrderBySortOrder();
 
-	Integer countByIdAndOrganizationId(Long id, Long organizationId);
+	Integer countById(Long id);
 
 }

@@ -1,15 +1,11 @@
 package com.office_nico.spractice.service.data;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 
 import com.office_nico.spractice.domain.BinaryFile;
-import com.office_nico.spractice.service.data.Instruction.Result;
 
 import lombok.Data;
 

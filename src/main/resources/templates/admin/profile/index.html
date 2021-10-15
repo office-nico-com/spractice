@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>ユーザー情報変更｜Secure Practice Admin</title>
+
+</head>
+
+<body th:with="menuCode=100000,length=${T(com.office_nico.spractice.constants.Length)}">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+
+<form method="post" th:action="@{/t06o1ny8/profile}" th:object="${obj}" id="idForm">
+
+<div class="card mb-3">
+<div class="card-header function-title-bar">ユーザー情報変更</div>
+
+<div class="card-body">
+
+<div class="form-row" id="idCompleateMessage" style="display:none;"><div class="col-sm-12">
+<div class="alert alert-info" role="alert" >ユーザー情報を編集しました。</div>
+</div></div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('familyName') ? ' form-attention' : ''}">
+
+			<label for="familyName">姓</label>
+			<input type="text" class="form-control" th:field="*{familyName}" th:maxlength="${length.familyName}"/>
+			<span th:errors="*{familyName}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('givenName') ? ' form-attention' : ''}">
+			<label for="givenName">名</label>
+			<input type="text" class="form-control" th:field="*{givenName}" th:maxlength="${length.givenName}"/>
+			<span th:errors="*{givenName}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('familyNameKana') ? ' form-attention' : ''}">
+			<label for="familyNameKana">姓（カナ）</label>
+			<input type="text" class="form-control" th:field="*{familyNameKana}" th:maxlength="${length.familyNameKana}"/>
+			<span th:errors="*{familyNameKana}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('givenNameKana') ? ' form-attention' : ''}">
+			<label for="givenNameKana">名（カナ）</label>
+			<input type="text" class="form-control" th:field="*{givenNameKana}" th:maxlength="${length.givenNameKana}"/>
+			<span th:errors="*{givenNameKana}" class="alert-message"/>
+		</div>
+	</div>
+
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12' + ${#fields.hasErrors('email') ? ' form-attention' : ''}">
+			<label for="email">メールアドレス</label>
+			<input type="text" class="form-control" th:field="*{email}"  th:maxlength="${length.email}" onchange="setAccount();"/>
+			<span th:errors="*{email}" class="alert-message"/>
+		</div>
+	</div>
+
+
+
+	<div class="form-row mt-3">
+		<div class="form-group col-sm-12 text-center">
+			<button type="button" class="btn btn-primary mr-sm-2 pl-sm-4 pr-sm-4" data-toggle="modal" data-target="#modal1">　　編集する　　</button>
+		</div>
+	</div>
+</div>
+
+</div>
+
+</form>
+
+
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<br/>ユーザー情報を編集してもよろしいですか？<br/><br/>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="edit();">編集する</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+	if($.cookie("compleate") == 'true'){
+		$('#idCompleateMessage').show();
+		$.cookie("compleate", 'false', { path:'/' });
+	}
+});
+const edit = () => {
+	$('#idForm').submit();
+}
+</script>
+</th:block>
+
+</html>
+

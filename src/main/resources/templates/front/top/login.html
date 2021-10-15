@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Language" content="ja">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/font-awesome/css/all.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/datatables/css/dataTables.bootstrap4.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/css/front-login.css}" type="text/css" rel="stylesheet"/>
+
+<title>ログイン｜Secure Practice</title>
+</head>
+<body>
+
+
+<form id="idLoginForm" method="post" th:action="@{/{clientKeycode}(clientKeycode=${clientKeycode})}" th:object="${obj}" >
+<div class="container">
+	<div class="login-container">
+	<div id="output"><th:block th:errors="*{account}" /></div>
+	<div class="avatar"></div>
+	<div class="form-box">
+		<input th:field="*{account}" type="text" placeholder="username">
+		<input th:field="*{passwd}" type="password" placeholder="password">
+		<button class="btn btn-info btn-block login" type="submit">Login</button>
+	</div>
+	</div>
+</div>
+</form>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/momentjs/min/moment-with-locales.min.js}"></script>
+<script type="text/javascript">moment.locale('ja');</script>
+<script type="text/javascript" th:src="@{/webjars/chart.js/dist/chart.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-cookie/jquery.cookie.js}"></script>
+
+
+<script type="text/javascript" th:inline="javascript">
+
+$(function(){
+	var $account = $("input[name=account]");
+	var $passwd = $("input[name=passwd]");
+	if($account.val() != ''){
+		$passwd.focus();
+	}
+	else{
+		$account.focus();
+	}
+	
+	$('button[type="submit"]').click(function(e) {
+		e.preventDefault();
+
+		var timeout = 0;
+		if($("#output").html() != ''){
+			timeout = 200;
+		}
+		$("#output").removeClass('alert alert-danger animated fadeInUp').html('');
+		//little validation just to check username
+		
+		if ($account.val() == '' || $passwd.val() == '') {
+			setTimeout(function(){
+				var message = '';
+				if($account.val() == ''){
+					message = 'ユーザー名を入力してください。';
+					$account.focus();
+				}
+				else{
+					message = 'パスワードを入力してください。';
+					$passwd.focus();
+				}
+				//remove success mesage replaced with error message
+				$("#output").addClass("alert alert-danger animated fadeInUp").html(message);
+			}, timeout);
+		}
+		else{
+			$('#idLoginForm').submit();
+		}
+	});
+
+	if($("#output").html() != ''){
+		$("#output").addClass("alert alert-danger animated fadeInUp");
+	}
+});
+
+
+
+
+</script>
+
+</body>
+</html>

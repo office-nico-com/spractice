@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>ユーザー新規登録｜Secure Practice Admin</title>
+
+</head>
+
+<body th:with="menuCode=101003,length=${T(com.office_nico.spractice.constants.Length)}">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/users}" th:text="ユーザー管理"/></li>
+	<li class="breadcrumb-item active" aria-current="page">ユーザー新規登録</li>
+</ol>
+</nav>
+
+<form method="post" th:action="@{/t06o1ny8/users/new}" th:object="${obj}" >
+
+<div class="card mb-3">
+<div class="card-header function-title-bar">ユーザー新規登録入力フォーム</div>
+
+
+<div class="card-body">
+
+	<th:block th:replace="admin/users/form"/>
+
+	<div class="form-row mt-2">
+		<div class="form-group col-sm-12 text-center">
+			<button type="button" class="btn btn-outline-secondary mr-sm-2 pl-sm-4 pr-sm-4" onclick="list();">キャンセル</button>
+			<button type="submit" class="btn btn-primary mr-sm-2 pl-sm-4 pr-sm-4">登録する</button>
+		</div>
+	</div>
+</div>
+
+</div>
+
+</form>
+
+
+
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+const list = () => {
+	location.href = [# th:text="@{/t06o1ny8/users}" /];
+};
+const setAccount = () => {
+	$('#account').val($('#email').val());
+}
+
+</script>
+</th:block>
+
+</html>
+

@@ -1,0 +1,2224 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>ガイダンス｜Secure Practice Admin</title>
+
+<style tyle="text/css">
+table i.far{
+	font-size:20px;
+	margin-right:10px;
+	cursor:pointer;
+	vertical-align:middle;
+}
+
+table i.far:hover{
+	color:#aaa;
+}
+
+table i.far.fa-times-circle{
+	color:#D23A49;
+}
+
+table i.far.fa-times-circle:hover{
+	color:#FF6A79;
+}
+
+table i.far.invisible{
+ opacity:0;
+}
+
+button.btn-variable{
+	position:absolute !important;
+	left:20px !important;
+}
+
+</style>
+
+</head>
+
+<body th:with="menuCode=101005,length=${T(com.office_nico.spractice.constants.Length)},actionCount=5">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/scenarios}" th:text="シナリオ管理"/></li>
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/scenarios/show/{scenarioId}(scenarioId=${scenario.id})}" th:text="${scenario.scenarioName}" /></li>
+	<li class="breadcrumb-item active" aria-current="page">ガイダンス</li>
+</ol>
+</nav>
+
+
+<div class="card mb-3">
+<div class="card-header function-title-bar">「<th:block th:text="${scenario.scenarioName}"/>」のガイダンス設定内容<button class="btn btn-outline-info btn-sm btn-round float-right ml-sm-2" onClick="newInput();">追　　加</button><button class="btn btn-outline-warning btn-sm ml-sm-2 float-right btn-round" onclick="preview();">プレビュー</button></div>
+
+<div class="card-body">
+			<div class="form-row">
+				<div th:class="'form-group col-sm-12'">
+
+<div class="global-attention-messages"></div>
+
+					<table class="table table-striped" id="idGuidanceTable">
+					<thead>
+					<tr>
+						<th scope="col" width="13%">ガイダンスコード</th>
+						<th scope="col" width="34%">ガイダンステキスト</th>
+						<th scope="col" width="13%">遷移先</th>
+						<th scope="col" width="13%">オプション</th>
+						<th scope="col" width="13%">履修ポイント</th>
+						<th scope="col" width="14%">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	<div class="form-row">
+		<div class="form-group col-sm-12 text-center">
+			<button type="button" class="btn btn-outline-secondary mr-sm-2 pl-sm-4 pr-sm-4" onclick="back();">キャンセル</button>
+			<button type="submit" class="btn btn-primary mr-sm-2 pl-sm-4 pr-sm-4" data-toggle="modal" data-target="#modal2" disabled id="idSaveButton">更新する</button>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+
+<!-- ********************************* modal1 ********************************* -->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-body">
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idGuidanceKeycodeField">
+			<label for="idGuidanceKeycode">ガイダンスコード</label>
+			<input type="text" class="form-control" name="completionPointKeycode" id="idGuidanceKeycode" value="" th:maxlength="${length.guidanceKeycode}"/>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idGuidanceTextField">
+			<label for="idGuidanceText">ガイダンステキスト</label>
+			<textarea class="form-control" name="description" id="idGuidanceText" rows="5" th:maxlength="${length.guidanceText}"></textarea>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-info btn-variable" data-toggle="modal" data-target="#modal7">変数参照</button>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="create();">追加する</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal1 ********************************* -->
+
+
+<!-- ********************************* modal2 ********************************* -->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-body">
+データを更新します。<br/>本当によろしいですか？
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="save();">確定する</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal2 ********************************* -->
+
+<!-- ********************************* modal3 ********************************* -->
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-body">
+
+<input type="hidden" class="form-control" name="index" id="idIndex2" value=""/>
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idGuidanceKeycodeField2">
+			<label for="idGuidanceKeycode2">ガイダンスコード</label>
+			<input type="text" class="form-control" name="guidanceKeycode" id="idGuidanceKeycode2" value="" th:maxlength="${length.guidanceKeycode}"/>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idGuidanceTextField2">
+			<label for="idGuidanceText2">ガイダンステキスト</label>
+			<textarea class="form-control" name="guidanceText" id="idGuidanceText2" rows="5" th:maxlength="${length.guidanceText}"></textarea>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-info btn-variable" data-toggle="modal" data-target="#modal7">変数参照</button>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="update();">編集する</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal3 ********************************* -->
+
+<!-- ********************************* modal4 ********************************* -->
+<div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-body">
+
+<input type="hidden" class="form-control" name="index" id="idIndex3" value=""/>
+	<div class="form-row">
+
+		<div th:class="'form-group col-sm-2'" id="idHeightField">
+			<label for="idStartGuidance">開始</label>
+			<div class="form-check ml-2">
+			<input type="checkbox" class="form-check-input" name="startGuidance" id="idStartGuidance" value="true"/>
+			</div>
+		</div>
+
+		<div th:class="'form-group col-sm-3'" id="idHeightField">
+			<label for="idHeight">高さ</label>
+			<input type="text" class="form-control" name="height" id="idHeight" value="" th:maxlength="${length.guidanceHeight}"/>
+			<span class="alert-message"></span>
+		</div>
+		<div th:class="'form-group col-sm-3 d-flex align-items-end'" id="idHeightFieldUnit">
+		px
+		
+		<div class="form-group-frame ml-3">
+		<input type="checkbox" id="idFullHeight" name="fullHeight" style="margin-right:5px;" onchange="changeFullHeight();"><label class="form-check-label" for="idFullHeight">最大</label>
+		</div>
+		
+		</div>
+
+		<div th:class="'form-group col-sm-3'" id="idDelayMsField">
+			<label for="idDelayMs">開始遅延時間</label>
+			<input type="text" class="form-control" name="delayMs" id="idDelayMs" value="" th:maxlength="${length.guidanceDelayMs}"/>
+			<span class="alert-message"></span>
+		</div>
+		<div th:class="'form-group col-sm-1 d-flex align-items-end'" id="idDelayMsUnit">ms</div>
+	</div>
+		
+	<div class="form-row">
+		<div th:class="'form-group col-sm-2'">
+			<label for="idPositionCode">表示位置</label>
+			<div class="form-check ml-2">
+			<input type="checkbox" class="form-check-input" name="positionCode" id="idPositionCode" value="2"/><label for="idPositionCode">上部</label>
+			<span class="alert-message"></span>
+			</div>
+		</div>
+		<div th:class="'form-group col-sm-4'">
+			<label for="idBackgroundColor">背景色</label>
+			<input type="text" class="form-control simple_color" name="backgroundColor" id="idBackgroundColor" value="" th:maxlength="${length.guidanceBackgroundColor}" placeholder="#000000"/>
+			<span class="alert-message"></span>
+		</div>
+		<div th:class="'form-group col-sm-2'"></div>
+
+		<div th:class="'form-group col-sm-3'" id="idDrawingSpeedField">
+			<label for="idDrawingSpeed">表示速度</label>
+			<input type="text" class="form-control" name="drawingSpeed" id="idDrawingSpeed" value="" th:maxlength="${length.guidanceDrawingSpeed}"/>
+			<span class="alert-message"></span>
+		</div>
+		<div th:class="'form-group col-sm-1 d-flex align-items-end'" id="idDrawingSpeedUnit">ms</div>
+	</div>
+
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idPreScriptField">
+			<label for="idPreScriptName">前処理</label>
+			<input type="text" class="form-control" name="preScriptName" id="idPreScriptName" value="" th:maxlength="${length.guidanceScriptName}" placeholder="説明文を入力してください。"/>
+			<span class="alert-message a"></span>
+			<textarea class="form-control mb-1 mt-1" name="preScript" id="idPreScript" rows="5" th:maxlength="${length.guidanceScript}" placeholder="スクリプトを入力してください。"></textarea>
+			<div class="form-row">
+				<div th:class="'form-group col-sm-2  d-flex align-items-center'" id="idPreScriptDelayMsFieldLabel">開始遅延時間</div>
+				<div th:class="'form-group col-sm-4'" id="idPreScriptDelayMsField">
+				<input type="text" class="form-control" name="preScriptDelayMs" id="idPreScriptDelayMs" value="" th:maxlength="${length.guidanceScriptDelayMs}"/>
+				<span class="alert-message b"></span>
+				</div>
+				<div th:class="'form-group col-sm-1 d-flex align-items-end'" id="idPreScriptDelayMsFieldUnit">ms</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idPostScriptField">
+			<label for="idPostScriptName">後処理</label>
+			<input type="text" class="form-control" name="postScriptName" id="idPostScriptName" value="" th:maxlength="${length.guidanceScriptName}" placeholder="説明文を入力してください。"ｓ/>
+			<span class="alert-message a"></span>
+			<textarea class="form-control mb-1 mt-1" name="postScript" id="idPostScript" rows="5" th:maxlength="${length.guidanceScript}" placeholder="スクリプトを入力してください。"></textarea>
+			<div class="form-row">
+				<div th:class="'form-group col-sm-2  d-flex align-items-center'" id="idPostScriptDelayMsFieldLabel">開始遅延時間</div>
+				<div th:class="'form-group col-sm-4'" id="idPostScriptDelayMsField">
+				<input type="text" class="form-control" name="postScriptDelayMs" id="idPostScriptDelayMs" value="" th:maxlength="${length.guidanceScriptDelayMs}"/>
+				<span class="alert-message"></span>
+				</div>
+				<div th:class="'form-group col-sm-1 d-flex align-items-end'" id="idPostScriptDelayMsFieldUnit">ms</div>
+			</div>
+		</div>
+	</div>
+
+	<!--  div class="form-row">
+		<div th:class="'form-group col-sm-6'" id="idStartCompletionPointField">
+			<label for="idStartCompletionPointId">開始履修ポイント</label>
+			<select class="form-control" name="startCompletionPointId" id="idStartCompletionPointId"></select>
+			<span class="alert-message"></span>
+		</div>
+		<div th:class="'form-group col-sm-6'" id="idEndCompletionPointField">
+			<label for="idEndCompletionPointId">修了履修ポイント</label>
+			<select class="form-control" name="endCompletionPointId" id="idEndCompletionPointId"></select>
+			<span class="alert-message"></span>
+		</div>
+	</div -->
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-info btn-variable" data-toggle="modal" data-target="#modal7">変数参照</button>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="updateOption();">編集する</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal4 ********************************* -->
+
+
+<!-- ********************************* modal5 ********************************* -->
+<div class="modal fade" id="modal5" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<input type="hidden" class="form-control" name="index" id="idIndex4" value=""/>
+
+	<div class="form-row" th:each="i : ${#numbers.sequence(1,actionCount)}">
+
+
+		<div th:class="'form-group col-sm-12 mb-0'">
+			<hr th:if="${i > 1}" />
+
+			<label th:text="'遷移先' + ${i}"/>
+			<div class="form-row">
+				<div th:class="'form-group col-sm-4'">
+					<select class="form-control" th:id="'actionTypeCode' + ${i}" onchange="changeAction(this)">
+						<option value="">▽</option>
+						<option th:each="option : ${@actionTypeCode.list()}" th:value="${option.value}" th:text="${option.label}"/>
+					</select>
+				</div>
+				<div th:class="'form-group col-sm-8 action_label'" th:id="'actionLabel' + ${i} + 'Field'">
+					<input type="text" class="form-control" th:id="'actionLabel' + ${i}" placeholder="リンク名を入力してください。"/>
+					<span class="alert-message"></span>
+				</div>
+			</div>
+
+			<div class="form-row action_guidance">
+				<div th:class="'form-group col-sm-12  mb-0'" th:id="'actionGuidance' + ${i} + 'Field'">
+					<select class="form-control action_guidance" th:id="'actionGuidance' + ${i}"></select>
+					<span class="alert-message"></span>
+				</div>
+			</div>
+
+			<div class="form-row action_script">
+				<div th:class="'form-group col-sm-12  mb-0'" th:id="'actionScriptName' + ${i} + 'Field'">
+					<input type="text" class="form-control" th:id="'actionScriptName' + ${i}" placeholder="説明文を入力してください。"/>
+					<span class="alert-message"></span>
+					<textarea class="form-control mt-1" id="actionScript" rows="5" th:id="'actionScript' + ${i}" th:maxlength="${length.guidanceScript}" placeholder="スクリプトを入力してください。"></textarea>
+				</div>
+			</div>
+
+			<div class="form-row action_link" style="display:none;">
+				<div th:class="'form-group col-sm-12  mb-0'" th:id="'actionUrl' + ${i} + 'Field'">
+					<input type="text" class="form-control" th:id="'actionUrl' + ${i}" placeholder="URLを入力してください。"/>
+					<span class="alert-message"></span>
+					<div class="form-check mt-1">
+					<label class="mb-0"><input type="checkbox" th:id="'actionOpenWindow' + ${i}" class="form-check-input">別画面を開く</label>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-info btn-variable" data-toggle="modal" data-target="#modal7">変数参照</button>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="updateAction();">編集する</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal5 ********************************* -->
+
+
+
+<!-- ********************************* modal6 ********************************* -->
+<div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-body">
+
+<input type="hidden" class="form-control" name="index" id="idIndex5" value=""/>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idStartCompletionPointField">
+			<label for="idStartCompletionPointId">開始履修ポイント</label>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="sc" value="0" class="ml-2" id="idS0" checked onchange="changeStartCompletionPoint()"><label for="idS0" class="ml-2">なし</label>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="sc" value="1" class="ml-2" id="idS1" checked onchange="changeStartCompletionPoint()"><label for="idS1" class="ml-2">新規登録</label>
+		</div>
+		
+		<div th:class="'form-group col-sm-9'" id="idStartCompletionPointField1">
+			<input type="hidden" name="startCompletionPointId" id="idStartCompletionPointId"/>
+			<input type="text" class="form-control" name="startCompletionPointKeycode" id="idStartCompletionPointKeycode" value="" th:maxlength="${length.guidanceKeycode}" placeholder="履修ポイントコードを入力してください。"/>
+			<span class="alert-message keycode"></span>
+			<input type="text" class="form-control mt-2" name="startCompletionPointDescription" id="idStartCompletionPointDescription" value="" th:maxlength="${length.description}" placeholder="説明を入力してください。"/>
+			<span class="alert-message description"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="sc" value="2" class="ml-2" id="idS2" onchange="changeStartCompletionPoint()"><label for="idS2" class="ml-2">シナリオ内から選択</label>
+		</div>
+		<div th:class="'form-group col-sm-9'" id="idStartCompletionPointField2">
+			<select class="form-control" name="startCompletionPointId1" id="idStartCompletionPointId1"></select>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="sc" value="3" class="ml-2" id="idS3" onchange="changeStartCompletionPoint()"><label for="idS3" class="ml-2">全体から選択</label>
+		</div>
+		<div th:class="'form-group col-sm-9'" id="idStartCompletionPointField3">
+			<select class="form-control" name="startCompletionPointId2" id="idStartCompletionPointId2"></select>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'">
+			<hr/>
+			<label for="idEndCompletionPointId">修了履修ポイント</label>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="ec" value="0" id="idE0" class="ml-2" checked onchange="changeEndCompletionPoint()"><label for="idE0" class="ml-2">なし</label>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="ec" value="1" id="idE1" class="ml-2" checked onchange="changeEndCompletionPoint()"><label for="idE1" class="ml-2">新規登録</label>
+		</div>
+		
+		<div th:class="'form-group col-sm-9'" id="idEndCompletionPointField1">
+			<input type="hidden" name="endCompletionPointId" id="idEndCompletionPointId"/>
+			<input type="text" class="form-control" name="endCompletionPointKeycode" id="idEndCompletionPointKeycode" value="" th:maxlength="${length.guidanceKeycode}" placeholder="履修ポイントコードを入力してください。"/>
+			<span class="alert-message keycode"></span>
+			<input type="text" class="form-control mt-2" name="endCompletionPointDescription" id="idEndCompletionPointDescription" value="" th:maxlength="${length.guidanceKeycode}" placeholder="説明を入力してください。"/>
+			<span class="alert-message description"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="ec" value="2" id="idE2" class="ml-2" onchange="changeEndCompletionPoint()"><label for="idE2" class="ml-2">シナリオ内から選択</label>
+		</div>
+		<div th:class="'form-group col-sm-9'" id="idEndCompletionPointField2">
+			<select class="form-control" name="endCompletionPointId1" id="idEndCompletionPointId1"></select>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3'">
+			<input type="radio" name="ec" value="3" id="idE3" class="ml-2" onchange="changeEndCompletionPoint()"><label for="idE3" class="ml-2">全体から選択</label>
+		</div>
+		<div th:class="'form-group col-sm-9'" id="idEndCompletionPointField3">
+			<select class="form-control" name="endCompletionPointId2" id="idEndCompletionPointId2"></select>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+
+	<!--  div class="form-row">
+		<div th:class="'form-group col-sm-6'" id="idEndCompletionPointField">
+			<label for="idEndCompletionPointId">修了履修ポイント</label>
+			<select class="form-control" name="endCompletionPointId" id="idEndCompletionPointId"></select>
+			<span class="alert-message"></span>
+		</div>
+	</div -->
+</div>
+
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="updateCompletionPoint();">編集する</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal6 ********************************* -->
+
+<!-- ********************************* modal7 ********************************* -->
+<div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<p onclick="execCopy(this)" data-val="{CLIENT_NAME}" style="cursor:alias;">クライアント名：{CLIENT_NAME}</p>
+<p onclick="execCopy(this)" data-val="{SECURITY_TEAM_NAME}" style="cursor:alias;">セキュリティ対策組織名：{SECURITY_TEAM_NAME}</p>
+<p onclick="execCopy(this)" data-val="{SECURITY_TEAM_TEL}" style="cursor:alias;">セキュリティ対策組織TEL：{SECURITY_TEAM_TEL}</p>
+<p onclick="execCopy(this)" data-val="{SECURITY_TEAM_EMAIL}" style="cursor:alias;">セキュリティ対策組織Email：{SECURITY_TEAM_EMAIL}</p>
+<p onclick="execCopy(this)" data-val="{ACCOUNT}" style="cursor:alias;">ユーザーアカウント：{ACCOUNT}</p>
+<p onclick="execCopy(this)" data-val="{EMAIL}" style="cursor:alias;">ユーザーメールアドレス：{EMAIL}</p>
+<p onclick="execCopy(this)" data-val="{USER_FULLNAME}" style="cursor:alias;">ユーザー名：{USER_FULLNAME}</p>
+<p onclick="execCopy(this)" data-val="{USER_FAMILYNAME}" style="cursor:alias;">ユーザー名（性）：{USER_NAME}</p>
+<p onclick="execCopy(this)" data-val="{USER_GIVENNAME}" style="cursor:alias;">ユーザー名（名）：{USER_NAME}</p>
+<span class="small">※クリックするとクリップボードにコピーされます。</span>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal7 ********************************* -->
+
+
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+const back = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios/show/{scenarioId}(scenarioId=${scenario.id})}" /];
+};
+const list = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios}" /];
+};
+
+$(function(){
+	getGuidances();
+	[# th:each="i : ${#numbers.sequence(1,actionCount)}" ]
+	var editor1 = new Editor("actionScript" + [# th:text="${i}" /] );	
+	[/]
+	var editor10 = new Editor("idPreScript");	
+	var editor20 = new Editor("idPostScript");	
+
+});
+
+let startGuidanceId=null;
+let guidances = [];
+
+const getGuidances = () => {
+	$.getJSON([# th:text="@{/t06o1ny8/scenarios/guidance/list/{scenarioId}(scenarioId=${scenario.id})}" /])
+		.done(function(json) {
+			// 正常終了
+			guidances = json;
+
+			// Action数が足りない場合は埋める
+			for(let i=0; i<guidances.length; i++){
+				
+				if(guidances[i]["startCompletionPointId"] != null){
+					guidances[i]["startCompletionPointType"] = 2;	// シナリオ内
+				}
+				else{
+					guidances[i]["startCompletionPointType"] = 0;	// 新規
+				}
+
+				if(guidances[i]["endCompletionPointId"] != null){
+					guidances[i]["endCompletionPointType"] = 2;	// シナリオ内
+				}
+				else{
+					guidances[i]["endCompletionPointType"] = 0;	// 新規
+				}
+
+				if(guidances[i]["guidanceActions"] == null){
+					guidances[i]["guidanceActions"] = [];
+				}
+
+				for(let j = guidances[i]["guidanceActions"].length; j < parseInt([# th:text="${actionCount}" /]); j++){
+					guidances[i]["guidanceActions"].push({});
+				}
+			}
+
+			startGuidanceId = [# th:text="${#numbers.formatInteger(scenario.startGuidanceId, 1)}" /];
+			if(startGuidanceId != null){
+				startGuidanceId = parseInt(startGuidanceId);
+			}
+			
+			draw();
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			// エラー
+			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+			alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
+const save = () => {
+	
+	$('.global-attention-messages').hide();
+	$('.global-attention-messages').empty();
+	
+	guidances.sort(function(obj1, obj2){
+		return obj1["sortOrder"] - obj2["sortOrder"];
+	});
+
+	var formData = {};
+
+	formData["id"] = [# th:text="${scenario.id}" /];
+	
+	$.each(guidances, function(index, obj) {
+
+		formData['startGuidanceId'] = startGuidanceId;
+		formData['guidances[' + index + '].id'] = obj['id'];
+		formData['guidances[' + index + '].guidanceKeycode'] = obj['guidanceKeycode'];
+		formData['guidances[' + index + '].guidanceText'] = obj['guidanceText'];
+		formData['guidances[' + index + '].isDeleted'] = obj['isDeleted'];
+		formData['guidances[' + index + '].sortOrder'] = obj['sortOrder'];
+
+		formData['guidances[' + index + '].height'] = obj['height'];
+		formData['guidances[' + index + '].isFullHeight'] = obj['isFullHeight'];
+
+		formData['guidances[' + index + '].delayMs'] = obj['delayMs'];
+		formData['guidances[' + index + '].positionCode'] = (obj['positionCode'] != null ? obj['positionCode'] : 1);
+		formData['guidances[' + index + '].backgroundColor'] = obj['backgroundColor'];
+		formData['guidances[' + index + '].drawingSpeed'] = obj['drawingSpeed'];
+		
+		formData['guidances[' + index + '].preScriptName'] = obj['preScriptName'];
+		formData['guidances[' + index + '].preScript'] = obj['preScript'];
+		formData['guidances[' + index + '].preScriptDelayMs'] = obj['preScriptDelayMs'];
+		formData['guidances[' + index + '].postScriptName'] = obj['postScriptName'];
+		formData['guidances[' + index + '].postScript'] = obj['postScript'];
+		formData['guidances[' + index + '].postScriptDelayMs'] = obj['postScriptDelayMs'];
+
+		formData['guidances[' + index + '].startCompletionPointId'] = obj['startCompletionPointId'];
+		formData['guidances[' + index + '].endCompletionPointId'] = obj['endCompletionPointId'];
+		formData['guidances[' + index + '].startCompletionPointKeycode'] = obj['startCompletionPointKeycode'];
+		formData['guidances[' + index + '].endCompletionPointKeycode'] = obj['endCompletionPointKeycode'];
+		formData['guidances[' + index + '].startCompletionPointDescription'] = obj['startCompletionPointDescription'];
+		formData['guidances[' + index + '].endCompletionPointDescription'] = obj['endCompletionPointDescription'];
+		formData['guidances[' + index + '].startCompletionPointType'] = obj['startCompletionPointType'];
+		formData['guidances[' + index + '].endCompletionPointType'] = obj['endCompletionPointType'];
+
+		$.each(obj.guidanceActions, function(index2, guidanceAction) {
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].id'] = guidanceAction['id'];
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].label'] = guidanceAction['label'];
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].actionTypeCode'] = guidanceAction['actionTypeCode'];
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].nextGuidanceActionId'] = guidanceAction['nextGuidanceActionId'];
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].title'] = guidanceAction['title'];
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].body'] = guidanceAction['body'];
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].openWindowFlag'] = guidanceAction['openWindowFlag'];
+			formData['guidances[' + index + '].guidanceActions[' + index2 + '].sortOrder'] = guidanceAction['sortOrder'];
+		});
+	
+	});
+
+
+	$.post({
+		url : [# th:text="@{/t06o1ny8/scenarios/guidance/list/{scenarioId}(scenarioId=${scenario.id})}" /],
+		data : formData,
+		dataType: "json"
+	}).done(function(data, textStatus, jqXHR){
+		
+		if(data['errors'].length == 0){
+			// 成功の場合の処理
+			guidances = data['list'];
+			startGuidanceId = data['startGuidanceId'];
+			
+			// Action数が足りない場合は埋める
+			for(let i=0; i<guidances.length; i++){
+				if(guidances[i]["guidanceActions"] == null){
+					guidances[i]["guidanceActions"] = [];
+				}
+				for(let j = guidances[i]["guidanceActions"].length; j < parseInt([# th:text="${actionCount}" /]); j++){
+
+					if(guidances[i]["startCompletionPointId"] != null){
+						guidances[i]["startCompletionPointType"] = 2;	// シナリオ内
+					}
+					else{
+						guidances[i]["startCompletionPointType"] = 0;	// 新規
+					}
+
+					if(guidances[i]["endCompletionPointId"] != null){
+						guidances[i]["endCompletionPointType"] = 2;	// シナリオ内
+					}
+					else{
+						guidances[i]["endCompletionPointType"] = 0;	// 新規
+					}
+
+					if(guidances[i]["guidanceActions"] == null){
+						guidances[i]["guidanceActions"] = [];
+					}
+
+					guidances[i]["guidanceActions"].push({});
+				}
+			}
+
+			draw();
+			
+			$('#idSaveButton').prop('disabled', 'true');
+		}
+		else{
+			// 入力エラー
+			for(var i=0; i < data['errors'].length; i++){
+				$('.global-attention-messages').append('<p>' +  data['errors'][i]['value'] + '</p>');
+				$('.global-attention-messages').show();
+			}
+		}
+		$('#modal2').modal('hide');
+
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	
+	});
+}
+
+const draw = () => {
+
+	$('#idGuidanceTable tbody').empty();
+
+	guidances.sort(function(obj1, obj2){
+		return obj1["sortOrder"] - obj2["sortOrder"];
+	});
+
+	var viewList = [];
+	$.each(guidances, function(index, obj) {
+		if(!obj["isDeleted"]){
+			obj.index = index;
+			viewList.push(obj);
+		}
+	});
+	
+	
+	$.each(viewList, function(index, obj) {
+		if(!obj["isDeleted"]){
+			const $tr = $('<tr></tr>').appendTo('#idGuidanceTable tbody');
+			const $td1 = $('<td></td>').appendTo($tr);
+			const $td2 = $('<td class="_small"></td>').appendTo($tr);
+			const $td3 = $('<td class="_small"></td>').appendTo($tr);
+			const $td4 = $('<td class="_small"></td>').appendTo($tr);
+			const $td5 = $('<td class="_small"></td>').appendTo($tr);
+			const $td6 = $('<td></td>').appendTo($tr);
+			$td1.html('<a href="javascript:void(0);" onclick="edit(' + obj.index + ');" class="cell1">' + hbr(obj["guidanceKeycode"]) + '</a>');
+			$td2.html('<a href="javascript:void(0);" onclick="edit(' + obj.index + ');" class="cell2">' + hbr(obj["guidanceText"]) + '</a>');
+
+			
+			var html = "";
+			if(obj['guidanceActions'] != null && obj['guidanceActions'].length > 0){
+				for(let i=0; i<obj['guidanceActions'].length; i++){
+					if(obj['guidanceActions'][i]['actionTypeCode'] != null){
+						if(html != ''){
+							html += '<br/>';
+						}
+						
+						html += h(obj['guidanceActions'][i]['label']);
+						if(obj['guidanceActions'][i]['actionTypeCode'] == parseInt([# th:text="${@actionTypeCode.guidance}" /])){
+							for(let j = 0; j < guidances.length; j++){
+								if(guidances[j]['id'] == obj['guidanceActions'][i]['nextGuidanceActionId']){
+									html += ' (' + guidances[j]['guidanceKeycode'] + ')';
+									break;
+								}
+							}
+						}
+						else if(obj['guidanceActions'][i]['actionTypeCode'] == parseInt([# th:text="${@actionTypeCode.script}" /])){
+							html += ' (' + obj['guidanceActions'][i]['title'] + ')';
+						}
+						else if(obj['guidanceActions'][i]['actionTypeCode'] == parseInt([# th:text="${@actionTypeCode.link}" /])){
+							html += ' (リンク)';
+						}
+						else if(obj['guidanceActions'][i]['actionTypeCode'] == parseInt([# th:text="${@actionTypeCode.max}" /])){
+							html += ' (最大化)';
+						}
+						else if(obj['guidanceActions'][i]['actionTypeCode'] == parseInt([# th:text="${@actionTypeCode.end}" /])){
+							html += ' (訓練終了)';
+						}
+					}
+				}
+			}
+			if(html == ''){
+				html = '設定なし';
+			}
+			$td3.html('<a href="javascript:void(0);" onclick="editAction(' + obj.index + ');" class="cell3">' + html + '</a>');
+
+			html = '';
+			if(obj['id'] == startGuidanceId){
+				html += html != '' ? '<br/>' : '';
+				html += '開始ガイダンス';
+			}
+			if(obj['isFullHeight'] != null && obj['isFullHeight']){
+				html += html != '' ? '<br/>' : '';
+				html += '高さ ： 最大';
+			}
+			else if(obj['height'] != null){
+				html += html != '' ? '<br/>' : '';
+				html += '高さ ： ' + h(obj['height']) + 'px';
+			}
+			if(obj['delayMs'] != null){
+				html += html != '' ? '<br/>' : '';
+				html += '開始遅延時間 ： ' + h(obj['delayMs']) + 'ms';
+			}
+
+			if(obj['positionCode'] != null && obj['positionCode'] == 2){
+				html += html != '' ? '<br/>' : '';
+				html += '表示位置 ： 上部';
+			}
+			
+			if(obj['backgroundColor'] != null && obj['backgroundColor'] != ''){
+				html += html != '' ? '<br/>' : '';
+				html += '背景色： ' + h(obj['backgroundColor']);
+			}
+
+			if(obj['drawingSpeed'] != null){
+				html += html != '' ? '<br/>' : '';
+				html += '表示速度： ' + h(obj['drawingSpeed']);
+			}
+
+			if(obj['preScriptName'] != null && obj['preScriptName'] != ''){
+				html += html != '' ? '<br/>' : '';
+				html += h(obj['preScriptName']);
+			}
+
+			if(obj['postScriptName'] != null && obj['postScriptName'] != ''){
+				html += html != '' ? '<br/>' : '';
+				html += h(obj['postScriptName']);
+			}
+			if(html == ''){
+				html = '設定なし';
+			}
+			$td4.html('<a href="javascript:void(0);" onclick="editOption(' + obj.index + ');" class="cell4">' + html + '</a>');
+
+			html = '';
+			if(obj['startCompletionPointId'] != null){
+				html += html != '' ? '<br/>' : '';
+				html += '開始 ： ' + h(obj['startCompletionPointKeycode'] == null ? '' : obj['startCompletionPointKeycode']);
+			}
+			if(obj['endCompletionPointId'] != null){
+				html += html != '' ? '<br/>' : '';
+				html += '修了 ： ' + h(obj['endCompletionPointKeycode'] == null ? '' : obj['endCompletionPointKeycode']);
+			}
+			if(html == ''){
+				html = '設定なし';
+			}
+			$td5.html('<a href="javascript:void(0);" onclick="editCompletionPoint(' + obj.index + ');" class="cell5">' + html + '</a>');
+			
+			
+			if(index == 0){
+				// $td3.html("top");<i class="far fa-times-circle"></i>
+				$td6.append('<i class="far fa-arrow-alt-circle-up invisible"></i>');
+				$td6.append('<i class="far fa-arrow-alt-circle-down" onclick="down(' + obj.index + ');"></i>');
+				$td6.append('<i class="far fa-times-circle" onclick="del(' + obj.index + ');"></i>');
+				
+			}
+			else if(viewList.length - 1 == index){
+				// $td3.html("bottom");
+				$td6.append('<i class="far fa-arrow-alt-circle-up" onclick="up(' + obj.index + ');"></i>');
+				$td6.append('<i class="far fa-arrow-alt-circle-down invisible"></i>');
+				$td6.append('<i class="far fa-times-circle" onclick="del(' + obj.index + ');"></i>');
+			}
+			else{
+				// $td3.html("midd");
+				$td6.append('<i class="far fa-arrow-alt-circle-up" onclick="up(' + obj.index + ');"></i>');
+				$td6.append('<i class="far fa-arrow-alt-circle-down" onclick="down(' + obj.index + ');"></i>');
+				$td6.append('<i class="far fa-times-circle" onclick="del(' + obj.index + ');"></i>');
+			}
+		}
+	});
+	
+	$('table.table tr td a, table.table tr th a').hover(
+			function(){
+				if($(this).hasClass('cell1') || $(this).hasClass('cell2')){
+					$(this).parent().parent().find("a.cell1,a.cell2").addClass('hover');
+				}
+				if($(this).hasClass('cell3')){
+					$(this).parent().parent().find("a.cell3").addClass('hover');
+				}
+				if($(this).hasClass('cell4')){
+					$(this).parent().parent().find("a.cell4").addClass('hover');
+				}
+				if($(this).hasClass('cell5')){
+					$(this).parent().parent().find("a.cell5").addClass('hover');
+				}
+			},
+			function(){
+				$(this).parent().parent().find("a").removeClass('hover');
+			}
+	);
+}
+
+const newInput = () =>{
+	$('#idGuidanceKeycodeField').removeClass('form-attention');
+	$('#idGuidanceTextField').removeClass('form-attention');
+	$('#idGuidanceKeycode').val(nextGuidanceKeycode());
+	$('#idGuidanceText').val('');
+	$('#modal1').modal('show');
+}
+
+const create = () => {
+	$('#idGuidanceKeycodeField').removeClass('form-attention');
+	$('#idGuidanceTextField').removeClass('form-attention');
+
+	const guidanceKeycode = $('#idGuidanceKeycode').val();
+	const guidanceText = $('#idGuidanceText').val();
+
+	// リスト内重複チェック
+	for(var i=0; i<=guidances.length - 1; i++){
+		if(guidances[i]["guidanceKeycode"] == guidanceKeycode){
+			$('#idGuidanceKeycodeField').addClass('form-attention');
+			$('#idGuidanceKeycodeField span').text( [# th:text="#{javax.validation.constraints.Duplidate.message( #{guidanceKeycode} )}" /] );
+			return ;
+		}
+	}
+	
+	var formData = {};
+	formData['guidanceKeycode'] = guidanceKeycode;
+	formData['guidanceText'] = guidanceText;
+
+	
+	$.post({
+		url : [# th:text="@{/t06o1ny8/scenarios/guidance/validate/{scenarioId}(scenarioId=${scenario.id})}" /],
+		data : formData,
+		dataType: "json"
+	}).done(function(data, textStatus, jqXHR){
+
+		if(data.length == 0){
+			// エラーなし
+			$('#idGuidanceKeycode').val('');
+			$('#idGuidanceText').val('');
+
+			let maxSortOrder = 0;
+			$.each(guidances, function(index, obj) {
+				if(obj["sortOrder"] >= maxSortOrder){
+					maxSortOrder = obj["sortOrder"] + 1;
+				}
+			});
+
+			// 仮のIDを発行（マイナス値）
+			const id = (new Date()).getTime() * -1;
+			let guidance = { 
+											id : id, 
+											guidanceKeycode : guidanceKeycode, 
+											guidanceText : guidanceText, 
+											sortOrder : maxSortOrder, 
+											isDeleted:false, 
+											height:null, 
+											delayMs:null, 
+											positionCode:null, 
+											backgroundColor:null, 
+											drawingSpeed:null, 
+											preScriptName:null, 
+											preScript:null, 
+											preScriptDelayMs:null, 
+											postScriptName:null, 
+											postScript:null, 
+											postScriptDelayMs:null, 
+											guidanceActions:[],
+											startCompletionPointType:0,
+											startCompletionPointId:null, 
+											startCompletionPointKeycode:null, 
+											endCompletionPointType:0,
+											endCompletionPointId:null, 
+											endCompletionPointKeycode:null
+										};
+			[# th:each="i : ${#numbers.sequence(1,actionCount)}" ]
+			guidance.guidanceActions.push({sortOrder : parseInt([# th:text="${i}" /])});
+			[/]
+
+			if(startGuidanceId == null){
+				startGuidanceId = id;
+			}
+
+			guidances.push(guidance);
+
+			draw();
+
+			$('#idSaveButton').prop('disabled', '');
+			$('#modal1').modal('hide');
+		}
+		else{
+			// エラーあり
+			for(var i=0; i<data.length; i++){
+				if(data[i]["key"] == 'guidanceKeycode'){
+					$('#idGuidanceKeycodeField').addClass('form-attention');
+					$('#idGuidanceKeycodeField span').text(data[i]["value"]);
+				}
+				if(data[i]["key"] == 'description'){
+					$('#idGuidanceTextField').addClass('form-attention');
+					$('#idGuidanceTextField span').text(data[i]["value"]);
+				}
+			}
+		}
+
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+
+}
+
+const down = (index) => {
+	
+	// バックサーチして指定のindexの一個上に移動する
+	// 削除済みはとばす
+	var count = guidances.length - 1;
+	var find = false;
+	var target = null;
+	
+	for(var i=0; i<=guidances.length - 1; i++){
+		if(i ==index){
+			find = true;
+			target = guidances[i];
+		}
+		else{
+			guidances[i]["sortOrder"] = count;
+			count++;
+			
+			if(find && !guidances[i]['isDeleted']){
+				target["sortOrder"] = count;
+				count++;
+				find = false;
+			}
+		}
+	}
+	if(find){
+		target["sortOrder"] = count;
+	}
+	$('#idSaveButton').prop('disabled', '');
+	draw();
+	
+}
+
+const up = (index) => {
+	
+	// バックサーチして指定のindexの一個上に移動する
+	// 削除済みはとばす
+	var count = guidances.length - 1;
+	var find = false;
+	var target = null;
+	
+	for(var i=guidances.length - 1; i>=0; i--){
+		if(i ==index){
+			find = true;
+			target = guidances[i];
+		}
+		else{
+			guidances[i]["sortOrder"] = count;
+			count--;
+			
+			if(find && !guidances[i]['isDeleted']){
+				target["sortOrder"] = count;
+				count--;
+				find = false;
+			}
+		}
+	}
+	if(find){
+		target["sortOrder"] = count;
+	}
+	$('#idSaveButton').prop('disabled', '');
+	draw();
+}
+
+const del = (index) => {
+	
+	var targetId = null;
+	for(var i=0; i<=guidances.length - 1; i++){
+		if(i ==index){
+			guidances[i]['isDeleted']=true;
+			targetId = guidances[i]['id'];
+		}
+	}
+
+	// リンク先に設定されている場合は削除
+	for(var i=0; i<=guidances.length - 1; i++){
+		for(var j=0; j < guidances[i]['guidanceActions'].length; j++){
+			if(targetId == guidances[i]['guidanceActions'][j]['nextGuidanceActionId']){
+				guidances[i]['guidanceActions'][j]['actionTypeCode'] = null;
+				guidances[i]['guidanceActions'][j]['nextGuidanceActionId'] = null;
+			}
+		}
+	}
+	
+	// 新規の履修ポイントが設定されている場合は削除
+	let deleteCompletionPointId1 = null;
+	if(guidances[parseInt(index)]["startCompletionPointType"] == 1 && guidances[parseInt(index)]["startCompletionPointId"] != null){
+		if(parseInt(startCompletionPointType) == 2 || parseInt(startCompletionPointType) == 3 || (parseInt(startCompletionPointType) == 1 && startCompletionPointKeycode == '')){
+			deleteCompletionPointId1 = guidances[parseInt(index)]["startCompletionPointId"];
+		}
+	}
+	let deleteCompletionPointId2 = null;
+	if(guidances[parseInt(index)]["endCompletionPointType"] == 1 && guidances[parseInt(index)]["endCompletionPointId"] != null){
+		if(parseInt(endCompletionPointType) == 2 || parseInt(endCompletionPointType) == 3 || (parseInt(endCompletionPointType) == 1 && endCompletionPointKeycode == '')){
+			deleteCompletionPointId2 = guidances[parseInt(index)]["endCompletionPointId"];
+		}
+	}
+	if(deleteCompletionPointId1 != null){
+		for(let i=0; i<guidances.length; i++){
+			if(guidances[i]["startCompletionPointId"] == deleteCompletionPointId1){
+				guidances[i]["startCompletionPointType"] = 1;
+				guidances[i]["startCompletionPointId"] = null;
+				guidances[i]["startCompletionPointKeycode"] = null;
+				guidances[i]["startCompletionPointDescription"] = null;
+			}
+			if(guidances[i]["endCompletionPointId"] == deleteCompletionPointId1){
+				guidances[i]["endCompletionPointType"] = 1;
+				guidances[i]["endCompletionPointId"] = null;
+				guidances[i]["endCompletionPointKeycode"] = null;
+				guidances[i]["endCompletionPointDescription"] = null;
+			}
+		}
+	}
+	if(deleteCompletionPointId2 != null){
+		for(let i=0; i<guidances.length; i++){
+			if(guidances[i]["startCompletionPointId"] == deleteCompletionPointId2){
+				guidances[i]["startCompletionPointType"] = 1;
+				guidances[i]["startCompletionPointId"] = null;
+				guidances[i]["startCompletionPointKeycode"] = null;
+				guidances[i]["startCompletionPointDescription"] = null;
+			}
+			if(guidances[i]["endCompletionPointId"] == deleteCompletionPointId2){
+				guidances[i]["endCompletionPointType"] = 1;
+				guidances[i]["endCompletionPointId"] = null;
+				guidances[i]["endCompletionPointKeycode"] = null;
+				guidances[i]["endCompletionPointDescription"] = null;
+			}
+		}
+	}
+	
+	
+	
+	
+	if(startGuidanceId == targetId){
+		startGuidanceId = null;
+	}
+
+	$('#idSaveButton').prop('disabled', '');
+	draw();
+}
+
+const edit = (index) => {
+	var target = null
+	for(var i=0; i<=guidances.length - 1; i++){
+		if(i ==index){
+			target = guidances[i];
+		}
+	}	
+
+	$('#idGuidanceKeycodeField2').removeClass('form-attention');
+	$('#idGuidanceTextField2').removeClass('form-attention');
+
+	$('#idGuidanceKeycode2').val(target['guidanceKeycode']);
+	$('#idGuidanceText2').val(target['guidanceText']);
+	$('#idIndex2').val(index);
+	$('#modal3').modal('show');
+}
+
+const update = () => {
+
+	$('#idGuidanceKeycodeField2').removeClass('form-attention');
+	$('#idGuidanceTextField2').removeClass('form-attention');
+
+	var guidanceKeycode = $('#idGuidanceKeycode2').val();
+	var guidanceText = $('#idGuidanceText2').val();
+	var index = $('#idIndex2').val();
+	
+	
+	// リスト内重複チェック
+	for(var i=0; i<=guidances.length - 1; i++){
+		if(i != parseInt(index) && guidances[i]["guidanceKeycode"] == guidanceKeycode){
+			$('#idGuidanceKeycodeField2').addClass('form-attention');
+			$('#idGuidanceKeycodeField2 span').text( [# th:text="#{javax.validation.constraints.Duplidate.message( #{completionPointKeycode} )}" /] );
+			return ;
+		}
+	}
+
+	var formData = {};
+	formData['guidanceKeycode'] = guidanceKeycode;
+	formData['guidanceText'] = guidanceText;
+	formData['id'] = guidances[parseInt(index)]['id'];
+
+	$.post({
+		url : [# th:text="@{/t06o1ny8/scenarios/guidance/validate/{scenarioId}(scenarioId=${scenario.id})}" /],
+		data : formData,
+		dataType: "json"
+	}).done(function(data, textStatus, jqXHR){
+
+		if(data.length == 0){
+			// エラーなし
+			$('#idGuidanceKeycode2').val('');
+			$('#idGuidanceText2').val('');
+
+			guidances[parseInt(index)]["guidanceKeycode"] = guidanceKeycode;
+			guidances[parseInt(index)]["guidanceText"] = guidanceText;
+
+			draw();
+
+			$('#idSaveButton').prop('disabled', '');
+			$('#modal3').modal('hide');
+
+		}
+		else{
+			// エラーあり
+			for(var i=0; i<data.length; i++){
+				if(data[i]["key"] == 'guidanceKeycode'){
+					$('#idGuidanceKeycodeField2').addClass('form-attention');
+					$('#idGuidanceKeycodeField2 span').text(data[i]["value"]);
+				}
+				if(data[i]["key"] == 'guidanceText'){
+					$('#idGuidanceTextField2').addClass('form-attention');
+					$('#idGuidanceTextField2 span').text(data[i]["value"]);
+				}
+			}
+		}
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
+const nextGuidanceKeycode = () => {
+	let ret = '';
+	let base = [# th:text="${scenario.scenarioKeycode}" /];
+
+	for(let i = 1; i < 99; i++){
+		let keycode = base + '#' + ( '000' + (i * 10) ).slice( -3 );
+	
+		let find = false;
+		for(let j = 0; j < guidances.length; j++){
+			if(guidances[j]["guidanceKeycode"] == keycode){
+				find = true;
+				break;
+			}
+		}
+		if(!find){
+			ret = keycode;
+			break;
+		}
+	}
+	return ret;	
+}
+
+const nextCompletionPointKeycode = () => {
+	let ret = '';
+	let base = [# th:text="${scenario.scenarioKeycode}" /];
+
+	for(let i = 1; i < 99; i++){
+		let keycode = base + '$' + ( '000' + (i * 10) ).slice( -3 );
+		let find = false;
+		for(let j = 0; j < guidances.length; j++){
+			
+			if(guidances[i] != null && (guidances[i]['startCompletionPointKeycode'] == keycode || guidances[i]['endCompletionPointKeycode'] == keycode)){
+				find = true;
+				break;
+			}
+			else if($('#idStartCompletionPointKeycode').val() == keycode || $('#idEndCompletionPointKeycode').val() == keycode){
+				find = true;
+				break;
+			}
+		}
+		if(!find){
+			ret = keycode;
+			break;
+		}
+	}
+	return ret;	
+}
+
+const editOption = (index) =>{
+
+//	$.getJSON([# th:text="@{/t06o1ny8/scenarios/completion/list/{scenarioId}(scenarioId=${scenario.id})}" /])
+//		.done(function(json) {
+			// 正常終了
+
+			/*
+			$('#idStartCompletionPointId').empty();
+			$('#idStartCompletionPointId').append('<option value="">▽</option>');
+			for(var i=0; i<json.length; i++){
+				$('#idStartCompletionPointId').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+			}
+
+			$('#idEndCompletionPointId').empty();
+			$('#idEndCompletionPointId').append('<option value="">▽</option>');
+			for(var i=0; i<json.length; i++){
+				$('#idEndCompletionPointId').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+			}
+			*/
+
+			// エラーのクリア
+			$('#idHeightField').removeClass('form-attention');
+			$('#idDelayMsField').removeClass('form-attention');
+			$('#idPreScriptField').removeClass('form-attention');
+			$('#idPostScriptField').removeClass('form-attention');
+			$('#idPreScriptDelayMsField').removeClass('form-attention');
+			$('#idPostScriptDelayMsField').removeClass('form-attention');
+			$('#idPositionCodeField').removeClass('form-attention');
+			$('#idBackgroundColorField').removeClass('form-attention');
+			$('#idDrawingSpeedField').removeClass('form-attention');
+			
+			//			$('#idStartCompletionPointField').removeClass('form-attention');
+//			$('#idEndCompletionPointField').removeClass('form-attention');
+			$('#idHeightFieldUnit').removeClass('pb-4');
+			$('#idDelayMsUnit').removeClass('pb-4');	
+			$('#idDrawingSpeedField').removeClass('pb-4');
+			$('#idPreScriptDelayMsFieldUnit').removeClass('pb-4');
+			$('#idPreScriptDelayMsFieldLabel').removeClass('pb-4');
+			$('#idPostScriptDelayMsFieldUnit').removeClass('pb-4');
+			$('#idPostScriptDelayMsFieldLabel').removeClass('pb-4');
+
+			$('#idPreScriptField span.a').text('');
+			$('#idPreScriptField span.b').text('');
+			$('#idPostScriptField span.a').text('');
+			$('#idPostScriptField span.b').text('');
+
+
+			if(guidances[index]['id']==startGuidanceId){
+				$('#idStartGuidance').prop('checked', true);
+			}
+			else{
+				$('#idStartGuidance').prop('checked', false);
+			}
+			
+			$('#idHeight').val(guidances[index]['height']);
+			if(guidances[index]['isFullHeight'] != null && guidances[index]['isFullHeight']){
+				$('#idFullHeight').prop('checked', true);
+				$('#idHeight').prop('disabled', true);
+			}
+			else{
+				$('#idFullHeight').prop('checked', false);
+				$('#idHeight').prop('disabled', false);
+			}
+			$('#idDelayMs').val(guidances[index]['delayMs']);
+			
+			
+			if(guidances[index]['positionCode']==2){
+				$('#idPositionCode').prop('checked', true);
+			}
+			else{
+				$('#idPositionCode').prop('checked', false);
+			}
+			$('#idBackgroundColor').val(guidances[index]['backgroundColor']);
+			$('#idDrawingSpeed').val(guidances[index]['drawingSpeed']);
+			$('#idPreScriptName').val(guidances[index]['preScriptName']);
+			$('#idPreScript').val(guidances[index]['preScript']);
+			$('#idPreScriptDelayMs').val(guidances[index]['preScriptDelayMs']);
+			$('#idPostScriptName').val(guidances[index]['postScriptName']);
+			$('#idPostScript').val(guidances[index]['postScript']);
+			$('#idPostScriptDelayMs').val(guidances[index]['postScriptDelayMs']);
+//			$('#idStartCompletionPointId').val(guidances[index]['startCompletionPointId']);
+//			$('#idEndCompletionPointId').val(guidances[index]['endCompletionPointId']);
+
+			$('#idIndex3').val(index);
+
+			$('#modal4').modal('show');
+//		})
+//		.fail(function(jqXHR, textStatus, errorThrown) {
+//			// エラー
+//			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+//			alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+//			return;
+//	});
+}
+
+const updateOption = () =>{
+
+	// エラーのクリア
+	$('#idHeightField').removeClass('form-attention');
+	$('#idDelayMsField').removeClass('form-attention');
+	$('#idPreScriptField').removeClass('form-attention');
+	$('#idPostScriptField').removeClass('form-attention');
+	$('#idPreScriptDelayMsField').removeClass('form-attention');
+	$('#idPostScriptDelayMsField').removeClass('form-attention');
+	$('#idPositionCodeField').removeClass('form-attention');
+	$('#idBackgroundColorField').removeClass('form-attention');
+	$('#idDrawingSpeedField').removeClass('form-attention');
+
+	//	$('#idStartCompletionPointField').removeClass('form-attention');
+//	$('#idEndCompletionPointField').removeClass('form-attention');
+	$('#idHeightFieldUnit').removeClass('pb-4');
+	$('#idDelayMsUnit').removeClass('pb-4');
+	$('#idDrawingSpeedField').removeClass('pb-4');
+	$('#idPreScriptDelayMsFieldUnit').removeClass('pb-4');
+	$('#idPreScriptDelayMsFieldLabel').removeClass('pb-4');
+	$('#idPostScriptDelayMsFieldUnit').removeClass('pb-4');
+	$('#idPostScriptDelayMsFieldLabel').removeClass('pb-4');
+	$('#idPreScriptField span.a').text('');
+	$('#idPreScriptField span.b').text('');
+	$('#idPostScriptField span.a').text('');
+	$('#idPostScriptField span.b').text('');
+	
+	var index = $('#idIndex3').val();
+	var height = $('#idHeight').val();
+	var isFullHeight = $('#idFullHeight').prop('checked');
+	var delayMs = $('#idDelayMs').val();
+	var isTopPosition = $('#idPositionCode').prop('checked')
+	var backgroundColor = $('#idBackgroundColor').val();
+	var drawingSpeed = $('#idDrawingSpeed').val();
+	var preScriptName = $('#idPreScriptName').val();
+	var preScript = $('#idPreScript').val();
+	var preScriptDelayMs = $('#idPreScriptDelayMs').val();
+	var postScriptName = $('#idPostScriptName').val();
+	var postScript = $('#idPostScript').val();
+	var postScriptDelayMs = $('#idPostScriptDelayMs').val();
+//	var startCompletionPointId = $('#idStartCompletionPointId').val();
+//	var endCompletionPointId = $('#idEndCompletionPointId').val();
+
+//	var startCompletionPointKeycode = $('#idStartCompletionPointId option:selected').data('label');
+//	var endCompletionPointKeycode = $('#idEndCompletionPointId option:selected').data('label');
+
+
+	// 入力チェック
+	// サーバーチェックまでは不要なのでJavascriptのみでチェックする
+	let error = false;
+	if(height != null && height != '' && !isNum(height)){
+		$('#idHeightField').addClass('form-attention');
+		$('#idHeightField span').text( [# th:text="#{javax.validation.constraints.Pattern.number.message}" /] );
+		$('#idHeightFieldUnit').addClass('pb-4');	// 高さ合わせ
+		error = true;
+	}
+
+	if(delayMs != null && delayMs != '' && !isNum(delayMs)){
+		$('#idDelayMsField').addClass('form-attention');
+		$('#idDelayMsField span').text( [# th:text="#{javax.validation.constraints.Pattern.number.message}" /] );
+		$('#idDelayMsUnit').addClass('pb-4');	// 高さ合わせ
+		error = true;
+	}
+
+	if(drawingSpeed != null && drawingSpeed != '' && !isNum(drawingSpeed)){
+		$('#idDrawingSpeedField').addClass('form-attention');
+		$('#idDrawingSpeedField span').text( [# th:text="#{javax.validation.constraints.Pattern.number.message}" /] );
+		$('#idDrawingSpeedField').addClass('pb-4');	// 高さ合わせ
+		error = true;
+	}
+
+	if((preScript != null && preScript != '') && (preScriptName == null || preScriptName == '')){
+		$('#idPreScriptField').addClass('form-attention');
+		$('#idPreScriptField span.a').text( [# th:text="#{javax.validation.constraints.NotBlank.message( #{preScriptName} )}" /] );
+		error = true;
+	}
+
+	if((postScript != null && postScript != '') && (postScriptName == null || postScriptName == '')){
+		$('#idPostScriptField').addClass('form-attention');
+		$('#idPostScriptField span.a').text( [# th:text="#{javax.validation.constraints.NotBlank.message( #{postScriptName} )}" /] );
+		error = true;
+	}
+	
+	if(preScriptDelayMs != null && preScriptDelayMs != '' && !isNum(preScriptDelayMs)){
+		$('#idPreScriptDelayMsField').addClass('form-attention');
+		$('#idPreScriptDelayMsField span.b').text( [# th:text="#{javax.validation.constraints.Pattern.number.message}" /] );
+		$('#idPreScriptDelayMsFieldUnit').addClass('pb-4');	// 高さ合わせ
+		$('#idPreScriptDelayMsFieldLabel').addClass('pb-4');	// 高さ合わせ
+		error = true;
+	}
+
+	if(postScriptDelayMs != null && postScriptDelayMs != '' && !isNum(postScriptDelayMs)){
+		$('#idPostScriptDelayMsField').addClass('form-attention');
+		$('#idPostScriptDelayMsField span.b').text( [# th:text="#{javax.validation.constraints.Pattern.number.message}" /] );
+		$('#idPostScriptDelayMsFieldUnit').addClass('pb-4');	// 高さ合わせ
+		$('#idPostScriptDelayMsFieldLabel').addClass('pb-4');	// 高さ合わせ
+		error = true;
+	}
+
+	if(error){
+		return;
+	}
+	
+	
+	var _startGuidanceId = $('#idStartGuidance').prop('checked');
+	if(_startGuidanceId){
+		startGuidanceId = guidances[parseInt(index)]['id'];
+	}
+	else{
+		if(startGuidanceId == guidances[parseInt(index)]['id']){
+			startGuidanceId = null;
+		}
+	}
+
+	guidances[parseInt(index)]["height"] = (height == '' ? null : parseInt(height));
+	guidances[parseInt(index)]["isFullHeight"] = isFullHeight;
+	guidances[parseInt(index)]["delayMs"] = (delayMs == '' ? null : parseInt(delayMs));
+	guidances[parseInt(index)]["positionCode"] = isTopPosition ? 2 : 1;
+	guidances[parseInt(index)]["backgroundColor"] = backgroundColor;
+	guidances[parseInt(index)]["drawingSpeed"] = (drawingSpeed == '' ? null : parseInt(drawingSpeed));
+	guidances[parseInt(index)]["preScriptName"] = (preScriptName == '' ? null : preScriptName);
+	guidances[parseInt(index)]["preScript"] = (preScript == '' ? null : preScript);
+	guidances[parseInt(index)]["preScriptDelayMs"] = (preScriptDelayMs == '' ? null : parseInt(preScriptDelayMs));
+	guidances[parseInt(index)]["postScriptName"] = (postScriptName == '' ? null : postScriptName);
+	guidances[parseInt(index)]["postScript"] = (postScript == '' ? null : postScript);
+	guidances[parseInt(index)]["postScriptDelayMs"] = (postScriptDelayMs == '' ? null : parseInt(postScriptDelayMs));
+//	guidances[parseInt(index)]["startCompletionPointId"] = (startCompletionPointId == '' ? null : parseInt(startCompletionPointId));
+//	guidances[parseInt(index)]["endCompletionPointId"] = (endCompletionPointId == '' ? null : parseInt(endCompletionPointId));
+//	guidances[parseInt(index)]["startCompletionPointKeycode"] = (startCompletionPointKeycode == '' ? null : startCompletionPointKeycode);
+//	guidances[parseInt(index)]["endCompletionPointKeycode"] = (endCompletionPointKeycode == '' ? null : endCompletionPointKeycode);
+	
+	draw();
+
+	$('#idSaveButton').prop('disabled', '');
+	$('#modal4').modal('hide');
+}
+
+
+const editAction = (index) =>{
+
+	[# th:each="i : ${#numbers.sequence(1,actionCount)}" ]
+	$('#actionLabel' + [# th:text="${i}" /] + 'Field').removeClass('form-attention');
+	$('#actionScriptName' + [# th:text="${i}" /] + 'Field').removeClass('form-attention');
+	$('#actionUrl' + [# th:text="${i}" /] + 'Field').removeClass('form-attention');
+	[/]
+	
+	$('select.action_guidance').empty();
+	
+	for(let i=0 ; i < guidances.length; i++){
+		
+		var label = guidances[i]['guidanceKeycode'];
+		label += ' : ';
+		label += guidances[i]['guidanceText'].replace(/\r?\n/g,"");
+		const maxLen = 50;
+		if(label.length > maxLen){
+			label = label.substring(0, maxLen - 3);
+			label += '...';
+		}
+		$('select.action_guidance').append('<option value="' + h(guidances[i]['id']) + '">' + h(label) + '</option>');
+	}
+
+	
+	$('#idIndex4').val(index);
+
+	[# th:each="i : ${#numbers.sequence(1,actionCount)}" ]
+	
+	var actionTypeCode = guidances[index]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ]['actionTypeCode'];
+	var actionLabel = guidances[index]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ]['label'];
+	var actionGuidance = guidances[index]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ]['nextGuidanceActionId'];
+	var actionScriptName = guidances[index]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ]['title'];
+	var actionScript = guidances[index]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ]['body'];
+	var actionUrl = guidances[index]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ]['body'];
+	var actionOpenWindow = guidances[index]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ]['openWindowFlag'];
+	
+	if(actionTypeCode == null){
+		actionTypeCode = '';
+		actionLabel = '';
+		actionGuidance = '';
+		actionOpenWindow = false;
+	}
+	var obj = $('#actionTypeCode' + [# th:text="${i}" /] ).val(actionTypeCode).get(0);
+	changeAction(obj);
+	$('#actionLabel' + [# th:text="${i}" /] ).val(actionLabel);
+
+	if(actionTypeCode == parseInt([# th:text="${@actionTypeCode.guidance}" /])){
+		$('#actionGuidance' + [# th:text="${i}" /] ).val(actionGuidance);
+	}
+	else if(actionTypeCode == parseInt([# th:text="${@actionTypeCode.script}" /])){
+		$('#actionScriptName' + [# th:text="${i}" /] ).val(actionScriptName);
+		$('#actionScript' + [# th:text="${i}" /] ).val(actionScript);
+	}
+	else if(actionTypeCode == parseInt([# th:text="${@actionTypeCode.link}" /])){
+		$('#actionUrl' + [# th:text="${i}" /] ).val(actionUrl);
+		if(actionOpenWindow != null && actionOpenWindow){
+			$('#actionOpenWindow' + [# th:text="${i}" /] ).prop('checked', true);
+		}
+		else{
+			$('#actionOpenWindow' + [# th:text="${i}" /] ).prop('checked', false);
+		}
+	}
+	[/]
+	
+	$('#modal5').modal('show');
+}
+
+const updateAction = () =>{
+
+	[# th:each="i : ${#numbers.sequence(1,actionCount)}" ]
+	$('#actionLabel' + [# th:text="${i}" /] + 'Field').removeClass('form-attention');
+	$('#actionScriptName' + [# th:text="${i}" /] + 'Field').removeClass('form-attention');
+	$('#actionUrl' + [# th:text="${i}" /] + 'Field').removeClass('form-attention');
+	[/]
+	
+	var index = $('#idIndex4').val();
+
+	// 入力チェック
+	var error= false;
+	[# th:each="i : ${#numbers.sequence(1,actionCount)}" ]
+	var actionTypeCode = $('#actionTypeCode' + [# th:text="${i}" /] ).val();
+	var actionLabel = $('#actionLabel' + [# th:text="${i}" /] ).val();
+	var actionGuidance = $('#actionGuidance' + [# th:text="${i}" /] ).val();
+	var actionScriptName = $('#actionScriptName' + [# th:text="${i}" /] ).val();
+	var actionScript = $('#actionScript' + [# th:text="${i}" /] ).val();
+	var actionUrl = $('#actionUrl' + [# th:text="${i}" /] ).val();
+	var actionOpenWindow = $('#actionOpenWindow' + [# th:text="${i}" /] ).prop('checked') ? true : false;
+
+	if(actionTypeCode != null && actionTypeCode != '' && (actionLabel == null || actionLabel.length == 0)){
+		$('#actionLabel' + [# th:text="${i}" /] + 'Field').addClass('form-attention');
+		$('#actionLabel' + [# th:text="${i}" /] + 'Field span').text( [# th:text="#{javax.validation.constraints.NotBlank.message( #{actionLinkName} )}" /] );
+		error = true;
+	}
+
+	if(actionTypeCode == [# th:text="${@actionTypeCode.guidance}" /] && (actionGuidance == null || actionGuidance == '')){
+		$('#actionGuidance' + [# th:text="${i}" /] + 'Field').addClass('form-attention');
+		$('#actionGuidance' + [# th:text="${i}" /] + 'Field span').text( [# th:text="#{javax.validation.constraints.NotBlank.message( #{actionGuidance} )}" /] );
+		error = true;
+	}
+
+	if(actionTypeCode == [# th:text="${@actionTypeCode.script}" /] && (actionScriptName == null || actionScriptName == '')){
+		$('#actionScriptName' + [# th:text="${i}" /] + 'Field').addClass('form-attention');
+		$('#actionScriptName' + [# th:text="${i}" /] + 'Field span').text( [# th:text="#{javax.validation.constraints.NotBlank.message( #{actionScriptName} )}" /] );
+		error = true;
+	}
+
+	if(actionTypeCode == [# th:text="${@actionTypeCode.link}" /] && (actionUrl == null || actionUrl == '')){
+		$('#actionUrl' + [# th:text="${i}" /] + 'Field').addClass('form-attention');
+		$('#actionUrl' + [# th:text="${i}" /] + 'Field span').text( [# th:text="#{javax.validation.constraints.NotBlank.message( #{actionUrl} )}" /] );
+		error = true;
+	}
+	[/]
+
+	if(error){
+		return;
+	}
+	
+	[# th:each="i : ${#numbers.sequence(1,actionCount)}" ]
+	var actionTypeCode = $('#actionTypeCode' + [# th:text="${i}" /] ).val();
+	var actionLabel = $('#actionLabel' + [# th:text="${i}" /] ).val();
+	var actionGuidance = $('#actionGuidance' + [# th:text="${i}" /] ).val();
+	var actionScriptName = $('#actionScriptName' + [# th:text="${i}" /] ).val();
+	var actionScript = $('#actionScript' + [# th:text="${i}" /] ).val();
+	var actionUrl = $('#actionUrl' + [# th:text="${i}" /] ).val();
+	var actionOpenWindow = $('#actionOpenWindow' + [# th:text="${i}" /] ).prop('checked') ? true : false;
+	
+	var guidanceAction = guidances[parseInt(index)]['guidanceActions'][ parseInt([# th:text="${i - 1}" /]) ];
+
+	if(actionTypeCode == null || actionTypeCode == ''){
+		guidanceAction['label'] = '';
+		guidanceAction['actionTypeCode'] = null;
+		guidanceAction['nextGuidanceActionId'] = null;
+		guidanceAction['title'] = null;
+		guidanceAction['body'] = null;
+		guidanceAction['openWindowFlag'] = null;
+		guidanceAction['sortOrder'] = parseInt([# th:text="${i}" /]);
+	}
+	else{
+		guidanceAction['label'] = actionLabel;
+		guidanceAction['actionTypeCode'] = parseInt(actionTypeCode);
+		if(actionTypeCode == [# th:text="${@actionTypeCode.guidance}" /] ){
+			guidanceAction['nextGuidanceActionId'] = parseInt(actionGuidance);
+			guidanceAction['title'] = null;
+			guidanceAction['body'] = null;
+			guidanceAction['openWindowFlag'] = null;
+		}
+		else if(actionTypeCode == [# th:text="${@actionTypeCode.script}" /] ){
+			guidanceAction['nextGuidanceActionId'] = null;
+			guidanceAction['title'] = actionScriptName;
+			guidanceAction['body'] = actionScript;
+			guidanceAction['openWindowFlag'] = null;
+		}
+		else if(actionTypeCode == [# th:text="${@actionTypeCode.link}" /] ){
+			guidanceAction['nextGuidanceActionId'] = null;
+			guidanceAction['title'] = null;
+			guidanceAction['body'] = actionUrl;
+			guidanceAction['openWindowFlag'] = actionOpenWindow;
+		}
+		guidanceAction['sortOrder'] = parseInt([# th:text="${i}" /]);
+	}
+	[/]
+	
+	draw();
+	
+	$('#idSaveButton').prop('disabled', '');
+	$('#modal5').modal('hide');
+}
+
+const changeAction = (obj) =>{
+	const target = $(obj);
+	var actionTypeCode = target.val();
+	if(actionTypeCode == ''){
+		target.parent().next('.action_label').hide();
+		target.parent().parent().parent().find('.action_guidance').hide();
+		target.parent().parent().parent().find('.action_script').hide();
+		target.parent().parent().parent().find('.action_link').hide();
+	}
+	else{
+		target.parent().next('.action_label').show();
+		if(actionTypeCode == [# th:text="${@actionTypeCode.guidance}" /] ){
+			target.parent().parent().parent().find('.action_guidance').show();
+			target.parent().parent().parent().find('.action_script').hide();
+			target.parent().parent().parent().find('.action_link').hide();
+		}
+		else if(actionTypeCode == [# th:text="${@actionTypeCode.script}" /] ){
+			target.parent().parent().parent().find('.action_guidance').hide();
+			target.parent().parent().parent().find('.action_script').show();
+			target.parent().parent().parent().find('.action_link').hide();
+		}
+		else if(actionTypeCode == [# th:text="${@actionTypeCode.link}" /] ){
+			target.parent().parent().parent().find('.action_guidance').hide();
+			target.parent().parent().parent().find('.action_script').hide();
+			target.parent().parent().parent().find('.action_link').show();
+		}
+		else if(actionTypeCode == [# th:text="${@actionTypeCode.max}" /] ){
+			target.parent().parent().parent().find('.action_guidance').hide();
+			target.parent().parent().parent().find('.action_script').hide();
+			target.parent().parent().parent().find('.action_link').hide();
+		}
+		else if(actionTypeCode == [# th:text="${@actionTypeCode.end}" /] ){
+			target.parent().parent().parent().find('.action_guidance').hide();
+			target.parent().parent().parent().find('.action_script').hide();
+			target.parent().parent().parent().find('.action_link').hide();
+		}
+		
+	}
+}
+
+// シナリオ内に含まれる履修ポイントかチェックする
+const isIncludedCompletionPoint = (id) => {
+	let ret = false;
+	for(let i=0; i<guidances.length; i++){
+		if(guidances[i]["startCompletionPointId"] == id){
+			ret = true;
+			break;
+		}
+		if(guidances[i]["endCompletionPointId"] == id){
+			ret = true;
+			break;
+		}
+	}
+	return ret;
+}
+
+const editCompletionPoint = (index) =>{
+
+	$('#idStartCompletionPointField1').removeClass('form-attention');
+	$('#idStartCompletionPointField1 span').text('');
+	$('#idEndCompletionPointField1').removeClass('form-attention');
+	$('#idEndCompletionPointField1 span').text('');
+
+	$.getJSON([# th:text="@{/t06o1ny8/scenarios/completion/list/{scenarioId}(scenarioId=${scenario.id})}" /])
+		.done(function(json) {
+			// 正常終了
+
+			
+			// シナリオ内で新規登録されたものをマージ
+			for(let i=0; i<guidances.length; i++){
+				if(guidances[i]["startCompletionPointType"] == 1 && guidances[i]["startCompletionPointId"] != null){
+					json.unshift({id:guidances[i]["startCompletionPointId"], completionPointKeycode:guidances[i]["startCompletionPointKeycode"], description:guidances[i]["startCompletionPointDescription"]});
+				}
+				if(guidances[i]["endCompletionPointType"] == 1 && guidances[i]["endCompletionPointId"] != null){
+					json.unshift({id:guidances[i]["endCompletionPointId"], completionPointKeycode:guidances[i]["endCompletionPointKeycode"], description:guidances[i]["endCompletionPointDescription"]});
+				}
+			}
+
+			$('#idStartCompletionPointId1').empty();
+			$('#idStartCompletionPointId1').append('<option value="">▽</option>');
+
+			$('#idStartCompletionPointId2').empty();
+			$('#idStartCompletionPointId2').append('<option value="">▽</option>');
+
+
+			for(var i=0; i<json.length; i++){
+				$('#idStartCompletionPointId2').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+				// シナリオ内に設定されていものだけをリスト化
+				if(isIncludedCompletionPoint(json[i]['id'])){
+					$('#idStartCompletionPointId1').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+				}
+			}
+
+			$('#idEndCompletionPointId1').empty();
+			$('#idEndCompletionPointId1').append('<option value="">▽</option>');
+
+			$('#idEndCompletionPointId2').empty();
+			$('#idEndCompletionPointId2').append('<option value="">▽</option>');
+
+			for(var i=0; i<json.length; i++){
+				$('#idEndCompletionPointId2').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+				// シナリオ内に設定されていものだけをリスト化
+				if(isIncludedCompletionPoint(json[i]['id'])){
+					$('#idEndCompletionPointId1').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+				}
+			}
+
+			// エラーのクリア
+//			$('#idStartCompletionPointField').removeClass('form-attention');
+//			$('#idEndCompletionPointField').removeClass('form-attention');
+
+			if(guidances[index]['startCompletionPointType'] == 2){
+				$('#idS2').prop('checked', true);
+				$('#idStartCompletionPointId1').val(guidances[index]['startCompletionPointId']);
+
+				$('#idStartCompletionPointId2').val('');
+				$('#idStartCompletionPointId').val('');
+				$('#idStartCompletionPointKeycode').val('');
+				$('#idStartCompletionPointDescription').val('');
+			}
+			else if(guidances[index]['startCompletionPointType'] == 3){
+				$('#idS3').prop('checked', true);
+				$('#idStartCompletionPointId2').val(guidances[index]['startCompletionPointId']);
+
+				$('#idStartCompletionPointId1').val('');
+				$('#idStartCompletionPointId').val('');
+				$('#idStartCompletionPointKeycode').val('');
+				$('#idStartCompletionPointDescription').val('');
+			}
+			else if(guidances[index]['startCompletionPointType'] == 1){
+				$('#idS1').prop('checked', true);
+				$('#idStartCompletionPointId').val(guidances[index]['startCompletionPointId']);
+				$('#idStartCompletionPointKeycode').val(guidances[index]['startCompletionPointKeycode']);
+				$('#idStartCompletionPointDescription').val(guidances[index]['startCompletionPointDescription']);
+
+				$('#idStartCompletionPointId1').val('');
+				$('#idStartCompletionPointId2').val('');
+			}
+			else{
+				$('#idS0').prop('checked', true);
+			}
+
+			if(guidances[index]['endCompletionPointType'] == 2){
+
+				$('#idE2').prop('checked', true);
+				$('#idEndCompletionPointId1').val(guidances[index]['endCompletionPointId']);
+
+				$('#idEndCompletionPointId2').val('');
+				$('#idEndCompletionPointId').val('');
+				$('#idEndCompletionPointKeycode').val('');
+				$('#idEndCompletionPointDescription').val('');
+			}
+			else if(guidances[index]['endCompletionPointType'] == 3){
+
+				$('#idE3').prop('checked', true);
+				$('#idEndCompletionPointId2').val(guidances[index]['endCompletionPointId']);
+
+				$('#idEndCompletionPointId1').val('');
+				$('#idEndCompletionPointId').val('');
+				$('#idEndCompletionPointKeycode').val('');
+				$('#idEndCompletionPointDescription').val('');
+			}
+			else if(guidances[index]['endCompletionPointType'] == 1){
+
+				$('#idE1').prop('checked', true);
+				$('#idEndCompletionPointId').val(guidances[index]['endCompletionPointId']);
+				$('#idEndCompletionPointKeycode').val(guidances[index]['endCompletionPointKeycode']);
+				$('#idEndCompletionPointDescription').val(guidances[index]['endCompletionPointDescription']);
+
+				$('#idEndCompletionPointId1').val('');
+				$('#idEndCompletionPointId2').val('');
+			}
+			else{
+				$('#idE0').prop('checked', true);
+			}
+			$('#idIndex5').val(index);
+
+			$('#modal6').on('shown.bs.modal', function () { changeStartCompletionPoint(); changeEndCompletionPoint() }).modal('show');
+			
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			// エラー
+			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+			alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+			return;
+	});
+}
+
+const updateCompletionPoint = () =>{
+
+	$('#idStartCompletionPointField1').removeClass('form-attention');
+	$('#idStartCompletionPointField1 span').text('');
+	$('#idEndCompletionPointField1').removeClass('form-attention');
+	$('#idEndCompletionPointField1 span').text('');
+	
+	var index = $('#idIndex5').val();
+
+	// エラーのクリア
+	$('#idStartCompletionPointField').removeClass('form-attention');
+	$('#idEndCompletionPointField').removeClass('form-attention');
+	
+	
+	const startCompletionPointType = parseInt($('input[name=sc]:checked').val());
+	let startCompletionPointId = null;
+	let startCompletionPointKeycode = null;
+	let startCompletionPointDescription = null;
+
+	if(startCompletionPointType == 2){
+		startCompletionPointId = $('#idStartCompletionPointId1').val();
+		startCompletionPointKeycode = $('#idStartCompletionPointId1 option:selected').data('label');
+	}
+	else if(startCompletionPointType == 3){
+		startCompletionPointId = $('#idStartCompletionPointId2').val();
+		startCompletionPointKeycode = $('#idStartCompletionPointId2 option:selected').data('label');
+	}
+	else if(startCompletionPointType == 1){
+		startCompletionPointId = $('#idStartCompletionPointId').val();
+		startCompletionPointKeycode = $('#idStartCompletionPointKeycode').val();
+		startCompletionPointDescription = $('#idStartCompletionPointDescription').val();
+	}
+	else{
+		startCompletionPointId = '';
+		startCompletionPointKeycode = '';
+		startCompletionPointDescription = '';
+	}
+
+	const endCompletionPointType = parseInt($('input[name=ec]:checked').val());
+	
+	let endCompletionPointId = null;
+	let endCompletionPointKeycode = null;
+	let endCompletionPointDescription = null;
+
+	if(endCompletionPointType == 2){
+		endCompletionPointId = $('#idEndCompletionPointId1').val();
+		endCompletionPointKeycode = $('#idEndCompletionPointId1 option:selected').data('label');
+	}
+	else if(endCompletionPointType == 3){
+		endCompletionPointId = $('#idEndCompletionPointId2').val();
+		endCompletionPointKeycode = $('#idEndCompletionPointId2 option:selected').data('label');
+	}
+	else if(endCompletionPointType == 1){
+		endCompletionPointId = $('#idEndCompletionPointId').val();
+		endCompletionPointKeycode = $('#idEndCompletionPointKeycode').val();
+		endCompletionPointDescription = $('#idEndCompletionPointDescription').val();
+	}
+	else{
+		endCompletionPointId = '';
+		endCompletionPointKeycode = '';
+		endCompletionPointDescription = '';
+	}
+	
+	// 入力チェック
+	// 新規登録で同一の履修ポイントコードが使われていないかチェック
+	let error = false;
+	const message = '履修ポイントコードが重複しています。';
+	if(startCompletionPointType == 1){
+		for(let i=0 ; i < guidances.length; i++){
+			if(i != index && guidances[i]['startCompletionPointType'] == 1 && guidances[i]['startCompletionPointKeycode'] == startCompletionPointKeycode){
+				$('#idStartCompletionPointField1').addClass('form-attention');
+				$('#idStartCompletionPointField1 span.keycode').text(message);
+				error = true;
+			}
+			if(guidances[i]['endCompletionPointType'] == 1 && guidances[i]['endCompletionPointKeycode'] == startCompletionPointKeycode){
+				$('#idStartCompletionPointField1').addClass('form-attention');
+				$('#idStartCompletionPointField1 span.keycode').text(message);
+				error = true;
+			}
+		}
+	}
+	if(endCompletionPointType == 1){
+		for(let i=0 ; i < guidances.length; i++){
+			if(i != index && guidances[i]['endCompletionPointType'] == 1 && guidances[i]['endCompletionPointKeycode'] == endCompletionPointKeycode){
+				$('#idEndCompletionPointField1').addClass('form-attention');
+				$('#idEndCompletionPointField1 span.keycode').text(message);
+				error = true;
+			}
+			if(guidances[i]['startCompletionPointType'] == 1 && guidances[i]['startCompletionPointKeycode'] == endCompletionPointKeycode){
+				$('#idEndCompletionPointField1').addClass('form-attention');
+				$('#idEndCompletionPointField1 span.keycode').text(message);
+				error = true;
+			}
+		}
+	}
+	
+	if(startCompletionPointType == 1 && endCompletionPointType == 1 && startCompletionPointKeycode == endCompletionPointKeycode){
+		$('#idStartCompletionPointField1').addClass('form-attention');
+		$('#idStartCompletionPointField1 span.keycode').text(message);
+		error = true;
+	}
+	
+	if(error){
+		return;
+	}
+	
+	// サーバチェック
+	var formData = {};
+
+	if(startCompletionPointType == 1){
+		formData['startCompletionPointKeycode']=startCompletionPointKeycode;
+		formData['startCompletionPointDescription']=startCompletionPointDescription;
+	}
+	if(endCompletionPointType == 1){
+		formData['endCompletionPointKeycode']=endCompletionPointKeycode;
+		formData['endCompletionPointDescription']=endCompletionPointDescription;
+	}
+	
+		$.post({
+		url : [# th:text="@{/t06o1ny8/scenarios/guidance/validate/completion/{scenarioId}(scenarioId=${scenario.id})}" /],
+		data : formData,
+		dataType: "json"
+	}).done(function(data, textStatus, jqXHR){
+
+		if(data.length == 0){
+			// エラーなし
+			
+			// 編集前に設定されている履修ポイントのタイプが新規で変更後がシナリオ内または全体に変更した場合、または新規でも削除した場合は関連する履修ポイントを削除する
+			let deleteCompletionPointId1 = null;
+			if(guidances[parseInt(index)]["startCompletionPointType"] == 1 && guidances[parseInt(index)]["startCompletionPointId"] != null){
+				if(startCompletionPointType == 2 || startCompletionPointType == 3 || (startCompletionPointType == 1 && startCompletionPointKeycode == '')){
+					deleteCompletionPointId1 = guidances[parseInt(index)]["startCompletionPointId"];
+				}
+			}
+			let deleteCompletionPointId2 = null;
+			if(guidances[parseInt(index)]["endCompletionPointType"] == 1 && guidances[parseInt(index)]["endCompletionPointId"] != null){
+				if(endCompletionPointType == 2 || endCompletionPointType == 3 || (endCompletionPointType == 1 && endCompletionPointKeycode == '')){
+					deleteCompletionPointId2 = guidances[parseInt(index)]["endCompletionPointId"];
+				}
+			}
+
+			if(startCompletionPointKeycode != ''){
+				guidances[parseInt(index)]["startCompletionPointType"] = startCompletionPointType;
+				guidances[parseInt(index)]["startCompletionPointId"] = (startCompletionPointId == '' ? ((new Date()).getTime() * -1) : parseInt(startCompletionPointId));
+				guidances[parseInt(index)]["startCompletionPointKeycode"] = (startCompletionPointKeycode == '' ? null : startCompletionPointKeycode);
+				guidances[parseInt(index)]["startCompletionPointDescription"] = (startCompletionPointKeycode == '' ? null : startCompletionPointDescription);
+			}
+			else{
+				guidances[parseInt(index)]["startCompletionPointType"] = 1;
+				guidances[parseInt(index)]["startCompletionPointId"] = null;
+				guidances[parseInt(index)]["startCompletionPointKeycode"] = null;
+				guidances[parseInt(index)]["startCompletionPointDescription"] = null;
+			}
+
+			if(endCompletionPointKeycode != ''){
+				guidances[parseInt(index)]["endCompletionPointType"] = endCompletionPointType;
+				guidances[parseInt(index)]["endCompletionPointId"] = (endCompletionPointId == '' ? ((new Date()).getTime() * -1) : parseInt(endCompletionPointId));
+				guidances[parseInt(index)]["endCompletionPointKeycode"] = (endCompletionPointKeycode == '' ? null : endCompletionPointKeycode);
+				guidances[parseInt(index)]["endCompletionPointDescription"] = (endCompletionPointKeycode == '' ? null : endCompletionPointDescription);
+			}
+			else{
+				guidances[parseInt(index)]["endCompletionPointType"] = 1;
+				guidances[parseInt(index)]["endCompletionPointId"] = null;
+				guidances[parseInt(index)]["endCompletionPointKeycode"] = null;
+				guidances[parseInt(index)]["endCompletionPointDescription"] = null;
+			}
+			
+			// ここで削除
+			if(deleteCompletionPointId1 != null){
+				for(let i=0; i<guidances.length; i++){
+					if(guidances[i]["startCompletionPointId"] == deleteCompletionPointId1){
+						guidances[i]["startCompletionPointType"] = 1;
+						guidances[i]["startCompletionPointId"] = null;
+						guidances[i]["startCompletionPointKeycode"] = null;
+						guidances[i]["startCompletionPointDescription"] = null;
+					}
+					if(guidances[i]["endCompletionPointId"] == deleteCompletionPointId1){
+						guidances[i]["endCompletionPointType"] = 1;
+						guidances[i]["endCompletionPointId"] = null;
+						guidances[i]["endCompletionPointKeycode"] = null;
+						guidances[i]["endCompletionPointDescription"] = null;
+					}
+				}
+			}
+			if(deleteCompletionPointId2 != null){
+				for(let i=0; i<guidances.length; i++){
+					if(guidances[i]["startCompletionPointId"] == deleteCompletionPointId2){
+						guidances[i]["startCompletionPointType"] = 1;
+						guidances[i]["startCompletionPointId"] = null;
+						guidances[i]["startCompletionPointKeycode"] = null;
+						guidances[i]["startCompletionPointDescription"] = null;
+					}
+					if(guidances[i]["endCompletionPointId"] == deleteCompletionPointId2){
+						guidances[i]["endCompletionPointType"] = 1;
+						guidances[i]["endCompletionPointId"] = null;
+						guidances[i]["endCompletionPointKeycode"] = null;
+						guidances[i]["endCompletionPointDescription"] = null;
+					}
+				}
+			}
+			draw();
+			$('#idSaveButton').prop('disabled', '');
+			$('#modal6').modal('hide');
+		}
+		else{
+			// エラーあり
+			for(var i=0; i<data.length; i++){
+				if(data[i]["key"] == 'startCompletionPointKeycode'){
+					$('#idStartCompletionPointField1').addClass('form-attention');
+					$('#idStartCompletionPointField1 span.keycode').text(data[i]["value"]);
+				}
+				if(data[i]["key"] == 'startCompletionPointDescription'){
+					$('#idStartCompletionPointField1').addClass('form-attention');
+					$('#idStartCompletionPointField1 span.description').text(data[i]["value"]);
+				}
+				if(data[i]["key"] == 'endCompletionPointKeycode'){
+					$('#idEndCompletionPointField1').addClass('form-attention');
+					$('#idEndCompletionPointField1 span.keycode').text(data[i]["value"]);
+				}
+				if(data[i]["key"] == 'endCompletionPointDescription'){
+					$('#idEndCompletionPointField1').addClass('form-attention');
+					$('#idEndCompletionPointField1 span.description').text(data[i]["value"]);
+				}
+			}
+		}
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
+
+const changeFullHeight = () =>{
+	if($('#idFullHeight').prop('checked')){
+		$('#idHeight').prop('disabled', true);
+	}
+	else{
+		$('#idHeight').prop('disabled', false);
+	}
+}
+
+
+const changeStartCompletionPoint = () =>{
+	const val = $('input[name=sc]:checked').val();
+	if(val == 2){
+		$('#idStartCompletionPointKeycode').prop('disabled', true);
+		$('#idStartCompletionPointDescription').prop('disabled', true);
+		$('#idStartCompletionPointId1').prop('disabled', false);
+		$('#idStartCompletionPointId2').prop('disabled', true);
+	}
+	else if(val == 3){
+		$('#idStartCompletionPointKeycode').prop('disabled', true);
+		$('#idStartCompletionPointDescription').prop('disabled', true);
+		$('#idStartCompletionPointId1').prop('disabled', true);
+		$('#idStartCompletionPointId2').prop('disabled', false);
+	}
+	else if(val == 1){
+		$('#idStartCompletionPointKeycode').prop('disabled', false);
+		$('#idStartCompletionPointDescription').prop('disabled', false);
+		$('#idStartCompletionPointId1').prop('disabled', true);
+		$('#idStartCompletionPointId2').prop('disabled', true);
+		
+		if($('#idStartCompletionPointKeycode').val() == ''){
+			$('#idStartCompletionPointKeycode').val(nextCompletionPointKeycode());
+		}
+	}
+	else{
+		$('#idStartCompletionPointKeycode').prop('disabled', true);
+		$('#idStartCompletionPointDescription').prop('disabled', true);
+		$('#idStartCompletionPointId1').prop('disabled', true);
+		$('#idStartCompletionPointId2').prop('disabled', true);
+	}
+}
+const changeEndCompletionPoint = () =>{
+	const val = $('input[name=ec]:checked').val();
+	if(val == 2){
+		$('#idEndCompletionPointKeycode').prop('disabled', true);
+		$('#idEndCompletionPointDescription').prop('disabled', true);
+		$('#idEndCompletionPointId1').prop('disabled', false);
+		$('#idEndCompletionPointId2').prop('disabled', true);
+	}
+	else if(val == 3){
+		$('#idEndCompletionPointKeycode').prop('disabled', true);
+		$('#idEndCompletionPointDescription').prop('disabled', true);
+		$('#idEndCompletionPointId1').prop('disabled', true);
+		$('#idEndCompletionPointId2').prop('disabled', false);
+	}
+	else if(val == 1){
+		$('#idEndCompletionPointKeycode').prop('disabled', false);
+		$('#idEndCompletionPointDescription').prop('disabled', false);
+		$('#idEndCompletionPointId1').prop('disabled', true);
+		$('#idEndCompletionPointId2').prop('disabled', true);
+		if($('#idEndCompletionPointKeycode').val() == ''){
+			$('#idEndCompletionPointKeycode').val(nextCompletionPointKeycode());
+		}
+	}
+	else{
+		$('#idEndCompletionPointKeycode').prop('disabled', true);
+		$('#idEndCompletionPointDescription').prop('disabled', true);
+		$('#idEndCompletionPointId1').prop('disabled', true);
+		$('#idEndCompletionPointId2').prop('disabled', true);
+	}
+}
+
+
+function execCopy(obj){
+
+	var string = $(obj).data('val');
+	
+	// 空div 生成
+	var tmp = document.createElement("div");
+	// 選択用のタグ生成
+	var pre = document.createElement('pre');
+
+	// 親要素のCSSで user-select: none だとコピーできないので書き換える
+	pre.style.webkitUserSelect = 'auto';
+	pre.style.userSelect = 'auto';
+
+	tmp.appendChild(pre).textContent = string;
+
+	// 要素を画面外へ
+	var s = tmp.style;
+	s.position = 'fixed';
+	s.right = '200%';
+
+	// body に追加
+	document.body.appendChild(tmp);
+	// 要素を選択
+	document.getSelection().selectAllChildren(tmp);
+
+	// クリップボードにコピー
+	var result = document.execCommand("copy");
+
+	// 要素削除
+	document.body.removeChild(tmp);
+
+	/*
+	if(result){
+		alert("クリップボードにコピーしました。");
+	}
+	*/
+	
+	$('#modal7').modal('hide');
+	return result;
+}
+
+//プレビュー
+const preview = () => {
+	const winWidth = 1920;
+	const winHeight = 1080;
+	const subx = ( screen.availWidth - winWidth ) / 2;
+	const suby = ( screen.availHeight - winHeight ) / 2;
+	window.open( [# th:text="@{/t06o1ny8/scenarios/preview/{scenarioKeycode}(scenarioKeycode=${scenario.scenarioKeycode})}" /] , "preview", 'width=' + winWidth + ',height=' + winHeight+ ',left=' + subx+ ',top=' + suby + ',menubar=false,toolbar=false,location=false' );
+}
+
+</script>
+</th:block>
+
+
+</body>
+</html>
+

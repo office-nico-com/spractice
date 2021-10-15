@@ -1,0 +1,93 @@
+<head th:fragment="head(title, links)">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Language" content="ja">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<th:block th:replace="${title}"/>
+
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/font-awesome/css/all.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/datatables/css/dataTables.bootstrap4.min.css}" type="text/css" rel="stylesheet"/>
+
+
+
+<link th:href="@{/Date-Time-Picker-Bootstrap-4/build/css/bootstrap-datetimepicker.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/css/front-main.css}" type="text/css" rel="stylesheet"/>
+
+<th:block th:if="${links}"><th:block th:replace="${links}"/></th:block>
+<th:block th:if="${styles}"><th:block th:replace="${styles}"/></th:block>
+
+</head>
+
+
+
+<header  th:fragment="header" class="container-fluid">
+<a th:href="@{/{clientKeycode}(clientKeycode=${clientKeycode})}"><img th:src="@{/img/logo_title.png}"/></a><span class="sub_title">ロールプレイング型セキュリティ教育コンテンツ</span>
+<div class="user">
+<div class="pulldown"><div class="inner">
+<ul>
+<li><a th:href="@{/{clientKeycode}/profile(clientKeycode=${clientKeycode})}">ユーザー情報変更</a></li>
+<li th:if="${@sessionData.registeredFromCode == @userRegistTypeCode.manual}"><a th:href="@{/{clientKeycode}/password(clientKeycode=${clientKeycode})}">パスワード変更</a></li>
+<li><a href="javascript:void(0);" onclick="logout();">ログアウト</a></li>
+</ul>
+</div></div>
+こんにちは、<span th:text="${@sessionData.familyName}"/>さん！<i class="fas fa-caret-down"></i></div>
+</header>
+
+
+
+<th:block th:fragment="tabs(type)" th:with="x=${roleCode==@roleCode.admin ? 1 : 0}">
+<a th:href="@{/{clientKeycode}(clientKeycode=${clientKeycode})}" class="tab-link">
+<div th:class="'tab ' + ${type == 'home' ? 'current' : ''}" style="left:20px;">ホーム</div>
+</a>
+
+<a th:href="@{/{clientKeycode}/report(clientKeycode=${clientKeycode})}" class="tab-link" th:if="${roleCode==@roleCode.admin}">
+<div th:class="'tab ' + ${type == 'report' ? 'current' : ''}" style="left:170px;">レポート</div>
+</a>
+
+<a th:each="scenario,status:${scenarios}" th:href="@{/{clientKeycode}/{scenarioKeycode}(clientKeycode=${clientKeycode},scenarioKeycode=${scenario.scenarioKeycode})}" class="tab-link">
+<div th:class="'tab ' + ${type == 'description' && targetScenario != null && scenario.id == targetScenario.id ? 'current' : ''}" th:style="'left:' + (20 + (150 * ${status.count + x})) + 'px;'"  th:text="${scenario.scenarioName}"/>
+</a>
+
+<div class="tab tab-group">
+<div class="pulldown"><div class="inner" id="idTagGroup"></div></div>
+<i class="fas fa-bars"></i>
+</div>
+</th:block>
+
+
+
+<footer th:fragment="footer" class="container-fluid">© 2021 Office NICO. All rights reserved.</footer>
+
+
+<th:block th:fragment="scripts(scripts)">
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/momentjs/min/moment-with-locales.min.js}"></script>
+<script type="text/javascript">moment.locale('ja');</script>
+<script type="text/javascript" th:src="@{/webjars/chart.js/dist/chart.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-cookie/jquery.cookie.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/datatables/js/dataTables.bootstrap4.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap4-toggle/js/bootstrap4-toggle.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/chart.js/dist/chart.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery.fileDownload/jquery.fileDownload.js}"></script>
+<script type="text/javascript" th:src="@{/jquery-loading-overlay-master/dist/loadingoverlay.min.js}"></script>
+<script type="text/javascript" th:src="@{/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js}"></script>
+
+<script th:src="@{/smile-admin-template/main.js}"></script>
+<script th:src="@{/js/editor.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+const logout = () => {
+	location.href=[# th:text="@{/{clientKeycode}/logout(clientKeycode=${clientKeycode})}" /];
+}
+
+</script>
+
+
+<th:block th:if="${scripts}"><th:block th:replace="${scripts}"/></th:block>
+</th:block>

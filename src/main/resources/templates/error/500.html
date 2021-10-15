@@ -1,2 +1,48 @@
-aaaaaaaaaaaaaaaaaaaaa
-500!
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Language" content="ja">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Internal Server Error</title>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/font-awesome/css/all.min.css}" type="text/css" rel="stylesheet"/>
+<style type="text/css">
+body {
+  background: radial-gradient(#05FBFF, #1D62F0) fixed;
+  color:#fff;
+  text-align:center;
+}
+
+img{
+	margin-top:50px;
+	width:200px;
+}
+h1{
+
+	margin-top:150px;
+	font-size:90px;
+}
+h2{
+	margin-top:10px;
+	margin-bottom:50px;
+	font-size:60px;
+}
+
+
+</style>
+</head>
+<body>
+
+<h1>500</h1>
+<h2>Internal Server Error</h2>
+<h3>アクセスしようとしたページは表示できませんでした。</h3>
+<h3>しばらく時間をおいてアクセスしてください。</h3>
+<img th:src="@{/img/logo_org.png}"/>
+
+
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+@charset "utf-8";
+
+body{
+	background-color:#f3f3f3;
+}
+
+header{
+	min-width:1150px;
+	height:78px;
+	line-height:42px;
+}
+header img{
+	display:block;
+	float:left;
+}
+
+
+header span.sub_title{
+	display:block;
+	float:left;
+	font-size:12px;
+	margin-left:10px;
+	margin-top:2px;
+}
+
+header div.user{
+	display:block;
+	position:relative;
+	float:right;
+	margin-right:20px;
+	line-height:50px;
+	cursor:pointer;
+}
+
+header div.user i{
+	margin-left:5px;
+	font-size:20px;
+}
+
+
+header div.user div.pulldown{
+	display:none;
+	/* display:block; */ /* デバッグするときは表示して */
+	position:absolute;
+	z-index:10000;
+	right:0;
+}
+
+
+
+header div.user div.pulldown div.inner{
+	display:block;
+	position:absolute;
+	border:solid 1px #999;
+	margin-top:40px;
+	right:0;
+	padding:0px;
+	background-color:#fff;
+	min-width:200px;
+}
+
+header div.user div.pulldown div.inner ul{
+	list-style-type:none;
+	padding:0px;
+	margin-bottom:0px;
+}
+
+header div.user div.pulldown div.inner ul li{
+	list-style-type:none;
+	padding:0px;
+	padding-left:15px;
+	padding-right:15px;
+	line-height:40px;
+	border-bottom:solid 1px #aaa;
+}
+
+header div.user div.pulldown div.inner ul li a{
+	color:#212529;
+	display:block;
+}
+
+header div.user div.pulldown div.inner ul li:hover{
+	background-color:#eee;
+}
+
+header div.user div.pulldown div.inner ul li:hover a{
+	text-decoration:underline;
+	color:#000;
+}
+
+
+header div.user div.pulldown div.inner ul li:last-child{
+	border-bottom:solid 0px #aaa;
+}
+
+
+header div.user:hover{
+	color:#888;
+}
+
+header div.user:hover div.pulldown{
+	display:block;
+}
+
+
+div.main{
+	min-width:1150px;
+	min-height:600px;
+	background-color:#fff;
+	border-top:solid 1px #999;
+	border-bottom:solid 1px #999;
+	position:relative;
+	padding-top:20px;
+}
+
+div.main a.tab-link{
+	display:none;
+}
+
+
+div.main div.tab{
+	position:absolute;
+	top:-30px;
+	height:30px;
+	line-height:30px;
+	background-color:#e3e3e3;
+	border:solid 1px #999;
+	width:151px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	padding-left:10px;
+	padding-right:10px;
+	cursor:pointer;
+	font-size:14px;
+	color:#212529;
+}
+
+div.main div.tab:hover{
+	background-color:#f3f3f3;
+}
+
+div.main div.tab.current{
+	border-bottom:solid 1px #fff;
+	background-color:#fff;
+}
+
+/***********************************************************************************/
+
+div.main div.tab-group{
+	top:-27px;
+	width:30px;
+	height:23px;
+	line-height:20px;
+	padding-left:0px;
+	padding-right:0px;
+	text-align:center;
+	display:none;
+	overflow: visible;
+}
+
+div.main div.tab-group.current{
+	background-color:#fff;
+	border-bottom:solid 1px #999;
+}
+
+
+div.main div.tab-group i{
+	font-size:12px;
+}
+
+div.main div.tab-group div.pulldown{
+	display:none;
+	/* display:block; */ /* デバッグするときは表示して */
+	position:absolute;
+	z-index:10000;
+	right:0;
+	margin-right:-10px;
+}
+
+
+
+div.main div.tab-group div.pulldown div.inner{
+	display:block;
+	position:absolute;
+	border:solid 1px #999;
+	margin-top:21px;
+	right:0;
+	padding:0px;
+	background-color:#e3e3e3;
+	min-width:150px;
+	overflow:hidden;
+}
+
+div.main div.tab-group div.pulldown div.inner:hover{
+}
+
+div.main div.tab-group div.pulldown div.inner ul{
+	list-style-type:none;
+	padding:0px;
+	margin-bottom:0px;
+	width:150px;
+}
+
+div.main div.tab-group div.pulldown div.inner ul li{
+	list-style-type:none;
+	padding:0px;
+	line-height:34px;
+	border-bottom:solid 1px #aaa;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	padding-left:10px;
+	padding-right:10px;
+	cursor:pointer;
+	font-size:14px;
+	color:#212529;
+}
+
+div.main div.tab-group div.pulldown div.inner ul li.current{
+	background-color:#fff;
+}
+
+div.main div.tab-group div.pulldown div.inner ul li a{
+	color:#212529;
+	display:block;
+	text-align:left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+div.main div.tab-group div.pulldown div.inner ul li:hover{
+	background-color:#eee;
+}
+
+div.main div.tab-group div.pulldown div.inner ul li:hover a{
+	text-decoration:none;
+	color:#000;
+}
+
+div.main div.tab-group div.pulldown div.inner ul li:last-child{
+	border-bottom:solid 0px #aaa;
+}
+
+div.main div.tab-group:hover{
+}
+
+div.main div.tab-group:hover div.pulldown{
+	display:block;
+}
+/***********************************************************************************/
+
+
+
+div.main div.main_body{
+	width:1110px;
+	margin-left:auto;
+	margin-right:auto;
+	padding:15px;
+}
+
+div.main hr{
+	border:solid 1px #666;
+}
+
+div.main a.senario_card{
+	
+}
+
+div.main a.senario_card div.senario_card{
+	position:relative;
+	float:left;
+	margin-right:20px;
+	margin-bottom:20px;
+	border:solid 8px #202020;
+	width:250px;
+	height:250px;
+	background-size:cover;
+	cursor:pointer;
+	filter: brightness(90%);
+}
+div.main a.senario_card div.senario_card:hover{
+	filter: brightness(100%);
+}
+
+div.main a.senario_card div.bgtitle{
+	top:87px;
+	position:absolute;
+	width:100%;
+	background-color:#fff;
+	height:60px;
+	filter:opacity(80%);
+}
+
+div.main a.senario_card div.title{
+	top:87px;
+	position:absolute;
+	text-align:center;
+	width:100%;
+	height:60px;
+	line-height:60px;
+	font-size:18px;
+	font-weight:bold;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	color:#212529;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+	
+div.main br.senario_card_end{
+	clear:both;
+}
+
+div.main img.imageview{
+	float:left;
+	margin-right:20px;
+	margin-bottom:20px;
+	border:solid 8px #202020;
+}
+div.main button.work{
+	font-weight:bold;
+	font-size:22px;
+	margin-bottom:40px;
+}
+
+
+div.main table.ipa td{
+	padding-bottom:5px;
+}
+div.main table.ipa td:first-child{
+	padding-right:30px;
+}
+
+div.main span.ipa_before{
+	font-size:20px;
+	margin-left:10px;
+}
+div.main span.ipa_after{
+	font-size:20px;
+}
+
+div.main a.ipa{
+	font-size:20px;
+	color:#212529;
+	text-decoration:underline;
+}
+
+div.main span.alert-message{
+	display:none;
+}
+div.main div.form-attention span.alert-message{
+	display:inline;
+	color:#f44;
+}
+
+div.main h5.title{
+	padding:10px;
+	padding-left:15px;
+	color:#fff;
+	margin-top:5px;
+	margin-bottom:15px;
+	background-color:#2E88A0;
+	
+}
+
+div.main h5.title a{
+	color:#fff;
+}
+
+div.main h5.title a:hover{
+	color:#D1E3F5;
+}
+
+
+footer {
+	min-width:1150px;
+	font-size:16px;
+	text-align:center;
+	line-height:36px;
+	height:100px;
+}
+

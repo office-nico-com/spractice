@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>ログイン｜Secure Practice Admin</title>
+<meta charset="UTF-8">
+
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/font-awesome/css/all.min.css}" type="text/css" rel="stylesheet"/>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/jquery-loading-overlay-master/dist/loadingoverlay.min.js}"></script>
+<script type="text/javascript">$(function(){$('[data-toggle="popover"]').popover({
+																																						placement: 'auto',
+																																						trigger:'hover',
+																																						html:true,
+																																						delay:{'show':1200, 'hide':0}
+																																					})});</script>
+<style type="text/css">
+
+
+.login_box{
+/*	background-color:#00f; */
+	margin-top:120px;
+	border:solid 1px #CFD4DA;
+	border-radius: 5px;
+	padding:30px;
+	background-color:#FAFAFA;
+}
+
+.login_box img{
+	padding-bottom:30px;
+	margin-left:38px;
+}
+
+
+.login_box div.control {
+	margin-bottom:0px;
+	text-align:center;
+}
+
+.login_box div.control input{
+	width:100%;
+}
+
+.form-group.form-check{
+	padding-left:2px;
+}
+</style>
+
+</head>
+<body>
+
+
+<form class="form-horizontal" method="POST" th:action="@{/t06o1ny8/login}" th:object="${indexForm}" autocomplete="new-password">
+
+<input type="password" name="dummypass" style="top:-100px; left:-100px; position: fixed;" />
+
+
+<div class="container">
+
+<div class="row">
+<div class="col-sm-5 mx-auto login_box">
+
+<img th:src="@{/img/logo_admin_title.png}"/>
+
+
+<div class="alert alert-danger" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"/>
+
+<div class="alert alert-success" role="alert" th:if="${logoutMessage}" th:text="${logoutMessage}"/>
+
+<div class="alert alert-warning" role="alert" th:if="${timeoutMessage}" th:text="${timeoutMessage}"/>
+
+
+<div class="form-group">
+<!--  label>メールアドレス</label -->
+<input type="text" class="form-control" id="user-id" th:field="*{email}" placeholder="アカウント" autocomplete="new-password"/>
+</div>
+
+<div class="form-group">
+<!--  label>パスワード</label -->
+<input type="password" class="form-control" id="password" th:field="*{password}" placeholder="パスワード"  autocomplete="new-password"/>
+</div>
+
+<div class="form-group form-check">
+<label><input type="checkbox" name="remember-me" style="margin-right:5px;"/>ブラウザを閉じてもログイン状態を保持する</label>
+</div>
+
+<div class="control">
+<input type="submit" class="btn btn-info" name="login" value="ログイン" />
+</div>
+
+</div>
+</div>
+</div>
+</form>
+
+<script type="text/javascript">
+$(function(){
+	if($('#user-id').val() == ''){
+		$('#user-id').focus();
+	}
+	else{
+		$('#password').focus();
+	}
+});
+</script>
+ 
+</body>
+</html>

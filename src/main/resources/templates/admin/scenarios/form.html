@@ -1,0 +1,52 @@
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3' + ${#fields.hasErrors('scenarioKeycode') ? ' form-attention' : ''}">
+			<label for="scenarioKeycode">シナリオコード</label>
+			<input type="text" class="form-control" th:field="*{scenarioKeycode}"  th:maxlength="${length.scenarioKeycode}"/>
+			<span th:errors="*{scenarioKeycode}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-1'">
+		</div>
+		<div th:class="'form-group col-sm-8' + ${#fields.hasErrors('thumbnailBinaryFileId') ? ' form-attention' : ''}">
+			<label for="scenarioKeycode">サムネイル</label>
+			<input type="hidden" class="form-control" th:field="*{thumbnailBinaryFileId}" id="thumbnailBinaryFileId"/>
+			<p id="thumbnail"><a href="javascript:void(0);" onclick="selectImage();" class="edit_image">画像を選択</a><br/><a href="javascript:void(0);" onclick="removeImage();" class="remove_image">画像を削除</a></p>
+			<span th:errors="*{thumbnailBinaryFileId}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12' + ${#fields.hasErrors('scenarioName') ? ' form-attention' : ''}">
+			<label for="scenarioName">シナリオ名</label>
+			<input type="text" class="form-control" th:field="*{scenarioName}" th:maxlength="${length.scenarioName}"/>
+			<span th:errors="*{scenarioName}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12' + ${#fields.hasErrors('description') ? ' form-attention' : ''}">
+			<label for="description">メモ</label>
+			<input type="text" class="form-control" th:field="*{description}" th:maxlength="${length.description}"/>
+			<span th:errors="*{description}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12' + ${#fields.hasErrors('note') ? ' form-attention' : ''}">
+			<label for="note">解説</label>
+			<textarea class="form-control" th:field="*{note}" rows="5" th:maxlength="${length.note}"/>
+			<span th:errors="*{note}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3' + ${#fields.hasErrors('isInvalided') ? ' form-attention' : ''}">
+			<div><label for="isInvalided">状態</label></div>
+			<div class="form-check form-check-inline">
+				<input type="checkbox" th:field="*{isInvalided}" th:value="true" data-toggle="toggle" data-on="無効" data-off="有効" data-onstyle="danger" data-offstyle="success"/>
+				<span th:errors="*{isInvalided}" class="alert-message"/>
+			</div>
+		</div>
+	</div>
+
+	

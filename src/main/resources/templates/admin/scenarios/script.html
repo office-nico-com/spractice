@@ -1,0 +1,39 @@
+<script type="text/javascript" th:inline="javascript">
+
+$(function(){
+	showImage();
+});
+
+// イメージの選択
+function selectImage() {
+
+	const winWidth = 800;
+	const winHeight = 600;
+	const subx = ( screen.availWidth - winWidth ) / 2;
+	const suby = ( screen.availHeight - winHeight ) / 2;
+	$.cookie("parent", 'true', { path:'/' });
+	window.open( [# th:text="@{/t06o1ny8/storages}" /] , "storage", 'width=' + winWidth + ',height=' + winHeight+ ',left=' + subx+ ',top=' + suby + ',menubar=false,toolbar=false,location=false' );
+}
+
+// ストレージ画面からのコールバック
+function storageCallback(id){
+	// alert(id);
+	$('#thumbnailBinaryFileId').val(id);
+	showImage();
+}
+
+// イメージの表示
+function showImage(){
+	if($('#thumbnailBinaryFileId').val() != ''){
+		$('#thumbnail').find('img').remove();
+		$('#thumbnail').prepend('<img src="' + [# th:text="@{/t06o1ny8/storages/image/}" /] + $('#thumbnailBinaryFileId').val() + '" class="thumbnail_image"/>');
+		$('#thumbnail').find('a.remove_image').show();
+	}
+}
+
+// イメージの削除
+function removeImage(){
+	$('#thumbnail').find('img').remove();
+	$('#thumbnail').find('a.remove_image').hide();
+}
+</script>

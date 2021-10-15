@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>受講履歴｜Secure Practice Admin</title>
+
+<style type="text/css">
+table.download td.button{
+	width:150px
+}
+table.download td.title{
+	vertical-align:middle;
+}
+</style>
+
+</head>
+
+<body th:with="menuCode=101007">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item active" aria-current="page">受講履歴照会</li>
+</ol>
+</nav>
+
+
+<div class="card mb-3">
+	<div class="card-header function-title-bar">受講履歴CSVファイルダウンロード</div>
+	<div class="card-body">
+
+	<form id="idForm" method="get" th:action="@{/t06o1ny8/completions}" th:object="${obj}" >
+
+	<div class="form-row">
+	<div class="col-2 text-right pt-2">クライアント：</div>
+	<div class="col-10">
+		<div class="form-group">
+		
+		<select class="form-control" name="clientId" onchange="submitForm();">
+		<option value="">▽</option>
+		<option th:each="client: ${clients}" th:value="${client.id}" th:text="${client.clientKeycode} + ':' + ${client.clientNameJa}" th:selected="${client.id == selectedClientId}"/>
+		</select>
+		</div>
+	</div>
+	</div>
+
+	<div class="form-row">
+	<div class="col-2 d-flex align-items-center justify-content-end">ダウンロード期間：</div>
+	<div class="col-2">
+	<input type="text" name="fd" th:value="${fromDate}" class="form-control" id="idFromDate" placeholder="" autocomplete="off"/>
+	</div>
+	<div class="col-1 d-flex align-items-center justify-content-center">～</div>
+	<div class="col-2">
+	<input type="text" name="td" th:value="${toDate}" class="form-control" id="idToDate" placeholder="" autocomplete="off"/>
+	</div>
+	</div>
+
+
+	<table class="table mt-4 download" th:if="${reports.size() > 0}">
+	<tbody>
+	<tr th:each="report : ${reports}">
+	<td class="button"><button class="btn btn-success" th:onclick="'download(' + ${report.completionPoint.id} + ');'">ダウンロード</button></td>
+	<td class="title" th:text="${report.completionPoint.description}"/>
+	</tr>
+	</tbody>
+	</table>
+
+
+	</form>
+
+
+	</div>
+	</div>
+</div>
+
+
+
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+const submitForm = () => {
+	$('#idForm').submit();
+}
+
+const download = (id) => {
+	
+	[# th:if="${selectedClientId != null}"]
+	$.LoadingOverlay("show", {
+		background: "rgba(255, 255, 255, 0.6)",
+		size: 8
+	});
+
+	const fd = $('#idFromDate').val();
+	const td = $('#idToDate').val();
+	
+	var url = [# th:text="@{/t06o1ny8/completions/download/}" /] + id;
+	url += "?fd=" + fd;
+	url += "&td=" + td;
+	url += "&clientId=" + [# th:text="${selectedClientId}" /];
+	$.fileDownload(url, {
+		successCallback: function (url) {
+			$.LoadingOverlay("hide");
+		},
+		failCallback: function (html, url) {
+			$.LoadingOverlay("hide");
+			alert("データエクスポートに失敗しました。お手数ですが、再実行してください。\n問題が解決しない場合は、システム管理者にお問い合わせください。");
+		}
+	});
+	[/]
+}
+
+$(function(){
+	
+	$('#idFromDate').datetimepicker({
+		dayViewHeaderFormat: 'YYYY年 MMMM',
+		format: 'YYYY/M/D',
+		locale: 'ja',
+		useCurrent:false
+	});
+
+	$('#idToDate').datetimepicker({
+		dayViewHeaderFormat: 'YYYY年 MMMM',
+		format: 'YYYY/M/D',
+		locale: 'ja',
+		useCurrent:false
+	});
+
+	
+});
+
+</script>
+</th:block>
+
+</html>
+

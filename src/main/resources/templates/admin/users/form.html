@@ -1,0 +1,124 @@
+
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('email') ? ' form-attention' : ''}">
+			<label for="email">メールアドレス</label>
+			<input type="text" class="form-control" th:field="*{email}"  th:maxlength="${length.email}" onchange="setAccount();"/>
+			<span th:errors="*{email}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('account') ? ' form-attention' : ''}">
+			<label for="email">アカウント　<span class="small">※メールアドレスを推奨します</span></label></label>
+			<input type="text" class="form-control" th:field="*{account}"  th:maxlength="${length.account}"/>
+			<span th:errors="*{account}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('passwd') || #fields.hasErrors('passwdBlank') || #fields.hasErrors('passwdLen')  ? ' form-attention' : ''}">
+			<label for="passwd">パスワード</label>
+			<input type="password" class="form-control" th:field="*{passwd}"  th:maxlength="${length.passwd}"/>
+			<span th:errors="*{passwd}" class="alert-message"/>
+			<span th:errors="*{passwdBlank}" class="alert-message"/>
+			<span th:errors="*{passwdLen}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('passwdConf') || #fields.hasErrors('passwdDifferent') ? ' form-attention' : ''}">
+			<label for="passwd">パスワード（確認用）</label>
+			<input type="password" class="form-control" th:field="*{passwdConf}"  th:maxlength="${length.passwd}"/>
+			<span th:errors="*{passwdConf}" class="alert-message"/>
+			<span th:errors="*{passwdDifferent}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('familyName') ? ' form-attention' : ''}">
+
+			<label for="familyName">姓</label>
+			<input type="text" class="form-control" th:field="*{familyName}" th:maxlength="${length.familyName}"/>
+			<span th:errors="*{familyName}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('givenName') ? ' form-attention' : ''}">
+			<label for="givenName">名</label>
+			<input type="text" class="form-control" th:field="*{givenName}" th:maxlength="${length.givenName}"/>
+			<span th:errors="*{givenName}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('familyNameKana') ? ' form-attention' : ''}">
+			<label for="familyNameKana">姓（カナ）</label>
+			<input type="text" class="form-control" th:field="*{familyNameKana}" th:maxlength="${length.familyNameKana}"/>
+			<span th:errors="*{familyNameKana}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('givenNameKana') ? ' form-attention' : ''}">
+			<label for="givenNameKana">名（カナ）</label>
+			<input type="text" class="form-control" th:field="*{givenNameKana}" th:maxlength="${length.givenNameKana}"/>
+			<span th:errors="*{givenNameKana}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'">
+			<label for="email">クライアント選択</label>
+			<table class="table table-striped">
+			<thead>
+			<tr>
+				<th scope="col">選択</th>
+				<th scope="col">クライアントコード</th>
+				<th scope="col">クライアント名</th>
+				<th scope="col">クライアント権限</th>
+			</tr>
+			</thead>
+
+			<tbody>
+			<tr th:each="client,status:${clients}">
+				<th scope="row"><input type="checkbox" th:field="*{clients[__${status.index}__].clientId}" th:value="${#strings.toString(client.id)}" th:id="'client_id' + ${status.index}"></th>
+				<td><label th:for="'client_id' + ${status.index}" th:text="${client.clientKeycode}"/></td>
+				<td><label th:for="'client_id' + ${status.index}" th:text="${client.clientNameJa}"/></td>
+				<td>
+				<select th:field="*{clients[__${status.index}__].roleCode}" class="custom-select" style="width:auto;">
+					<option th:value="${@roleCode.user}" th:text="${@roleCode.label(@roleCode.user)}"/>
+					<option th:value="${@roleCode.admin}" th:text="${@roleCode.label(@roleCode.admin)}"/>
+				</select>
+				</td>
+			</tr>
+			</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="form-row">
+
+		<div th:class="'form-group col-sm-4' + ${#fields.hasErrors('isAdmin') ? ' form-attention' : ''}">
+			<div><label for="isAdmin">権限</label></div>
+			<div class="form-group-frame">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" th:field="*{isAdmin}" th:value="true"/>
+					<label class="form-check-label" th:for="'isAdmin1'" th:text="管理者"/>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" th:field="*{isAdmin}" th:value="false"/>
+					<label class="form-check-label" th:for="'isAdmin2'" th:text="一般"/>
+				</div>
+			</div>
+			<span th:errors="*{isAdmin}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12' + ${#fields.hasErrors('description') ? ' form-attention' : ''}">
+			<label for="description">説明</label>
+			<textarea class="form-control" th:field="*{description}" rows="5" th:maxlength="${length.description}"/>
+			<span th:errors="*{description}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3' + ${#fields.hasErrors('isInvalided') ? ' form-attention' : ''}">
+			<div><label for="isInvalided">状態</label></div>
+			<div class="form-check form-check-inline">
+				<input type="checkbox" th:field="*{isInvalided}" th:value="true" data-toggle="toggle"  data-on="無効" data-off="有効" data-onstyle="danger" data-offstyle="success"/>
+				<span th:errors="*{isInvalided}" class="alert-message"/>
+			</div>
+		</div>
+	</div>
+

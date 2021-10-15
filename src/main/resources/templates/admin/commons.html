@@ -1,0 +1,218 @@
+***************************************************
+** HTMLヘッダー
+***************************************************
+<head th:fragment="head(title, links)">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Language" content="ja">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<th:block th:replace="${title}"/>
+
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/font-awesome/css/all.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/datatables/css/dataTables.bootstrap4.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/webjars/bootstrap4-toggle/css/bootstrap4-toggle.min.css}" type="text/css" rel="stylesheet"/>
+<link th:href="@{/Date-Time-Picker-Bootstrap-4/build/css/bootstrap-datetimepicker.min.css}" type="text/css" rel="stylesheet"/>
+
+
+<link rel="stylesheet" href="custom-button/bs-button-style.min.css" th:href="@{/custom-button/bs-button-style.min.css}">
+<link rel="stylesheet" href="smile-admin-template/main.css" th:href="@{/smile-admin-template/main.css}">
+<link rel="stylesheet" href="smile-admin-template/custom.css" th:href="@{/smile-admin-template/custom.css}">
+
+<link rel="stylesheet" href="css/editor.css" th:href="@{/css/editor.css}">
+
+
+<th:block th:if="${links}"><th:block th:replace="${links}"/></th:block>
+<th:block th:if="${styles}"><th:block th:replace="${styles}"/></th:block>
+
+</head>
+
+***************************************************
+** ヘッダー／上部ナビゲーション
+***************************************************
+<header  th:fragment="header(menuCode)">
+<div class="logo">
+<a th:href="@{/t06o1ny8/my}"><img th:src="@{/smile-admin-template/logo.png}"></a>
+</div>
+
+<!-- /* グローバルメニューの選択はメニューコードの上三桁で判定する */-->
+<!--/* ul class="global-nav">
+<li class="global-nav-menu">
+<button>Gナビ プルダウン</button>
+<div class="global-nav-container">
+<div class="global-nav-box">
+<div class="global-nav-header">Gナビ プルダウン</div>
+<div class="global-nav-main">
+<ul>
+<li th:class="${menuCode/1000==101} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン１選択済み</a></li>
+<li th:class="${menuCode/1000==102} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン２</a></li>
+<li th:class="${menuCode/1000==103} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン３</a></li>
+<li th:class="${menuCode/1000==104} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン４</a></li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+
+<li><button th:class="${menuCode/1000==201} ? 'selected' : ''">Gナビ２</button></li>
+<li><button th:class="${menuCode/1000==302} ? 'selected' : ''">Gナビ３</button></li>
+<li><button th:class="${menuCode/1000==403} ? 'selected' : ''">Gナビ４</button></li>
+</ul */-->
+
+
+<!--  ul class="global-nav">
+<li class="global-nav-menu">
+<button>Gナビ プルダウン</button>
+<div class="global-nav-container">
+<div class="global-nav-box">
+<div class="global-nav-header">Gナビ プルダウン</div>
+<div class="global-nav-main">
+<ul>
+<li th:class="${menuCode/1000==101} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン１選択済み</a></li>
+<li th:class="${menuCode/1000==102} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン２</a></li>
+<li th:class="${menuCode/1000==103} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン３</a></li>
+<li th:class="${menuCode/1000==104} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="#">プルダウン４</a></li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+</ul -->
+
+
+
+<ul class="global-nav right-nav">
+<li class="global-nav-menu">
+<button><i class="fas fa-user"></i></button>
+<div class="global-nav-container">
+<div class="global-nav-box">
+<div class="global-nav-header" th:text="${@sessionData.adminFamilyName} + ' ' + ${@sessionData.adminGivenName}"/>
+<div class="global-nav-main">
+<ul>
+<li th:class="${menuCode==102001} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a th:href="@{/t06o1ny8/profile}">ユーザー情報変更</a></li>
+<li th:class="${menuCode==102002} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a th:href="@{/t06o1ny8/password}">パスワード変更</a></li>
+<li th:class="${menuCode==102003} ? 'global-nav-menu selected' : 'global-nav-menu'"   class="global-nav-menu"><a href="javascript:void(0);" onclick="$('#idLogout').submit();">ログアウト</a></li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+</ul>
+
+
+<form method="post" th:action="@{/t06o1ny8/logout}" id="idLogout"></form>
+</header>
+
+***************************************************
+** 左側ナビゲーション
+***************************************************
+<div class="left-nav"  th:fragment="leftNavigation(menuCode)">
+<div class="left-nav-scroll-container">
+<div id="leftNavTrigger" class="left-nav-trigger" aria-hidden="true">
+<span class="trigger-icon"><span class="trigger-icon__inner">
+<i class="fas fa-bars"></i><i class="fas fa-arrow-left"></i><i class="fas fa-arrow-right"></i>
+</span></span>
+</div>
+
+<!--/* グローバルメニュー：＊＊＊ */-->
+<ul id="leftNavList"class="navi-list-1">
+<li th:class="${menuCode==101001} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/my}">
+	<div><i class="fas fa-heart"></i></div>
+	<span>ダッシュボード</span></a>
+</li>
+
+<li th:class="${menuCode==101002} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/clients/init}">
+	<div><i class="fas fa-city"></i></div>
+	<span>クライアント管理</span></a>
+</li>
+
+<li th:class="${menuCode==101003} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/users/init}">
+	<div><i class="fas fa-users"></i></div>
+	<span>ユーザー管理</span></a>
+</li>
+
+<li th:class="${menuCode==101008} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/users/import}">
+	<div><i class="fas fa-file-upload"></i></div>
+	<span>ユーザー 一括登録</span></a>
+</li>
+
+<li th:class="${menuCode==101004} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/portals}">
+	<div><i class="fas fa-laptop-house"></i></div>
+	<span>ポータル管理</span></a>
+</li>
+
+<li th:class="${menuCode==101005} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/scenarios/init}">
+	<div><i class="fas fa-book"></i></div>
+	<span>シナリオ管理</span></a>
+</li>
+
+<li th:class="${menuCode==101006} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/completionpoints/init}">
+	<div><i class="fas fa-graduation-cap"></i></div>
+	<span>履修ポイント管理</span></a>
+</li>
+
+<li th:class="${menuCode==101007} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/completions}">
+	<div><i class="fas fa-chart-bar"></i></div>
+	<span>受講履歴照会</span></a>
+</li>
+
+<li th:class="${menuCode==101009} ? 'selected' : ''">
+	<a th:href="@{/t06o1ny8/informations}">
+	<div><i class="fas fa-share-alt"></i></div>
+	<span>共有情報管理</span></a>
+</li>
+
+
+
+</ul>
+
+
+</li>
+</ul>
+</div>
+</div><!-- /.left-nav -->
+
+
+
+***************************************************
+** フッター
+***************************************************
+<footer th:fragment="footer">© 2021 Office NICO. All rights reserved.</footer>
+
+
+***************************************************
+** スクリプト
+***************************************************
+<th:block th:fragment="scripts(scripts)">
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/momentjs/min/moment-with-locales.min.js}"></script>
+<script type="text/javascript">moment.locale('ja');</script>
+<script type="text/javascript" th:src="@{/webjars/chart.js/dist/chart.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery-cookie/jquery.cookie.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/datatables/js/dataTables.bootstrap4.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap4-toggle/js/bootstrap4-toggle.min.js}"></script>
+<script type="text/javascript" th:src="@{/jquery-loading-overlay-master/dist/loadingoverlay.min.js}"></script>
+<script type="text/javascript" th:src="@{/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery.fileDownload/jquery.fileDownload.js}"></script>
+
+<script th:src="@{/smile-admin-template/main.js}"></script>
+<script th:src="@{/js/editor.js}"></script>
+
+
+<th:block th:if="${scripts}"><th:block th:replace="${scripts}"/></th:block>
+</th:block>
+
+

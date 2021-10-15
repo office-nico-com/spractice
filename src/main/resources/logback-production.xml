@@ -1,0 +1,26 @@
+<included>
+	<logger name="com.office_nico.spractice.web.controllers.LoginController" additivity="false">
+		<level value="${application.log.level}" />
+		<appender-ref ref="LOGIN" />
+	</logger>
+
+	<logger name="com.office_nico.spractice.web.controllers.WebApiController" additivity="false">
+		<level value="${application.log.level}" />
+		<appender-ref ref="WEBAPI" />
+	</logger>
+
+	<logger name="com.office_nico.spractice.batch.controllers" additivity="false">
+		<level value="${application.log.level}" />
+		<appender-ref ref="BATCH" />
+	</logger>
+
+	<logger name="com.office_nico.spractice" additivity="false">
+		<level value="${application.log.level}" />
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+	</root>
+
+</included>

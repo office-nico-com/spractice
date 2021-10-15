@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>履修ポイント照会｜Secure Practice Admin</title>
+
+</head>
+
+<body th:with="menuCode=101006,length=${T(com.office_nico.spractice.constants.Length)}">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/completionpoints}" th:text="履修ポイント管理"/></li>
+	<li class="breadcrumb-item active" aria-current="page"><th:block th:text="${completionPoint.description}" /></li>
+</ol>
+</nav>
+
+<div class="card mb-3">
+<div class="card-header function-title-bar">「<th:block th:text="${completionPoint.description}" />」の登録情報照会<button class="btn btn-outline-danger btn-sm ml-sm-2 float-right btn-round" data-toggle="modal" data-target="#modal1">削除する</button><button class="btn btn-outline-info btn-sm ml-sm-2 float-right btn-round" onclick="edit();">編集する</button></div>
+
+<div class="card-body">
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					履修ポイントコード
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" th:text="${completionPoint.completionPointKeycode}"/>
+			</div>
+
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					説明
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" ex:hbr="${completionPoint.description}"/>
+			</div>
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					説明（英語）
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" ex:hbr="${completionPoint.descriptionEn}"/>
+			</div>
+
+
+			<div class="row underbar">
+				<div class="form-group col-sm-3 text-right text-muted">
+					状態
+				</div>
+				<div class="form-group col-sm-1 text-center text-muted">：</div>
+				<div class="form-group col-sm-8" th:text="${@invalidStatus.label(completionPoint.isInvalided)}"/>
+			</div>
+
+		</div>
+</div>
+
+
+
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-body">
+削除した情報は元に戻すことはできません。<br/>本当に削除してよろしいですか？
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-danger" onclick="destory();">削除する</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+const destory = () => {
+	location.href = [# th:text="@{/t06o1ny8/completionpoints/destroy/{completionPointId}(completionPointId=${completionPoint.id})}" /];
+}
+
+const edit = () => {
+	location.href = [# th:text="@{/t06o1ny8/completionpoints/edit/{completionPointId}(completionPointId=${completionPoint.id})}" /];
+};
+
+</script>
+</th:block>
+
+</html>
+

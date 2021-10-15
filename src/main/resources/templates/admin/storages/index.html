@@ -5,16 +5,14 @@
 <meta charset="UTF-8">
 
 <link th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" type="text/css" rel="stylesheet"/>
-<link th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" type="text/css" rel="stylesheet">
+<link th:href="@{/fontawesome/font-awesome-4.7.0/css/font-awesome.min.css}" type="text/css" rel="stylesheet">
 
 <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
-
 <script type="text/javascript" th:src="@{/jquery-loading-overlay-master/dist/loadingoverlay.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/loading.js}"></script>
-
 <script type="text/javascript">$(function(){$('[data-toggle="popover"]').popover({
 																																						placement: 'auto',
 																																						trigger:'hover',
@@ -286,6 +284,12 @@ hr.delim{
 <span class="button_discription" data-toggle="popover" data-content="ファイルの削除">
 <button id="removeButton" class="btn btn-round btn-outline-secondary"><i class="fa fa-trash" aria-hidden="true"></i></button>
 </span>
+
+<span class="button_discription" data-toggle="popover" data-content="選択">
+<button id="selectButton" class="btn btn-round btn-outline-secondary"><i class="fa fa-file-image-o" aria-hidden="true"></i></button>
+</span>
+
+
 </div>
 </div>
 <div class="row">
@@ -435,18 +439,22 @@ $(function(){
 		$("#modal2").modal('show');
 	})
 
-		$('#settingButton').click(function(){
-			$('#categorySetting').empty();
-			[# th:each="category : ${categories}"]
-			createCategorySetting([# th:utext="${category.id}" /], [# th:text="${category.categoryName}" /], false, null, false, [# th:text="${category.canDelete}" /]);
-			[/]
-			$("#modal3").modal('show');
+	$('#settingButton').click(function(){
+		$('#categorySetting').empty();
+		[# th:each="category : ${categories}"]
+		createCategorySetting([# th:utext="${category.id}" /], [# th:text="${category.categoryName}" /], false, null, false, [# th:text="${category.canDelete}" /]);
+		[/]
+		$("#modal3").modal('show');
 	})
 
 	$('#removeButton').click(function(){
 		confirmRemove();
 	})
-	
+
+		$('#selectButton').click(function(){
+		selectCallback();
+	})
+
 	$('#fileUpload').change(function(e){
 		execUpload(e.target.files);
 		$('#fileUpload').val('');
@@ -487,7 +495,7 @@ $(function(){
 
 	$('#categories').change(function(){
 		var id=$(this).val();
-		location.href=[[@{/admin/storages}]] + "/" + id;
+		location.href=[[@{/t06o1ny8/storages}]] + "/" + id;
 	});
 
 	
@@ -508,6 +516,15 @@ $(function(){
 	$('#buttonAddCategory').click(function(){
 		createCategorySetting(null, null, true, null, true, true);
 	})
+	
+	// openerで、storageCallback()が実装されている場合は選択ボタンを表示する
+	if(window.opener && window.opener.storageCallback){
+		$('#selectButton').show();
+	}
+	else{
+		$('#selectButton').hide();
+	}
+	
 	
 });
 
@@ -546,11 +563,14 @@ function execUpload(files){
 }
 
 function sendFile(formData, uploadFileBox){
-	var uploadURL = [[@{/admin/storages}]];
+	var uploadURL = [[@{/t06o1ny8/storages}]];
 	var jqXHR=$.ajax({
 		url: uploadURL, type: "POST",
 		contentType:false,
 		processData: false,
+		headers: {
+			[# th:text="${_csrf.headerName}"/]:[# th:text="${_csrf.token}"/] + "xx"
+		},
 		dataType : "json",
 		cache: false,
 		data: formData,
@@ -655,7 +675,7 @@ var UploadFileBox=function(fileName, size, lastModified, created, append){
 			content = '<i class="fa fa-file" aria-hidden="true"></i>';
 		}
 		else if(content == 'image'){
-			var imageUrl = [[@{/admin/storages/image}]] + "/" + id;
+			var imageUrl = [[@{/t06o1ny8/storages/image}]] + "/" + id;
 			content = '<div class="image" style="background-image:url(' + "'" + imageUrl + "'" + ')"/>';
 		}
 		this.$progress.hide();
@@ -735,6 +755,12 @@ function changeSelectedStatus(){
 			$('#removeButton').addClass("btn-outline-danger");
 			$('#removeButton').removeClass("btn-outline-secondary");
 			$('#removeButton').removeClass("disabled");
+			if($(".selector:checked").length == 1){
+				$('#selectButton').removeClass("disabled");
+			}
+			else{
+				$('#selectButton').addClass("disabled");
+			}
 		}
 		else{
 			$('#donwloadButton').prop("disabled", true);
@@ -747,6 +773,7 @@ function changeSelectedStatus(){
 			$('#removeButton').removeClass("btn-outline-danger");
 			$('#removeButton').addClass("btn-outline-secondary");
 			$('#removeButton').addClass("disabled");
+			$('#selectButton').addClass("disabled");
 		}
 	}, 10);
 }
@@ -762,7 +789,7 @@ function download(){
 		}
 		params += 'binaryFileIds=' + $(element).val();
 	});
-	location.href=[[@{/admin/storages/download}]] + "?" + params;
+	location.href=[[@{/t06o1ny8/storages/download}]] + "?" + params;
 }
 
 function confirmRemove(){
@@ -774,7 +801,7 @@ function confirmRemove(){
 		}
 		params += 'binaryFileIds=' + $(element).val();
 	});
-	var url = [[@{/admin/storages/canRemoveFile}]] + "?" + params;
+	var url = [[@{/t06o1ny8/storages/canRemoveFile}]] + "?" + params;
 	$.getJSON(url, function(json){
 		if(json.result == 1){
 			$("#modal1").modal('show');
@@ -797,13 +824,16 @@ function deleteFile(){
 		params.push($(element).val());
 	});
 	
-	var url=[[@{/admin/storages/remove}]];
+	var url=[[@{/t06o1ny8/storages/remove}]];
 	$.ajax({
 		type:"post",
 		url:url,
 		data:JSON.stringify(params),
 		contentType: 'application/json',
 		dataType: "json",
+		headers: {
+			[# th:text="${_csrf.headerName}"/]:[# th:text="${_csrf.token}"/]
+		},
 		success: function(data, textStatus, jqXHR){
 			if(data.result != 1){
 				alert("There was an error uploading the file. please try again.");
@@ -837,13 +867,16 @@ function moveFile(){
 		$("#modal2").modal('hide');
 		return;
 	}
-	var url=[[@{/admin/storages/move}]] + "?binaryFileCategoryId=" + moveToCategoryId;
+	var url=[[@{/t06o1ny8/storages/move}]] + "?binaryFileCategoryId=" + moveToCategoryId;
 	$.ajax({
 		type:"post",
 		url:url,
 		data:JSON.stringify(params),
 		contentType: 'application/json',
 		dataType: "json",
+		headers: {
+			[# th:text="${_csrf.headerName}"/]:[# th:text="${_csrf.token}"/]
+		},
 		success: function(data, textStatus, jqXHR){
 			if(data.result != 1){
 				alert("There was an error uploading the file. please try again.");
@@ -1015,7 +1048,7 @@ function confirmCategoryEdit(){
 	});
 
 	if(isDelete){
-		var url = [[@{/admin/storages/canRemoveCategory}]] + "?" + params;
+		var url = [[@{/t06o1ny8/storages/canRemoveCategory}]] + "?" + params;
 		$.getJSON(url, function(json){
 			if(json.result == 1){
 				$('#modal5').modal('show');
@@ -1044,7 +1077,7 @@ function editCategory(){
 		var category={};
 		category['id']=$li.find('input[type=hidden]').val();
 		category['category_name']=$li.find('input[type=text]').val();
-		category['order_number']=index+1;
+		category['sort_order']=index+1;
 		if($li.find('input[type=text]').hasClass('remove_category')){
 			category['is_delete']=true;
 		}
@@ -1062,13 +1095,16 @@ function editCategory(){
 		return;
 	}
 	
-	var url=[[@{/admin/storages/editCategory}]];
+	var url=[[@{/t06o1ny8/storages/editCategory}]];
 	$.ajax({
 		type:"post",
 		url:url,
 		data:JSON.stringify(params),
 		contentType: 'application/json',
 		dataType: "json",
+		headers: {
+			[# th:text="${_csrf.headerName}"/]:[# th:text="${_csrf.token}"/]
+		},
 		success: function(data, textStatus, jqXHR){
 			if(data.result != 1){
 				alert("There was an error uploading the file. please try again.");
@@ -1082,6 +1118,13 @@ function editCategory(){
 			alert("Server Error. Pleasy try again later.");
 		}
 	});
+}
+
+function selectCallback(){
+	var val = $(".selector:checked").eq(0).val();
+	window.opener.storageCallback(val);
+	window.close();
+
 }
 
 function escapeHtml(str){

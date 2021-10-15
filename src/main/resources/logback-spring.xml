@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration>
+	<property file="${application.config}" />
+
+	<!-- 1. ログ出力のスタイルを定義 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS}[%thread][%-5level][%logger] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.log.path}/application.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${application.log.path}/application.%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%thread][%-5level][%logger{5}] %msg%n</pattern>
+		</encoder>
+		<!-- filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter -->
+	</appender>	
+
+	<appender name="LOGIN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.log.path}/login.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${application.log.path}/login.%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%thread][%-5level][%logger{5}] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="BATCH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.log.path}/batch.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${application.log.path}/batch.%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%thread][%-5level][%logger{5}] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- appender name="WEBAPI" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${application.log.path}/webapi.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${application.log.path}/webapi.%d{yyyyMMdd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%thread][%-5level][%logger{5}] %msg%n</pattern>
+		</encoder>
+	</appender -->
+
+	<if condition='isDefined("spring.profiles.active")'>
+		<then>
+			<include resource="logback-${spring.profiles.active}.xml"/>
+		</then>
+		<else>
+			<include resource="logback-development.xml"/>
+		</else>
+	</if>
+
+</configuration>

@@ -1,0 +1,10 @@
+/* ヘッダー */
+header{
+	min-width:800px;
+}
+
+/* ロゴ */
+header div.logo{
+	width:auto;
+}
+

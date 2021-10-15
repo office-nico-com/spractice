@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="front/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>ホーム｜Secure Practice</title>
+
+<style type="text/css">
+
+ul{
+	list-style-type : circle;
+	padding-left:22px;
+}
+
+ul li{
+	list-style-type : circle;
+	padding-bottom:5px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+<header class="container-fluid" th:replace="front/commons::header"/>
+
+
+<div class="container-fluid pb-5 main">
+
+
+<th:block th:replace="front/commons::tabs('home')"/>
+
+<div class="main_body">
+
+<h5 class="font-weight-bold title">セキュアプラクティスにようこそ！</h5>
+セキュアプラクティスでは、文書だけでは理解しにくいセキュリティをロールプレイングで分かりやすく学ぶことができます。<br/><br/>
+<ul>
+<li>実際のマルウェアに感染した場合のイメージが実体験でき、危機感を醸成できる</li>
+<li>より現実に近い形で体験を可能にするため、実際のメール画面に酷似した環境を提供</li>
+<li>クリック操作のため、簡単でわかりやすい</li>
+<li>本物の標的型攻撃メールのような「脅迫メール」「マルウェア感染」「ランサムウェア」などが体験可能</li>
+</ul>
+下の体験シナリオの中から受講したいシナリオを選択して訓練を開始してください。<br/><br/>
+
+
+<h5 class="font-weight-bold title">体験シナリオ</h5>
+<th:block th:if="${scenarios.size()  == 0}">現在利用できるシナリオはありません。</th:block>
+<a class="senario_card" th:each="scenario:${scenarios}"  th:href="@{/{clientKeycode}/{scenarioKeycode}(clientKeycode=${clientKeycode},scenarioKeycode=${scenario.scenarioKeycode})}">
+<div class="senario_card" th:style="'background-image:url(\'' + @{/front/storages/{binaryFileId}(binaryFileId=${scenario.thumbnailBinaryFileId})}+ '\')'">
+
+<div class="bgtitle"></div>
+<div class="title" th:text="${scenario.scenarioName}"/>
+</div>
+</a>
+
+<br class="senario_card_end">
+
+<br/>
+
+<h5 class="font-weight-bold title">重要なセキュリティ情報<span class="ipa_before">(</span><a href="https://www.ipa.go.jp/" class="ipa" target="blank">IPAより</a><span class="ipa_after">)</span></h5>
+
+<div id="idRss"></div>
+
+
+</div>
+
+
+</div>
+<footer th:replace="front/commons::footer" class="container-fluid"/>
+
+<th:block th:replace="front/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:src="@{/js/front.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+$(function(){
+	$.getJSON([# th:text="@{/front/rssread}" /])
+		.done(function(json) {
+			// 正常終了
+			
+			var html  = "<table class='ipa'>";
+			var count = 0;
+			var max = 10;
+			$.each(json, function(i, data){
+
+				if(count < max){
+					html  += "<tr>";
+					html  += "<td>";
+					html  += h(data['date']);
+					html  += "</td>";
+					html  += "<td>";
+					html  += '<a href="' + data['link'] + '" target="_blank">';
+					html  += h(data['title']);
+					html  += '</a>';
+					
+					html  += "</td>";
+					html  += "</tr>";
+					count++;
+				}
+			});
+			html  += "</table>";
+			if(count == 0){
+				html = "現在、お知らせはありません。"
+			}
+			
+			$('#idRss').html(html);
+			
+			
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			// エラー
+			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+			// alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+});
+
+</script>
+</th:block>
+
+</body>
+</html>

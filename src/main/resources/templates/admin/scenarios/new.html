@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>シナリオ新規登録｜Secure Practice Admin</title>
+
+<style type="text/css">
+
+img.thumbnail_image{
+	margin-right:20px;
+	float:left;
+	width:200px;
+}
+
+a.edit_image{
+	vertical-align:top;
+	float:left;
+}
+
+a.remove_image{
+	vertical-align:top;
+	display:none;
+	float:left;
+	margin-top:10px;
+}
+</style>
+
+</head>
+
+<body th:with="menuCode=101005,length=${T(com.office_nico.spractice.constants.Length)}">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/scenarios}" th:text="シナリオ管理"/></li>
+	<li class="breadcrumb-item active" aria-current="page">シナリオ新規登録</li>
+</ol>
+</nav>
+
+<form method="post" th:action="@{/t06o1ny8/scenarios/new}" th:object="${obj}" >
+
+<div class="card mb-3">
+<div class="card-header function-title-bar">シナリオ新規登録入力フォーム</div>
+
+
+<div class="card-body">
+
+	<th:block th:replace="admin/scenarios/form"/>
+
+	<div class="form-row mt-2">
+		<div class="form-group col-sm-12 text-center">
+			<button type="button" class="btn btn-outline-secondary mr-sm-2 pl-sm-4 pr-sm-4" onclick="list();">キャンセル</button>
+			<button type="submit" class="btn btn-primary mr-sm-2 pl-sm-4 pr-sm-4">登録する</button>
+		</div>
+	</div>
+</div>
+
+</div>
+
+</form>
+
+
+
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+
+const list = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios}" /];
+};
+</script>
+
+<script type="text/javascript" th:inline="javascript" th:replace="admin/scenarios/script"/>
+
+</th:block>
+
+</html>
+

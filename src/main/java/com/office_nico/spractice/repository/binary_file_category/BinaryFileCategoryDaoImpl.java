@@ -17,11 +17,11 @@ public class BinaryFileCategoryDaoImpl implements BinaryFileCategoryDao<BinaryFi
 	@PersistenceContext
 	private EntityManager entityManager = null;
 
-	public Optional<BinaryFileCategory> getByOrganizationIdOrderByFirstOrderNumber(Long organizationId) {
+	public Optional<BinaryFileCategory> getOrderByFirstSortOrder() {
 		
 		BinaryFileCategory binaryFileCategory = null;
 
-		binaryFileCategory = entityManager.createQuery("select t1 from BinaryFileCategory t1 where organizationId = :arg1 order by orderNumber asc", BinaryFileCategory.class).setParameter("arg1", organizationId).setMaxResults(1).getSingleResult();
+		binaryFileCategory = entityManager.createQuery("select t1 from BinaryFileCategory t1 order by sortOrder asc", BinaryFileCategory.class).setMaxResults(1).getSingleResult();
 		
 		return Optional.ofNullable(binaryFileCategory);
 	}

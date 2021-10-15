@@ -26,16 +26,13 @@ public class BinaryFileCategory {
 	private Long id=null;
 
 	@Column(nullable = false)
-	private Long organizationId = null;
-
-	@Column(nullable = false)
 	String categoryName = null;
 	
 	@Column(nullable = false)
 	Boolean canDelete = null;
 
 	@Column(nullable = false)
-	Integer orderNumber = null;
+	Integer sortOrder = null;
 	
 	@Column(nullable = false)
 	private LocalDateTime createdAt = null;

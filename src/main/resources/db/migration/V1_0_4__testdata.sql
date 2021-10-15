@@ -1,1 +1,0 @@
-INSERT INTO extensions (virtual_machine_id, extension_type, extension_name, note, order_number, is_invalided, is_deleted, created_at, updated_at, created_by, updated_by) values (1, 'explorer', 'explorer1', 'エクスプローラ1', 1, false, false,  CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);

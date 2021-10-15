@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>ポータル照会｜Secure Practice Admin</title>
+
+<style tyle="text/css">
+table i.far{
+	font-size:20px;
+	margin-right:10px;
+	cursor:pointer;
+	vertical-align:middle;
+}
+
+table i.far.fa-arrow-alt-circle-up{
+	margin-left:10px !important;
+}
+
+
+table i.far:hover{
+	color:#aaa;
+}
+
+table i.far.fa-times-circle{
+	color:#D23A49;
+}
+
+table i.far.fa-times-circle:hover{
+	color:#FF6A79;
+}
+
+table i.far.invisible
+ opacity
+}
+
+
+
+</style>
+
+</head>
+
+<body th:with="menuCode=101004,length=${T(com.office_nico.spractice.constants.Length)}">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/portals}" th:text="ポータル管理"/></li>
+	<li class="breadcrumb-item active" aria-current="page"><th:block th:text="${client.clientNameJa}" /></li>
+</ol>
+</nav>
+
+
+<div class="card mb-3">
+<div class="card-header function-title-bar">「<th:block th:text="${client.clientNameJa}" />」様のポータルに登録されているシナリオ<button class="btn btn-outline-info btn-sm btn-round float-right ml-sm-2" onClick="newInput();">追　　加</button></div>
+
+
+
+<div class="card-body">
+			<div class="form-row">
+				<div th:class="'form-group col-sm-12'">
+
+					<div class="global-attention-messages"></div>
+
+					<table class="table table-striped" id="idScenarioTable">
+					<thead>
+					<tr>
+						<th scope="col" width="25%">シナリオコード</th>
+						<th scope="col" width="40%">シナリオ名</th>
+						<th scope="col" width="10%">状態</th>
+						<th scope="col" width="25%">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	<div class="form-row">
+		<div class="form-group col-sm-12 text-center">
+			<button type="submit" class="btn btn-primary mr-sm-2 pl-sm-4 pr-sm-4" data-toggle="modal" data-target="#modal2" disabled id="idSaveButton">更新する</button>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document">
+<div class="modal-content">
+<div class="modal-body">
+
+	<table id="table1" class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col" width="20%">シナリオコード</th>
+			<th scope="col" width="25%">シナリオ名</th>
+			<th scope="col" width="45%">説明</th>
+			<th scope="col" width="10%">状態</th>
+		</tr>
+	</thead>
+	</table>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-body">
+データを更新します。<br/>本当によろしいですか？
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="save();">確定する</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-body">
+
+<input type="hidden" class="form-control" name="index" id="idIndex2" value=""/>
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idCompletionPointKeycodeField2">
+			<label for="scenarioName">履修ポイントコード</label>
+			<input type="text" class="form-control" name="completionPointKeycode" id="idCompletionPointKeycode2" value="" th:maxlength="${length.completionPointKeycode}"/>
+			<span class="alert-message"></span>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'" id="idDescriptionField2">
+			<label for="scenarioName">説明</label>
+			<input type="text" class="form-control" name="description" id="idDescription2" th:maxlength="${length.description}"/>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+<button type="button" class="btn btn-primary" onclick="update();">編集する</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+const list = () => {
+	location.href = [# th:text="@{/t06o1ny8/portals}" /];
+};
+
+$(function(){
+	getScenarios();
+});
+
+let scenarios = [];
+
+const getScenarios = () => {
+	$.getJSON([# th:text="@{/t06o1ny8/portals/scenario/list/{clientId}(clientId=${client.id})}" /])
+		.done(function(json) {
+			// 正常終了
+			scenarios = json;
+			draw();
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			// エラー
+			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+			alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
+const save = () => {
+	
+	$('.global-attention-messages').hide();
+	$('.global-attention-messages').empty();
+	
+	scenarios.sort(function(obj1, obj2){
+		return obj1["sortOrder"] - obj2["sortOrder"];
+	});
+
+	var formData = {};
+
+	formData["id"] = [# th:text="${client.id}" /];
+	
+	$.each(scenarios, function(index, obj) {
+		formData['scenarios[' + index + '].id'] = obj['id'];
+		formData['scenarios[' + index + '].isDeleted'] = obj['isDeleted'];
+		formData['scenarios[' + index + '].isInvalided'] = obj['isInvisible'];
+		formData['scenarios[' + index + '].sortOrder'] = obj['sortOrder'];
+	});
+	
+
+	$.post({
+		url : [# th:text="@{/t06o1ny8/portals/scenario/list/{clientId}(clientId=${client.id})}" /],
+		data : formData,
+		dataType: "json"
+	}).done(function(data, textStatus, jqXHR){
+		
+		if(data['errors'].length == 0){
+			// 成功の場合の処理
+			scenarios = data['list'];
+			draw();
+			
+			$('#idSaveButton').prop('disabled', 'true');
+		}
+		else{
+			// 入力エラー
+			for(var i=0; i < data['errors'].length; i++){
+				$('.global-attention-messages').append('<p>' +  data['errors'][i]['value'] + '</p>');
+				$('.global-attention-messages').show();
+			}
+		}
+		$('#modal2').modal('hide');
+
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	
+	});
+}
+
+const draw = () => {
+
+	$('#idScenarioTable tbody').empty();
+
+	scenarios.sort(function(obj1, obj2){
+		return obj1["sortOrder"] - obj2["sortOrder"];
+	});
+
+	var viewList = [];
+	$.each(scenarios, function(index, obj) {
+		if(!obj["isDeleted"]){
+			obj.index = index;
+			viewList.push(obj);
+		}
+	});
+
+	$.each(viewList, function(index, obj) {
+		if(!obj["isDeleted"]){
+			const $tr = $('<tr></tr>').appendTo('#idScenarioTable tbody');
+			const $td1 = $('<td></td>').appendTo($tr);
+			const $td2 = $('<td></td>').appendTo($tr);
+			const $td3 = $('<td></td>').appendTo($tr);
+			const $td4 = $('<td class="control"></td>').appendTo($tr);
+			$td1.html(hbr(obj["scenarioKeycode"]));
+			$td2.html(hbr(obj["scenarioName"]));
+			$td3.html(obj["isInvalided"] ? '無効' : '有効');
+
+			var radio = '<input type="checkbox" value="1" name="isInvisible"';
+			if(obj["isInvisible"]){
+				radio += 'checked';
+			}
+			radio += ' onchange="visibleStaus(' + obj.index + ', this)">';
+			$td4.append(radio);
+			
+			if(index == 0){
+				// $td3.html("top");<i class="far fa-times-circle"></i>
+				$td4.append('<i class="far fa-arrow-alt-circle-up invisible"></i>');
+				$td4.append('<i class="far fa-arrow-alt-circle-down" onclick="down(' + obj.index + ');"></i>');
+				$td4.append('<i class="far fa-times-circle" onclick="del(' + obj.index + ');"></i>');
+			}
+			else if(viewList.length - 1 == index){
+				// $td3.html("bottom");
+				$td4.append('<i class="far fa-arrow-alt-circle-up" onclick="up(' + obj.index + ');"></i>');
+				$td4.append('<i class="far fa-arrow-alt-circle-down invisible"></i>');
+				$td4.append('<i class="far fa-times-circle" onclick="del(' + obj.index + ');"></i>');
+			}
+			else{
+				// $td3.html("midd");
+				$td4.append('<i class="far fa-arrow-alt-circle-up" onclick="up(' + obj.index + ');"></i>');
+				$td4.append('<i class="far fa-arrow-alt-circle-down" onclick="down(' + obj.index + ');"></i>');
+				$td4.append('<i class="far fa-times-circle" onclick="del(' + obj.index + ');"></i>');
+			}
+			
+		}	
+	});
+
+
+	$('input[type=checkbox]').bootstrapToggle({
+		on: '非表示',
+		off: '表示',
+		onstyle: 'danger',
+		offstyle: 'success'
+	});
+}
+
+
+
+var $table = null;
+const newInput = () =>{
+
+	var render1=function(data, type, row){
+		return '<a href="javascript:void(0);" onclick="selectScenario(' + row.id + ');">' + (data == null ? '－' : hbr(data)) + "</a>";
+	}
+
+	var render2=function(data, type, row){
+		const status = {};
+		[# th:each="status:${@invalidStatus.list()}" ]
+		status[ [# th:text="${status.value}" /] ] = [# th:text="${status.label}" /];
+		[/]
+		return '<a href="javascript:void(0);" onclick="selectScenario(' + row.id + ');">' + (data == null ? '－' : status[String(data)]) + "</a>";
+	}
+
+	var render3=function(data, type, row){
+
+		const codes = {};
+		[# th:each="code:${@userRegistTypeCode.list()}" ]
+		codes[ [# th:text="${code.value}" /] ] = [# th:text="${code.label}" /];
+		[/]
+		return '<a href="javascript:void(0);" onclick="selectScenario(' + row.id + ');">' + (data == null ? '－' : codes[String(data)]) + "</a>";
+	}
+
+
+	$('#modal1').modal('show').on('shown.bs.modal', function (e) {
+		// modalが表示しおわらないとDataTableの幅がきまらないので、表示後のCallbackで描画する
+
+		if ( $.fn.dataTable.isDataTable( '#table1' ) ) {
+			$("#table1").DataTable();
+		}
+		else{
+		// datatableの設定を変更
+		$table = $("#table1").DataTable({
+			searching: false,
+			serverSide: true,
+			stateSave: false,
+			"ajax": {
+				"url": [# th:text="@{/t06o1ny8/scenarios/list}" /],
+				"type": "GET"
+			},
+			"order": [ [1, 'asc'] ],
+			language: {
+				"url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Japanese.json",
+			},
+
+			// If you want to use a 100% width table, set scrollX to false.
+			// If you want to use a fixed table, set scrollX to true.
+			//		scrollX: true,
+			columns: [
+				{targets: 0, data: "id", visible: false, /* width:"0%", */ orderable:true, render:render1},
+				{targets: 1, data: "scenarioKeycode", visible: true,  width:"20%", orderable:true, render:render1},
+				{targets: 2, data: "scenarioName", visible: true, width:"25%",  orderable:true, render:render1},
+				{targets: 3, data: "description", visible: true, width:"45%",  orderable:true, render:render1},
+				{targets: 4, data: "isInvalided", visible: true,  width:"10%",  orderable:false, render:render2}
+			],
+			"drawCallback":function(settings){
+				$('table.table tr td a, table.table tr th a').hover(
+						function(){
+							$(this).parent().parent().find("a").addClass('hover');
+						},
+						function(){
+							$(this).parent().parent().find("a").removeClass('hover');
+						}
+				);
+				// If you want to use a 100% width table.
+				$('#table1').css("width", "100%");
+			}
+		});
+		}
+	});
+}
+
+const selectScenario = (id) => {
+
+	var rows = $table.rows().data();
+	for(var i=0; i<rows.length; i++){
+		if(rows[i].id == id){
+
+			// 重複スキップ
+			var find = false;
+			for(var j=0; j<scenarios.length; j++){
+				if(scenarios[j]['id'] == id){
+					find = true;
+					break;
+				}
+			}
+			if(find){
+				break;
+			}
+
+			let maxSortOrder = 0;
+			$.each(scenarios, function(index, obj) {
+				if(obj["sortOrder"] >= maxSortOrder){
+					maxSortOrder = obj["sortOrder"] + 1;
+				}
+			});
+			
+			scenarios.push({ id : id, scenarioKeycode : rows[i].scenarioKeycode, scenarioName : rows[i].scenarioName, description : rows[i].description, sortOrder : maxSortOrder, isInvalided:rows[i].isInvalided, isDeleted:false, isInvisible:false});
+			draw();
+
+			$('#idSaveButton').prop('disabled', '');
+			break;
+		}
+	}
+	
+	$('#modal1').modal('hide');
+}
+
+const down = (index) => {
+	
+	// バックサーチして指定のindexの一個上に移動する
+	// 削除済みはとばす
+	var count = scenarios.length - 1;
+	var find = false;
+	var target = null;
+	
+	for(var i=0; i<=scenarios.length - 1; i++){
+		if(i ==index){
+			find = true;
+			target = scenarios[i];
+		}
+		else{
+			scenarios[i]["sortOrder"] = count;
+			count++;
+			
+			if(find && !scenarios[i]['isDeleted']){
+				target["sortOrder"] = count;
+				count++;
+				find = false;
+			}
+		}
+	}
+	if(find){
+		target["sortOrder"] = count;
+	}
+	$('#idSaveButton').prop('disabled', '');
+	draw();
+	
+}
+
+const up = (index) => {
+	
+	// バックサーチして指定のindexの一個上に移動する
+	// 削除済みはとばす
+	var count = scenarios.length - 1;
+	var find = false;
+	var target = null;
+	
+	for(var i=scenarios.length - 1; i>=0; i--){
+		if(i ==index){
+			find = true;
+			target = scenarios[i];
+		}
+		else{
+			scenarios[i]["sortOrder"] = count;
+			count--;
+			
+			if(find && !scenarios[i]['isDeleted']){
+				target["sortOrder"] = count;
+				count--;
+				find = false;
+			}
+		}
+	}
+	if(find){
+		target["sortOrder"] = count;
+	}
+	$('#idSaveButton').prop('disabled', '');
+	draw();
+}
+
+const del = (index) => {
+	for(var i=0; i<=scenarios.length - 1; i++){
+		if(i ==index){
+			scenarios[i]['isDeleted']=true;
+		}
+	}	
+	$('#idSaveButton').prop('disabled', '');
+	draw();
+}
+
+const visibleStaus = (index, obj) => {
+
+	for(var i=0; i<=scenarios.length - 1; i++){
+		if(i ==index){
+			scenarios[i]['isInvisible']=$(obj).prop('checked');
+		}
+	}
+	$('#idSaveButton').prop('disabled', '');
+}
+
+
+
+</script>
+</th:block>
+
+</html>
+

@@ -1,0 +1,82 @@
+
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('clientKeycode') ? ' form-attention' : ''}">
+			<label for="clientKeycode">クライアントコード　<span class="small">※ランダムな文字列を推奨<span></label>
+			<input type="text" class="form-control" th:field="*{clientKeycode}"  th:maxlength="${length.clientKeycode}"/>
+			<span th:errors="*{clientKeycode}" class="alert-message"/>
+		</div>
+
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('clientNameJa') ? ' form-attention' : ''}">
+			<label for="clientNameJa">クライアント名</label>
+			<input type="text" class="form-control" th:field="*{clientNameJa}" th:maxlength="${length.clientNameJa}"/>
+			<span th:errors="*{clientNameJa}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-6' + ${#fields.hasErrors('clientNameJaKana') ? ' form-attention' : ''}">
+			<label for="clientNameJaKana">クライアント名（カナ）</label>
+			<input type="text" class="form-control" th:field="*{clientNameJaKana}" th:maxlength="${length.clientNameJaKana}"/>
+			<span th:errors="*{clientNameJaKana}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-4' + ${#fields.hasErrors('userRegistTypeCode') ? ' form-attention' : ''}">
+			<div><label for="userRegistTypeCode">ユーザー登録方法</label></div>
+			<div class="form-group-frame-full">
+				<th:block th:each="option : ${@userRegistTypeCode.list()}">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" th:field="*{userRegistTypeCode}" th:value="${option.value}"/>
+					<label class="form-check-label" th:for="'userRegistTypeCode' + ${option.value}" th:text="${option.label}"/>
+				</div>
+				</th:block>
+			</div>
+			<span th:errors="*{userRegistTypeCode}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-8' + ${#fields.hasErrors('logoutUrl') ? ' form-attention' : ''}">
+			<label for="clientNameJaKana">ログアウト先URL　<span class="small">※未入力の場合はWindow Close</span></label>
+			<input type="text" class="form-control" th:field="*{logoutUrl}" th:maxlength="${length.logoutUrl}"/>
+			<span th:errors="*{logoutUrl}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-4' + ${#fields.hasErrors('securityMangementTeam') ? ' form-attention' : ''}">
+			<label for="securityMangementTeam">セキュリティ対策組織名</label>
+			<input type="text" class="form-control" th:field="*{securityMangementTeam}" th:maxlength="${length.securityMangementTeam}"/>
+			<span th:errors="*{securityMangementTeam}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-4' + ${#fields.hasErrors('securityMangementTel') ? ' form-attention' : ''}">
+			<label for="securityMangementTeam">セキュリティ対策組織TEL</label>
+			<input type="text" class="form-control" th:field="*{securityMangementTel}" th:maxlength="${length.securityMangementTel}"/>
+			<span th:errors="*{securityMangementTel}" class="alert-message"/>
+		</div>
+		<div th:class="'form-group col-sm-4' + ${#fields.hasErrors('securityMangementEmail') ? ' form-attention' : ''}">
+			<label for="securityMangementEmail">セキュリティ対策組織EMail</label>
+			<input type="text" class="form-control" th:field="*{securityMangementEmail}" th:maxlength="${length.securityMangementEmail}"/>
+			<span th:errors="*{securityMangementEmail}" class="alert-message"/>
+		</div>
+	</div>
+
+
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12' + ${#fields.hasErrors('description') ? ' form-attention' : ''}">
+			<label for="description">説明</label>
+			<textarea class="form-control" th:field="*{description}" rows="5" th:maxlength="${length.description}"/>
+			<span th:errors="*{description}" class="alert-message"/>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-3' + ${#fields.hasErrors('isInvalided') ? ' form-attention' : ''}">
+			<div><label for="isInvalided">状態</label></div>
+			<div class="form-check form-check-inline">
+				<input type="checkbox" th:field="*{isInvalided}" th:value="true" data-toggle="toggle"  data-on="無効" data-off="有効" data-onstyle="danger" data-offstyle="success"/>
+				<span th:errors="*{isInvalided}" class="alert-message"/>
+			</div>
+		</div>
+	</div>
+

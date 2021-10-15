@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ja">
+
+<head th:replace="admin/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title>コンテンツ｜Secure Practice Admin</title>
+
+<style tyle="text/css">
+
+
+div.image_stocks{
+	border:solid 1px #ccc;
+	padding:10px;
+}
+
+div.image_stocks div{
+	display:inline-block;
+	padding:10px;
+	vertical-align:top;
+}
+div.image_stocks span{
+	float:left;
+	margin-bottom:3px;
+}
+
+img.content_image{
+	width:100px;
+	margin-right:5px;
+	vertical-align:top;
+	float:left;
+}
+
+a.edit_image{
+	display:block;
+}
+
+
+</style>
+
+</head>
+
+<body th:with="menuCode=101005,length=${T(com.office_nico.spractice.constants.Length)}">
+
+<!-- ナビゲーション／上部ナビゲーション -->
+<header th:replace="admin/commons::header(${menuCode})"></header>
+
+<!-- メインコンテナ -->
+<div id="mainContainer" class="main-container">
+
+<!-- 左側ナビゲーション -->
+<div class="left-nav" th:replace="admin/commons::leftNavigation(${menuCode})"></div>
+
+<!-- 右側コンテンツ -->
+<div class="content-outer"><div class="content-main"><div class="container-fluid">
+<!--/* **************************** Start processing for each screen **************************** */-->
+
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/scenarios}" th:text="シナリオ管理"/></li>
+	<li class="breadcrumb-item" aria-current="page"><a th:href="@{/t06o1ny8/scenarios/show/{scenarioId}(scenarioId=${scenario.id})}" th:text="${scenario.scenarioName}" /></li>
+	<li class="breadcrumb-item active" aria-current="page">コンテンツ</li>
+</ol>
+</nav>
+
+<form method="post" th:action="@{/t06o1ny8/scenarios/content/{scenarioId}(scenarioId=${obj.id})}" th:object="${obj}" >
+<div class="card mb-3">
+<div class="card-header function-title-bar">「<th:block th:text="${scenario.scenarioName}"/>」のコンテンツ設定内容<button class="btn btn-outline-warning btn-sm ml-sm-2 float-right btn-round" onclick="preview();">プレビュー</button><button class="btn btn-outline-info btn-sm btn-round float-right ml-sm-2" onClick="newInput();">追　　加</button></div>
+
+<div class="card-body">
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'">
+		<label>素材画像（画像の一次保管エリアです。URLをコピーして利用してください）</label>
+		<div class="image_stocks" id="image_stocks"><a href="javascript:void(0);" onclick="selectImage();" class="edit_image">画像を選択</a></div>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'">
+		<button type="button" class="btn btn-info btn-variable" data-toggle="modal" data-target="#modal7">変数参照</button>
+		</div>
+	</div>
+
+
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'">
+			<label class="small">&lt;script type="text/javascript"&gt;　※Ctrl + S で保存できます。</label><label class="small">　※F11か<a href="javascript:void(0);"  onclick="editor1.fullWindow();">ここ</a>をクリックすると全画面表示します。</label>
+			<textarea class="form-control" th:field="*{contentScript}" rows="50"></textarea>
+			<label class="small">&lt;/script&gt;</label>
+		</div>
+	</div>
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'">
+			<label class="small">&lt;style type="text/css"&gt;　※Ctrl + S で保存できます。</label><label class="small">　※F11か<a href="javascript:void(0);"  onclick="editor2.fullWindow();">ここ</a>をクリックすると全画面表示します。</label>
+			<textarea class="form-control" th:field="*{contentCss}" rows="10"></textarea>
+			<label class="small">&lt;/style&gt;</label>
+		</div>
+	</div>
+	<div class="form-row">
+		<div th:class="'form-group col-sm-12'">
+			<label class="small">&lt;body&gt;　※Ctrl + S で保存できます。	</label><label class="small">　※F11か<a href="javascript:void(0);"  onclick="editor3.fullWindow();">ここ</a>をクリックすると全画面表示します。</label>
+			<textarea class="form-control" th:field="*{contentBody}" rows="5"></textarea>
+			<label class="small">&lt;/body&gt;</label>
+		</div>
+	</div>
+</div>
+
+<div class="form-row">
+	<div class="form-group col-sm-12 text-center">
+		<button type="button" class="btn btn-outline-secondary mr-sm-2 pl-sm-4 pr-sm-4" onclick="back();">キャンセル</button>
+		<button type="button" class="btn btn-primary mr-sm-2 pl-sm-4 pr-sm-4" id="idSaveButton" onclick="save();">更新する</button>
+	</div>
+</div>
+
+</div>
+</form>
+
+<!-- ********************************* modal7 ********************************* -->
+<div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-body">
+<p onclick="execCopy2(this)" data-val="{CLIENT_NAME}" style="cursor:alias;">クライアント名：{CLIENT_NAME}</p>
+<p onclick="execCopy2(this)" data-val="{SECURITY_TEAM_NAME}" style="cursor:alias;">セキュリティ対策組織名：{SECURITY_TEAM_NAME}</p>
+<p onclick="execCopy2(this)" data-val="{SECURITY_TEAM_TEL}" style="cursor:alias;">セキュリティ対策組織TEL：{SECURITY_TEAM_TEL}</p>
+<p onclick="execCopy2(this)" data-val="{SECURITY_TEAM_EMAIL}" style="cursor:alias;">セキュリティ対策組織Email：{SECURITY_TEAM_EMAIL}</p>
+<p onclick="execCopy2(this)" data-val="{ACCOUNT}" style="cursor:alias;">ユーザーアカウント：{ACCOUNT}</p>
+<p onclick="execCopy2(this)" data-val="{EMAIL}" style="cursor:alias;">ユーザーメールアドレス：{EMAIL}</p>
+<p onclick="execCopy2(this)" data-val="{USER_FULLNAME}" style="cursor:alias;">ユーザー名：{USER_FULLNAME}</p>
+<p onclick="execCopy2(this)" data-val="{USER_FAMILYNAME}" style="cursor:alias;">ユーザー名（性）：{USER_NAME}</p>
+<p onclick="execCopy2(this)" data-val="{USER_GIVENNAME}" style="cursor:alias;">ユーザー名（名）：{USER_NAME}</p>
+
+<span class="small">※クリックするとクリップボードにコピーされます。</span>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ********************************* /modal7 ********************************* -->
+
+
+
+
+<!--/* **************************** End processing for each screen **************************** */-->
+</div></div></div><!-- /.container-fluid --><!-- /.content-main --><!-- /.content-outer -->
+
+<!-- フッター -->
+<footer th:replace="admin/commons::footer"></footer>
+</div><!--  /.main-container -->
+
+</body>
+
+<th:block th:replace="admin/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:inline="javascript">
+const back = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios/show/{scenarioId}(scenarioId=${scenario.id})}" /];
+};
+const list = () => {
+	location.href = [# th:text="@{/t06o1ny8/scenarios}" /];
+};
+
+
+function save(){
+	var formData = {};
+	formData['contentScript'] = $("#contentScript").val();
+	formData['contentCss'] = $("#contentCss").val();
+	formData['contentBody'] = $("#contentBody").val();
+	
+	$.post({
+		url : [# th:text="@{/t06o1ny8/scenarios/content/{scenarioId}(scenarioId=${scenario.id})}" /],
+		data : formData,
+		dataType: "html"
+	}).done(function(data, textStatus, jqXHR){
+		// 正常
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
+
+var editor1 = null;
+var editor2 = null;
+var editor3 = null;
+
+$(function(){
+	editor1 = new Editor("contentScript");	
+	editor1.setSaveAction(function(){save()});
+	editor2 = new Editor("contentCss");	
+	editor2.setSaveAction(function(){save()});
+	editor3 = new Editor("contentBody");	
+	editor3.setSaveAction(function(){save()});
+
+	[# th:each="stock : ${stocks}"]
+	showStock([# th:text="${stock.binaryFileId}" /]);
+	[/]
+
+});
+
+function selectImage() {
+	const winWidth = 800;
+	const winHeight = 600;
+	const subx = ( screen.availWidth - winWidth ) / 2;
+	const suby = ( screen.availHeight - winHeight ) / 2;
+	window.open( [# th:text="@{/t06o1ny8/storages}" /] , "storage", 'width=' + winWidth + ',height=' + winHeight+ ',left=' + subx+ ',top=' + suby + ',menubar=false,toolbar=false,location=false' );
+}
+
+function deleteImage(id){
+	$.get({
+		url : [# th:text="@{/t06o1ny8/scenarios/content/stock/destroy}" /] + "?scenarioId=" + [# th:text="${scenario.id}" /] + "&binaryFileId=" + id,
+		dataType: "json"
+	}).done(function(data, textStatus, jqXHR){
+		// 正常
+		$('#stock_image_' + id).remove();
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
+
+function execCopy(obj){
+
+	var string = $(obj).text();
+	
+	// 空div 生成
+	var tmp = document.createElement("div");
+	// 選択用のタグ生成
+	var pre = document.createElement('pre');
+
+	// 親要素のCSSで user-select: none だとコピーできないので書き換える
+	pre.style.webkitUserSelect = 'auto';
+	pre.style.userSelect = 'auto';
+
+	tmp.appendChild(pre).textContent = string;
+
+	// 要素を画面外へ
+	var s = tmp.style;
+	s.position = 'fixed';
+	s.right = '200%';
+
+	// body に追加
+	document.body.appendChild(tmp);
+	// 要素を選択
+	document.getSelection().selectAllChildren(tmp);
+
+	// クリップボードにコピー
+	var result = document.execCommand("copy");
+
+	// 要素削除
+	document.body.removeChild(tmp);
+
+	/*
+	if(result){
+		alert("クリップボードにコピーしました。");
+	}
+	*/
+	return result;
+}
+
+//ストレージ画面からのコールバック
+function storageCallback(id){
+	
+	$.get({
+		url : [# th:text="@{/t06o1ny8/scenarios/content/stock/save}" /] + "?scenarioId=" + [# th:text="${scenario.id}" /] + "&binaryFileId=" + id,
+		dataType: "json"
+	}).done(function(data, textStatus, jqXHR){
+		// 正常
+		showStock(id);
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		// エラーの場合処理
+		console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+		alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
+function showStock(id){
+	$('.edit_image').before('<div id="stock_image_' + id + '"><img src="' + [# th:text="@{/t06o1ny8/storages/image/}" /] + id + '" class="content_image"/><span onclick="execCopy(this);" style="cursor:alias;">' + [# th:text="@{/front/storages/}" /] + id + '</span><br/><span><a href="javascript:void(0);" onclick="deleteImage(' + id + ')">削除</a></span></div>');
+}
+
+
+function execCopy2(obj){
+
+	var string = $(obj).data('val');
+	
+	// 空div 生成
+	var tmp = document.createElement("div");
+	// 選択用のタグ生成
+	var pre = document.createElement('pre');
+
+	// 親要素のCSSで user-select: none だとコピーできないので書き換える
+	pre.style.webkitUserSelect = 'auto';
+	pre.style.userSelect = 'auto';
+
+	tmp.appendChild(pre).textContent = string;
+
+	// 要素を画面外へ
+	var s = tmp.style;
+	s.position = 'fixed';
+	s.right = '200%';
+
+	// body に追加
+	document.body.appendChild(tmp);
+	// 要素を選択
+	document.getSelection().selectAllChildren(tmp);
+
+	// クリップボードにコピー
+	var result = document.execCommand("copy");
+
+	// 要素削除
+	document.body.removeChild(tmp);
+
+	/*
+	if(result){
+		alert("クリップボードにコピーしました。");
+	}
+	*/
+	
+	$('#modal7').modal('hide');
+	return result;
+}
+
+
+//プレビュー
+const preview = () => {
+	const winWidth = 1920;
+	const winHeight = 1080;
+	const subx = ( screen.availWidth - winWidth ) / 2;
+	const suby = ( screen.availHeight - winHeight ) / 2;
+	window.open( [# th:text="@{/t06o1ny8/scenarios/preview/{scenarioKeycode}(scenarioKeycode=${scenario.scenarioKeycode})}" /] , "preview", 'width=' + winWidth + ',height=' + winHeight+ ',left=' + subx+ ',top=' + suby + ',menubar=false,toolbar=false,location=false' );
+}
+
+</script>
+</th:block>
+
+</html>
+

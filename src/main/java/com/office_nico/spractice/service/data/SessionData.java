@@ -1,8 +1,12 @@
 package com.office_nico.spractice.service.data;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+
+import com.office_nico.spractice.annotation.Action;
 
 import lombok.Data;
 
@@ -11,15 +15,23 @@ import lombok.Data;
 @Data
 public class SessionData {
 
-	private Long organizationId = null;
+	// Use as a whole
+	private Action.Type actionType = null;
+
+	
+	// Used on the admin site
+	private String adminFamilyName = null;
+	private String adminGivenName = null;
+	private List<String> messages = null;
+	
+	
+	// Used on user site.
 	private Long userId = null;
 	private String account = null;
-
-	public boolean isLogin() {
-		boolean ret = false;
-		if(organizationId != null && userId != null && account != null) {
-			ret = true;
-		}
-		return ret;
-	}
+	private String email = null;
+	private Short registeredFromCode = null;
+	private String familyName = null;
+	private String givenName = null;
+	private List<Long> availableClients = null;
+	
 }

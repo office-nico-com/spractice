@@ -5,14 +5,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.office_nico.spractice.extension.ExtensionManager;
-import com.office_nico.spractice.extensions.explorer.ExplorerExtensionManager;
 
 @Controller
 public class SndboxController {
@@ -32,6 +29,7 @@ public class SndboxController {
 			props.load(in);
 			System.out.println(props.getProperty("icon"));
 			
+			/*
 			ExtensionManager a;
 			try {
 				a = (ExtensionManager)ctx.getBean(Class.forName("com.office_nico.spractice.extensions.explorer.ExplorerExtension"));
@@ -41,6 +39,7 @@ public class SndboxController {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
+			**/
 			
 		}
 		catch (IOException e) {

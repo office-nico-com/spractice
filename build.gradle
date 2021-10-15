@@ -1,6 +1,6 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.6.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'org.springframework.boot' version '2.5.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
@@ -21,25 +21,45 @@ repositories {
 
 
 dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
 	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation("org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16")
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'javax.mail:mail:1.4.7'
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
 	runtimeOnly 'org.postgresql:postgresql'
+	implementation 'org.flywaydb:flyway-core'
+	compile('com.fasterxml.jackson.dataformat:jackson-dataformat-csv');
+	compile group: 'com.opencsv', name: 'opencsv', version: '5.3'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+	implementation 'org.codehaus.janino:janino'
+	implementation group: 'com.ibm.icu', name: 'icu4j', version: '69.1'
+	implementation group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
+	compile("com.univocity:univocity-parsers:1.5.6")
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.security:spring-security-test'
+
 	compile('org.webjars:jquery:3.5.1')
 	compile('org.webjars:jquery-ui:1.12.1')
 	compile('org.webjars:bootstrap:4.5.0')
 	compile('org.webjars:webjars-locator:0.30')
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
-//	testImplementation 'org.springframework.security:spring-security-test'
+	compile('org.webjars:font-awesome:5.15.3')
+	compile('org.webjars:momentjs:2.29.1')
+	compile('org.webjars.npm:chart.js:3.3.0')
+	compile('org.webjars:jquery-cookie:1.4.1-1')
+	compile('org.webjars:datatables:1.10.25')
+	compile('org.webjars.npm:bootstrap4-toggle:3.6.0')
+	compile('org.webjars:jquery.fileDownload:50171edfab')
 }
 
 test {

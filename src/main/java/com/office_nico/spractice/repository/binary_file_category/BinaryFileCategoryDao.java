@@ -7,7 +7,7 @@ import com.office_nico.spractice.domain.BinaryFileCategory;
 
 public interface BinaryFileCategoryDao <T> extends Serializable {
 
-	public Optional<BinaryFileCategory> getByOrganizationIdOrderByFirstOrderNumber(Long organizationId);
+	public Optional<BinaryFileCategory> getOrderByFirstSortOrder();
 
 }
 

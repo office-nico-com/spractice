@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ja">
+<head th:replace="front/commons::head(title=~{::title}, links=~{::link}, styles=~{::style})">
+<title th:text="${targetScenario.scenarioName} + '｜Secure Practice'"/>
+
+<style tyle="text/css">
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+    border: 2px solid #aaa;
+}
+
+thead{
+	background-color:#F1F7FC;
+}
+
+td.history_date{
+	padding-right:20px;
+}
+
+.reflection-img{
+    width       :120px;
+    height      :120px;
+    position    :relative;
+    overflow    :hidden;
+    float:left;
+    margin-right:0px;
+}
+
+.reflection-text{
+    width       :800px;
+    position    :relative;
+    overflow    :hidden;
+    float:left;
+    margin-right:0px;
+}
+ 
+.reflection {
+    height      :100%;
+    width       :30px;
+    position    :absolute;
+    top         :-180px;
+    left        :0;
+    background-color: #fff;
+    opacity     :0;
+    transform: rotate(45deg);
+    animation: reflection 4s ease-in-out infinite;
+    -webkit-transform: rotate(45deg);
+    -webkit-animation: reflection 4s ease-in-out infinite;
+    -moz-transform: rotate(45deg);
+    -moz-animation: reflection 4s ease-in-out infinite;
+    -ms-transform: rotate(45deg);
+    -ms-animation: reflection 4s ease-in-out infinite;
+    -o-transform: rotate(45deg);
+    -o-animation: reflection 4s ease-in-out infinite;
+}
+
+@keyframes reflection {
+    0% { transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { transform: scale(50) rotate(45deg); opacity: 0; }
+}
+@-webkit-keyframes reflection {
+    0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
+}
+@-moz-keyframes reflection {
+    0% { -moz-transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { -moz-transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { -moz-transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { -moz-transform: scale(50) rotate(45deg); opacity: 0; }
+}
+@-ms-keyframes reflection {
+    0% { -ms-transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { -ms-transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { -ms-transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { -ms-transform: scale(50) rotate(45deg); opacity: 0; }
+}
+@-o-keyframes reflection {
+    0% { -o-transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { -o-transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { -o-transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { -o-transform: scale(50) rotate(45deg); opacity: 0; }
+}
+
+.complete_message1{
+	vertical-align:bottom;
+	font-size:30px;
+	font-weight:bold;
+	padding-left:20px;
+	color:#A5872F;
+}
+.complete_message2{
+	vertical-align:top;
+	font-size:20px;
+	font-weight:bold;
+	padding-left:20px;
+	color:#A5872F;
+	padding-bottom:10px;
+}
+
+
+
+/*******************/
+/** orange button **/
+/** https://lingtalfi.com/bootstrap4-color-generator **/
+.alert-orange {
+    color: #ae5908;
+    background-color: #ffffff;
+    border-color: #fef4eb;
+}
+
+.alert-orange hr {
+    border-top-color: #fce7d3;
+}
+
+.alert-orange .alert-link {
+    color: #7e4006;
+}
+
+.badge-orange {
+    color: #212529;
+    background-color: #F5963D;
+}
+
+.badge-orange[href]:hover, .badge-orange[href]:focus {
+    color: #212529;
+    background-color: #f27b0c;
+}
+
+.bg-orange {
+    background-color: #F5963D !important;
+}
+
+a.bg-orange:hover, a.bg-orange:focus,
+button.bg-orange:hover,
+button.bg-orange:focus {
+    background-color: #f27b0c !important;
+}
+
+.border-orange {
+    border-color: #F5963D !important;
+}
+
+.btn-orange {
+    letter-spacing:0.8em;
+    color: #fff;
+    background-color: #F5963D;
+    border-color: #F5963D;
+}
+
+.btn-orange:hover {
+    color: #2E88A0;
+    background-color: #f3831b;
+    border-color: #f27b0c;
+    text-decoration:underline;
+}
+
+.btn-orange:focus, .btn-orange.focus {
+    box-shadow: 0 0 0 0.2rem rgba(245, 150, 61, 0.5);
+}
+
+.btn-orange.disabled, .btn-orange:disabled {
+    color: #fff;
+    background-color: #F5963D;
+    border-color: #F5963D;
+}
+
+.btn-orange:not(:disabled):not(.disabled):active, .btn-orange:not(:disabled):not(.disabled).active, .show > .btn-orange.dropdown-toggle {
+    color: #2E88A0;
+    background-color: #f27b0c;
+    border-color: #e3740b;
+}
+
+.btn-orange:not(:disabled):not(.disabled):active:focus, .btn-orange:not(:disabled):not(.disabled).active:focus, .show > .btn-orange.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(245, 150, 61, 0.5);
+}
+
+.btn-outline-orange {
+    color: #F5963D;
+    background-color: transparent;
+    border-color: #F5963D;
+}
+
+.btn-outline-orange:hover {
+    color: #212529;
+    background-color: #F5963D;
+    border-color: #F5963D;
+}
+
+.btn-outline-orange:focus, .btn-outline-orange.focus {
+    box-shadow: 0 0 0 0.2rem rgba(245, 150, 61, 0.5);
+}
+
+.btn-outline-orange.disabled, .btn-outline-orange:disabled {
+    color: #F5963D;
+    background-color: transparent;
+}
+
+.btn-outline-orange:not(:disabled):not(.disabled):active, .btn-outline-orange:not(:disabled):not(.disabled).active, .show > .btn-outline-orange.dropdown-toggle {
+    color: #212529;
+    background-color: #F5963D;
+    border-color: #F5963D;
+}
+
+.btn-outline-orange:not(:disabled):not(.disabled):active:focus, .btn-outline-orange:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-orange.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(245, 150, 61, 0.5);
+}
+
+.list-group-item-orange {
+    color: #ae5908;
+    background-color: #fef4eb;
+}
+
+.list-group-item-orange.list-group-item-action:hover, .list-group-item-orange.list-group-item-action:focus {
+    color: #ae5908;
+    background-color: #fce7d3;
+}
+
+.list-group-item-orange.list-group-item-action.active {
+    color: #212529;
+    background-color: #ae5908;
+    border-color: #ae5908;
+}
+
+.table-orange,
+.table-orange > th,
+.table-orange > td {
+    background-color: #fef4eb;
+}
+
+.table-hover .table-orange:hover {
+    background-color: #fce7d3;
+}
+
+.table-hover .table-orange:hover > td,
+.table-hover .table-orange:hover > th {
+    background-color: #fce7d3;
+}
+
+.text-orange {
+    color: #F5963D !important;
+}
+
+a.text-orange:hover, a.text-orange:focus {
+    color: #f27b0c !important;
+}
+
+td.vertical-middle{
+	vertical-align:middle !important;
+}
+
+</style>
+</head>
+
+
+<body>
+<header class="container-fluid" th:replace="front/commons::header"/>
+
+<div class="container-fluid pb-5 main">
+
+<th:block th:replace="front/commons::tabs('description')"/>
+
+<div class="main_body">
+
+<table class="mt-3 mb-3" th:if="${allCompletion}">
+<tr>
+<td rowspan="2" >
+<div class='reflection-img'><img th:src="@{/img/certificated.png}"><div class='reflection'></div></div>
+</td>
+<td class="complete_message1">
+<div class='reflection-text'>Congratulations!!<div class='reflection'></div>
+</td>
+</tr>
+<tr>
+<td class="complete_message2">
+<div class='reflection-text'>あなたは、この訓練をすべて修了いたしました。<div class='reflection'></div>
+</td>
+</tr>
+</table>
+
+<h5 class="font-weight-bold title" th:text="${targetScenario.scenarioName}"/>
+
+<img class="imageview" th:src="@{/front/storages/{binaryFileId}(binaryFileId=${targetScenario.thumbnailBinaryFileId})}" width="500"/>
+<th:block ex:br="${targetScenario.note}"/>
+
+
+<br class="senario_card_end">
+
+
+<div class="text-center">
+<button type="submit" class="btn btn-orange btn-lg mt-3 btn-block work" onclick="work();">訓練を開始する </button>
+</div>
+
+<h5 class="font-weight-bold title mt-5">訓練の状況</h5>
+
+<table th:if="${completionResults.size() > 0}" class="table table-bordered mb-4" >
+<thead>
+<tr>
+<th  width="10%" class="text-center">修了</th>
+<th  width="65%" >訓練内容</th>
+<th  width="25%" >最終修了日</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="completionResult:${completionResults}">
+<td class="text-center vertical-middle">
+<img th:src="@{/img/sumi1.png}" th:if="${completionResult.lastCompletedAt != null}" />
+</td>
+<td>
+<th:block th:text="${completionResult.description}" />
+<br th:if="${completionResult.descriptionEn != null && completionResult.descriptionEn != ''}"/>
+<th:block th:text="${completionResult.descriptionEn}" th:if="${completionResult.descriptionEn != null && completionResult.descriptionEn != ''}"/>
+
+</td>
+<td class="vertical-middle">
+<th:block th:if="${completionResult.lastCompletedAt != null}" th:text="*{#temporals.format(completionResult.lastCompletedAt, 'yyyy/M/d H:mm')}" />
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<div th:if="${completionHistories.size() == 0}" th:text="訓練の記録はありません。" />
+<table th:if="${completionHistories.size() > 0}">
+
+<th:block th:each="completion:${completionHistories}">
+<tr th:if="${completion.endedAt != null}">
+<td class="history_date">
+<th:block  th:text="*{#temporals.format(completion.endedAt, 'yyyy/M/d H:mm')}"/>
+</td>
+<td>
+<th:block th:text="${completion.completionPoint.description}"/>を修了しました。
+<td>
+</tr>
+
+<tr th:if="${completion.startedAt != null}">
+<td class="history_date">
+<th:block th:text="*{#temporals.format(completion.startedAt, 'yyyy/M/d H:mm')}"/>
+</td>
+<td>
+<th:block th:text="${completion.completionPoint.description}"/>の訓練を開始しました。
+<td>
+</tr>
+</th:block>
+
+</table>
+
+
+</div>
+
+
+</div>
+
+<footer th:replace="front/commons::footer" class="container-fluid"/>
+
+<th:block th:replace="front/commons::scripts(scripts=~{::script})">
+<script type="text/javascript" th:src="@{/js/front.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+const work = () => {
+	location.href=[# th:text="@{/{clientKeycode}/{scenarioKeycode}/work(clientKeycode=${clientKeycode},scenarioKeycode=${scenarioKeycode})}" /];
+}
+
+$(function(){
+	
+});
+
+
+
+</script>
+</th:block>
+
+
+</body>
+</html>
