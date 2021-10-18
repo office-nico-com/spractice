@@ -1,6 +1,5 @@
 package com.office_nico.spractice.util;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -21,6 +20,7 @@ import com.office_nico.spractice.exception.ApplicationRuntimeException;
 
 public class BeanUtil {
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 	
 	public static <T> T copyFields(Object source, T dest, String...exclusions) {

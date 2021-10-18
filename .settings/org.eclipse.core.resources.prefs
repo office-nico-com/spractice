@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//setup/spractice/conf/spractice.properties=UTF-8
 encoding//src/main/resources/ValidationMessages.properties=UTF-8
+encoding//src/main/resources/application-production.properties=UTF-8
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/main/resources/fields.properties=UTF-8
 encoding//src/main/resources/messages.properties=UTF-8

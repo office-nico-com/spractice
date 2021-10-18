@@ -71,19 +71,26 @@ public class UserService {
 	 * 
 	 * @param logger        ロガー
 	 * @param sessionUserId セッションユーザーID
+	 * @param searchKeyword 検索キーワード
 	 * @param current       現在のページ
 	 * @param pageMax       1ページ当たりの表示数
 	 * @return ページオブジェクト
 	 */
-	public Page<User> page(Logger logger, Long sessionUserId, int start, int length, Sort.Direction dir, String[] order) {
+	public Page<User> page(Logger logger, Long sessionUserId, String searchKeyword, int start, int length, Sort.Direction dir, String[] order) {
 		logger = (logger == null ? logger : _logger);
 
 		int pageNumber = start == 0 ? 0 : (start / length);
 
-		// Pageable pr = PageRequest.of(pageNumber, length, dir, order);
-
 		Pageable pr = PageRequest.of(pageNumber, length, dir, order);
-		Page<User> page = userRepository.findByIsDeletedFalse(pr);
+		
+		Page<User> page = null;
+//		if(searchKeyword != null && searchKeyword.length() > 0) {
+			page = userRepository.findUsersBySearchKeywordAndIsDeletedFalse(searchKeyword, order, dir.toString(), start, length);
+//		}
+//		else {
+//			page = userRepository.findByIsDeletedFalse(pr);
+//		}
+		
 		return page;
 	}
 

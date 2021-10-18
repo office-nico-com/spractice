@@ -147,9 +147,13 @@ public class UsersController {
 		
 		Map<String, Object> map = new HashMap<>();
 		try {
-			String[] order = form.getOrderString("id", "account", new String[] {"familyNameKana", "givenNameKana"}, "", new String[] {"registeredFromCode","familyNameKana", "givenNameKana"} , new String[] {"isAdmin","familyNameKana", "givenNameKana"} , new String[] {"isInvalided","familyNameKana", "givenNameKana"});
-			// Page<User> page = userService.page(form.getStart(), form.getLength(), form.getOrderDirecton(), order);
-			Page<User> page = userService.page(logger, sessionuser.getId(), form.getStart(), form.getLength(), form.getOrderDirecton(), order);
+			String[] order = form.getOrderString("id", "account", new String[] {"family_name_kana", "given_name_kana"}, "", new String[] {"registered_from_code","family_name_kana", "given_name_kana"} , new String[] {"is_admin","family_name_kana", "given_name_kana"} , new String[] {"is_invalided","family_name_kana", "given_name_kana"});
+
+			String search = null;
+			if(form.getSearch() != null && form.getSearch().get("value") != null) {
+				search = form.getSearch().get("value");
+			}
+			Page<User> page = userService.page(logger, sessionuser.getId(), search, form.getStart(), form.getLength(), form.getOrderDirecton(), order);
 			List<User> users = page.toList();
 			map.put("data", users);
 			map.put("recordsFiltered", page.getTotalElements());

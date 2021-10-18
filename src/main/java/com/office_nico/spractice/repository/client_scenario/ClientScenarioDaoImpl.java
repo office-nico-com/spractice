@@ -45,7 +45,8 @@ public class ClientScenarioDaoImpl implements ClientScenarioDao<ClientScenario> 
 				+ "INNER JOIN scenarios ON (scenarios.id = clients_scenarios.scenario_id) "
 				+ "WHERE clients_scenarios.client_id = :arg1 "
 				+ "ORDER BY clients_scenarios.sort_order")
-				.setParameter("arg1", clientId).getResultList();;
+				.setParameter("arg1", clientId)
+				.getResultList();
 		
 		for(Object[] record : records) {
 			
