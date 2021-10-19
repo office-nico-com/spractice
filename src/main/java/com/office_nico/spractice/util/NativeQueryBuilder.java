@@ -12,8 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.office_nico.spractice.service.ClientService;
-
 public class NativeQueryBuilder {
 	
 	
@@ -42,6 +40,32 @@ public class NativeQueryBuilder {
 		return this;
 	}
 
+	/**
+	 * 検索フィールドの設定
+	 * .までを検索してaliasに設定する。なければ、検索フィールド名=alias名
+	 * @param field 検索フィールド
+	 * @return NativeQueryBuilder
+	 */
+	public NativeQueryBuilder appendField(String field){
+		int i = field.indexOf(".");
+		if(i < 0) {
+			appendField(field, field);
+		}
+		else {
+			String alias = field.substring(i + 1, field.length());
+			appendField(field, alias);
+		}
+		return this;
+	}
+
+	
+	/**
+	 * 検索フィールドの設定
+	 * .までを検索してaliasに設定する
+	 * @param field 検索フィールド
+	 * @param alias alias
+	 * @return NativeQueryBuilder
+	 */
 	public NativeQueryBuilder appendField(String field, String alias){
 		Map<String, String> fieldMap = new HashMap<String, String>();
 		fieldMap.put("field", field);
@@ -128,6 +152,8 @@ public class NativeQueryBuilder {
 			i++;
 		}
 
+		logger.debug("build native count query ===================> \n" + countQuery);
+
 		List<Object> results = query.getResultList();
 		if(results.size() > 0) {
 			String _c = String.valueOf(results.get(0));
@@ -140,13 +166,13 @@ public class NativeQueryBuilder {
 	public List<Map<String, Object>> getResults() {
 
 		List<Map<String, Object>> records = new ArrayList<Map<String, Object>>();
-		String execQuery = "";
+		String execQuery = this.query ;
 		
 		
 		int count = 0;
 		for(Map<String, String> order : orders) {
 			if(count == 0) {
-				execQuery += this.query + "\n ORDER BY ";
+				execQuery += "\n ORDER BY ";
 			}
 			else {
 				execQuery += ", ";
@@ -156,7 +182,9 @@ public class NativeQueryBuilder {
 			execQuery += order.get("dir");
 			count++;
 		}
-		
+
+		logger.debug("build native query ===================> \n" + execQuery);
+
 		Query query = em.createNativeQuery(execQuery);
 
 		int i = 0;
@@ -165,10 +193,12 @@ public class NativeQueryBuilder {
 			i++;
 		}
 
-		logger.debug("build native query \n" + execQuery);
-		
-		query.setFirstResult(offset);
-		query.setMaxResults(limit);
+		if(offset != null) {
+			query.setFirstResult(offset);
+		}
+		if(limit != null) {
+			query.setMaxResults(limit);
+		}
 	
 		List<Object[]> results = query.getResultList();
 		for(Object[] objs : results) {

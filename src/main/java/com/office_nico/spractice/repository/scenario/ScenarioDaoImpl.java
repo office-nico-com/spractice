@@ -1,7 +1,6 @@
 package com.office_nico.spractice.repository.scenario;
 
 import java.math.BigInteger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +8,15 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.office_nico.spractice.domain.Scenario;
 import com.office_nico.spractice.util.BeanUtil;
+import com.office_nico.spractice.util.NativeQueryBuilder;
 
 @Repository
 public class ScenarioDaoImpl implements ScenarioDao<Scenario> {
@@ -98,4 +102,97 @@ public class ScenarioDaoImpl implements ScenarioDao<Scenario> {
 		
 		return scenario;
 	}
+	
+	@Override
+	public Page<Scenario> findScenariosBySearchKeywordAndIsDeletedFalse(String searchKeyword, String[] orders, String direction, Integer offset, Integer limit){
+		
+		NativeQueryBuilder query  = NativeQueryBuilder.newSql(entityManager);
+
+		query.append("SELECT DISTINCT");
+		query.appendField("scenarios.id");
+		query.appendField("scenarios.scenario_keycode");
+		query.appendField("scenarios.scenario_name");
+		query.appendField("scenarios.thumbnail_binary_file_id");
+		query.appendField("scenarios.description");
+		query.appendField("scenarios.start_guidance_id");
+		query.appendField("scenarios.note");
+		query.appendField("scenarios.is_invalided");
+		query.appendField("scenarios.is_deleted");
+		query.append("FROM scenarios");
+		query.append("LEFT OUTER JOIN clients_scenarios ON (clients_scenarios.scenario_id = scenarios.id)");
+		query.append("LEFT OUTER JOIN clients ON (clients.id = clients_scenarios.client_id AND clients.is_deleted = false)");
+		query.append("WHERE scenarios.is_deleted = false ");
+		if(searchKeyword != null && searchKeyword.length() > 0) {
+			searchKeyword = "%" + searchKeyword + "%";
+			query.append("AND (");
+			query.append("scenarios.scenario_keycode LIKE ?", searchKeyword);
+			query.append("OR scenarios.scenario_name LIKE ?", searchKeyword);
+			query.append("OR scenarios.note LIKE ?", searchKeyword);
+			query.append("OR clients.client_keycode LIKE ?", searchKeyword);
+			query.append("OR clients.client_name_ja LIKE ?", searchKeyword);
+			query.append("OR clients.client_name_ja_kana LIKE ?", searchKeyword);
+			query.append(")");
+		}
+
+		for(String order : orders) {
+			query.addOrder(order, direction);
+		}
+		query.offset(offset);
+		query.limit(limit);
+
+		List<Map<String, Object>> results = query.getResults();
+		Integer count = query.getCount();
+		
+		
+		List<Scenario> scenarios = new ArrayList<>();
+		for(Map<String, Object> result : results) {
+			Scenario scenario = BeanUtil.mapToBean(result, new Scenario());
+			scenarios.add(scenario);
+		}
+		
+		int pageNumber = offset == 0 ? 0 : (offset / limit);
+		Pageable pr = PageRequest.of(pageNumber, limit);
+
+		Page<Scenario> p = new PageImpl<Scenario>(scenarios, pr, count);
+		return p;
+	}
+	
+	
+	@Override
+	public List<Scenario> findScenarioByCompletionPointId(Long completionPointId) {
+		
+		
+		List<Scenario> results = new ArrayList<>();
+		NativeQueryBuilder query  = NativeQueryBuilder.newSql(entityManager);
+		
+		
+		query.append("SELECT DISTINCT");
+		query.appendField("scenarios.id");
+		query.appendField("scenarios.scenario_keycode");
+		query.appendField("scenarios.scenario_name");
+		query.appendField("scenarios.thumbnail_binary_file_id");
+		query.appendField("scenarios.description");
+		query.appendField("scenarios.start_guidance_id");
+		query.appendField("scenarios.note");
+		query.appendField("scenarios.is_invalided");
+		query.appendField("scenarios.is_deleted");
+		query.append("FROM completion_points");
+		query.append("INNER JOIN guidances ON (guidances.start_completion_point_id = completion_points.id OR guidances.end_completion_point_id = completion_points.id)");
+		query.append("INNER JOIN scenarios ON (scenarios.id = guidances.scenario_id AND scenarios.is_deleted = false)");
+		query.append("WHERE completion_points.id = ?", completionPointId);
+
+		query.addOrder("scenarios.scenario_keycode", "ASC");
+
+		List<Map<String, Object>> records = query.getResults();
+		for(Map<String, Object> record : records) {
+
+			Scenario scenario = BeanUtil.mapToBean(record, new Scenario());
+			results.add(scenario);
+		}
+
+		return results;
+
+	}
+	
+	
 }

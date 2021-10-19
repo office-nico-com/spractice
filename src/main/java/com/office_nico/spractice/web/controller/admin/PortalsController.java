@@ -116,14 +116,14 @@ public class PortalsController {
 		
 		try {
 		
-			String[] order = form.getOrderString("id", "clientKeycode", new String[] {"clientNameJaKana", "clientKeycode"}, new String[] {"userRegistTypeCode","clientNameJaKana", "clientKeycode"}, new String[] {"isInvalided","clientNameJaKana", "clientKeycode"});
+			String[] order = form.getOrderString("id", "client_keycode", new String[] {"client_name_ja_kana", "client_keycode"}, new String[] {"user_regist_type_code","client_name_ja_kana", "client_keycode"}, new String[] {"is_invalided","client_name_ja_kana", "client_keycode"});
 
 			String search = null;
 			if(form.getSearch() != null && form.getSearch().get("value") != null) {
 				search = form.getSearch().get("value");
 			}
 		
-			Page<Client> page = clientService.page(logger, sessionuser.getId(), search, form.getStart(), form.getLength(), form.getOrderDirecton(), order);
+			Page<Client> page = clientService.pageWithSearchScenario(logger, sessionuser.getId(), search, form.getStart(), form.getLength(), form.getOrderDirecton(), order);
 			map.put("data", page.toList());
 			map.put("recordsFiltered", page.getTotalElements());
 			map.put("recordsTotal", page.getTotalElements());
@@ -172,7 +172,7 @@ public class PortalsController {
 	@Action(Type.AJAX)
 	@GetMapping({ PREFIX + "/scenario/list/{clientId}" })
 	@ResponseBody
-	public List<Map<String, Object>> completionList(Model model, @PathVariable(name = "clientId", required = true) Long clientId) {
+	public List<Map<String, Object>> scenarioList(Model model, @PathVariable(name = "clientId", required = true) Long clientId) {
 		
 		User sessionuser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

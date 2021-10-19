@@ -1,6 +1,8 @@
 package com.office_nico.spractice.web.controller.admin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -30,6 +32,7 @@ import com.office_nico.spractice.constants.InvalidStatus;
 import com.office_nico.spractice.constants.codes.AdminFunctionCode;
 import com.office_nico.spractice.constants.codes.AdminOperationCode;
 import com.office_nico.spractice.domain.CompletionPoint;
+import com.office_nico.spractice.domain.Scenario;
 import com.office_nico.spractice.domain.User;
 import com.office_nico.spractice.exception.ApplicationRuntimeException;
 import com.office_nico.spractice.service.AdminOperationService;
@@ -124,8 +127,14 @@ public class CompletionpointsController {
 		Map<String, Object> map = new HashMap<>();
 		
 		try {
-			String[] order = form.getOrderString("id", "completionPointKeycode");
-			Page<CompletionPoint> page = completionService.page(logger, sessionuser.getId(), form.getStart(), form.getLength(), form.getOrderDirecton(), order);
+			String[] order = form.getOrderString("id", "completion_point_keycode", "completion_point_keycode", "completion_point_keycode", new String[] {"completion_points.is_invalided", "completion_point_keycode"});
+
+			String search = null;
+			if(form.getSearch() != null && form.getSearch().get("value") != null) {
+				search = form.getSearch().get("value");
+			}
+
+			Page<CompletionPoint> page = completionService.page(logger, sessionuser.getId(), search, form.getStart(), form.getLength(), form.getOrderDirecton(), order);
 			map.put("data", page.toList());
 			map.put("recordsFiltered", page.getTotalElements());
 			map.put("recordsTotal", page.getTotalElements());
@@ -322,6 +331,36 @@ public class CompletionpointsController {
 			throw new ApplicationRuntimeException("An error has occurred in " + Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() .", e);
 		}
 		return "redirect:/" + PREFIX;
+	}
+	
+	/**
+	 * 利用しているシナリオの一覧を返す
+	 * @param model
+	 * @param userId
+	 * @return
+	 */
+	@Action(Type.AJAX)
+	@GetMapping({ PREFIX + "/scenario/list/{completionpointId}" })
+	@ResponseBody
+	public List<Map<String, Object>> clientList(Model model, @PathVariable(name = "completionpointId", required = true) Long completionpointId) {
+		User sessionuser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		List<Map<String, Object>> ret = new ArrayList<>();
+
+		try {
+			List<Scenario> scenarios =  completionService.getUsedScenarios(logger, sessionuser.getId(), completionpointId);
+			for(Scenario scenario : scenarios) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("id", scenario.getId());
+				map.put("scenarioKeycode", scenario.getScenarioKeycode());
+				map.put("scenarioName", scenario.getScenarioName());
+				ret.add(map);
+			}
+		}
+		catch(Throwable e) {
+			throw new ApplicationRuntimeException("An error has occurred in " + Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() .", e);
+		}
+		return ret;
 	}
 }
 

@@ -8,5 +8,7 @@ import com.office_nico.spractice.domain.ClientScenario;
 public interface ClientScenarioDao <T> extends Serializable {
 
 	List<ClientScenario> findSenarioByClientId(Long clientId);
+
+	List<ClientScenario> findClientByScenarioId(Long scenarioId);
 }
 

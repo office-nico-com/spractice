@@ -35,8 +35,9 @@
 		<tr>
 			<th scope="col">ID</th>
 			<th scope="col" width="20%">履修ポイントコード</th>
-			<th scope="col" width="40%">説明</th>
-			<th scope="col" width="20%">状態</th>
+			<th scope="col" width="33%">説明</th>
+			<th scope="col" width="33%">利用シナリオ</th>
+			<th scope="col" width="14%">状態</th>
 		</tr>
 	</thead>
 	</table>
@@ -77,6 +78,10 @@ $(function(){
 		return '<a href="' + [# th:text="@{/t06o1ny8/completionpoints/show/}" /] + row.id + '">' + (data == null ? '－' : codes[String(data)]) + "</a>";
 	}
 
+	var render4=function(data, type, row){
+		return '<a href="' + [# th:text="@{/t06o1ny8/completionpoints/show/}" /] + row.id + '" data-completionpoint_id="' + row.id + '" class="scenario_completionpoint">' + (data == null ? '－' : hbr(data)) + "</a>";
+	}
+
 	
 	// 初期化
 	if($.cookie("datatableclear") == 'true'){
@@ -86,7 +91,7 @@ $(function(){
 
 	// datatableの設定を変更
 	var $table = $("#table1").DataTable({
-		searching: false,
+		searching: true,
 		serverSide: true,
 		stateSave: true,
 		"ajax": {
@@ -104,8 +109,9 @@ $(function(){
 		columns: [
 			{targets: 0, data: "id", visible: false, /* width:"0%", */ orderable:true, render:render1},
 			{targets: 1, data: "completionPointKeycode", visible: true, /* width:"20%", */ orderable:true, render:render1},
-			{targets: 2, data: "description", visible: true, /*width:"20%", */ orderable:true, render:render1},
-			{targets: 3, data: "isInvalided", visible: true,  /*width:"20%", */ orderable:false, render:render2}
+			{targets: 2, data: "description", visible: true, /*width:"20%", */ orderable:false, render:render1},
+			{targets: 3, data: "scenarioList", visible: true, /*width:"20%", */ orderable:false, render:render4},
+			{targets: 4, data: "isInvalided", visible: true,  /*width:"20%", */ orderable:true, render:render2}
 		],
 		"drawCallback":function(settings){
 			$('table.table tr td a, table.table tr th a').hover(
@@ -116,6 +122,12 @@ $(function(){
 						$(this).parent().parent().find("a").removeClass('hover');
 					}
 			);
+			
+			$('.scenario_completionpoint').each(function(i, obj){
+				// alert($(this).data('client_id'));
+				drawScenario($(this).data('completionpoint_id'), this);
+			});
+
 		}
 	});
 	// If you want to use a 100% width table.
@@ -126,6 +138,35 @@ $(function(){
 const create = () => {
 	location.href = [# th:text="@{/t06o1ny8/completionpoints/new}" /];
 };
+
+const drawScenario = (completionpointId, obj) => {
+
+	$.getJSON([# th:text="@{/t06o1ny8/completionpoints/scenario/list/}" /] + completionpointId)
+		.done(function(json) {
+			// 正常終了
+			var html  = "";
+			$.each(json, function(i, data){
+				
+				if(html != ''){
+					html += ', ';
+				}
+				html += data['scenarioKeycode'];
+				html += ":";
+				html += data['scenarioName'];
+			});
+			if(html == ''){
+				html = '－';
+			}
+			$(obj).html(html);
+		
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			// エラー
+			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+			alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
 
 </script>
 </th:block>

@@ -14,17 +14,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.office_nico.spractice.constants.codes.ActionTypeCode;
+import com.office_nico.spractice.domain.ClientScenario;
 import com.office_nico.spractice.domain.CompletionPoint;
 import com.office_nico.spractice.domain.Guidance;
 import com.office_nico.spractice.domain.GuidanceAction;
 import com.office_nico.spractice.domain.Scenario;
 import com.office_nico.spractice.domain.Stock;
+import com.office_nico.spractice.repository.client_scenario.ClientScenarioRepository;
 import com.office_nico.spractice.repository.completion_point.CompletionPointRepository;
 import com.office_nico.spractice.repository.guidance.GuidanceRepository;
 import com.office_nico.spractice.repository.guidance_action.GuidanceActionRepository;
@@ -40,6 +40,8 @@ public class ScenarioService {
 
 	@Autowired private ScenarioRepository scenarioRepository = null;
 
+	@Autowired private ClientScenarioRepository clientScenarioRepository = null;
+
 	@Autowired private GuidanceRepository guidanceRepository = null;
 
 	@Autowired private GuidanceActionRepository guidanceActionRepository = null;
@@ -54,17 +56,23 @@ public class ScenarioService {
 	 * ページリストの取得
 	 * @param logger ロガー
 	 * @param sessionUserId セッションユーザーID
+	 * @param search 検索キーワード
 	 * @param current 現在のページ
 	 * @param pageMax 1ページ当たりの表示数
 	 * @return ページオブジェクト
 	 */
-	public Page<Scenario> page(Logger logger, Long sessionUserId, int start, int length, Sort.Direction dir, String[] order){
+	public Page<Scenario> page(Logger logger, Long sessionUserId, String search, int start, int length, Sort.Direction dir, String[] orders){
 		logger = (logger == null ? logger : _logger);
 		
+		/*
 		int pageNumber = start == 0 ? 0 : (start / length);
 		
 		Pageable pr = PageRequest.of(pageNumber, length, dir, order);
 		Page<Scenario> page = scenarioRepository.findByIsDeletedFalse(pr);
+		*/
+		
+		Page<Scenario> page = scenarioRepository.findScenariosBySearchKeywordAndIsDeletedFalse(search, orders, dir.toString(), start, length);
+		
 		return page;
 	}
 
@@ -821,5 +829,19 @@ public class ScenarioService {
 			}
 		}
 		return ret;
+	}
+	
+	/**
+	 * 利用しているクライアントの一覧を返す
+	 * 
+	 * @param logger        ロガー
+	 * @param sessionUserId セッションユーザーID
+	 * @param scenarioId        シナリオID
+	 * @return クライアントシナリオリスト
+	 */
+	public List<ClientScenario> getUsedClients(Logger logger, Long sessionUserId, Long scenarioId) {
+		logger = (logger == null ? logger : _logger);
+
+		return clientScenarioRepository.findClientByScenarioId(scenarioId);
 	}
 }

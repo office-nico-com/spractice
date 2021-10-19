@@ -34,9 +34,9 @@
 	<thead>
 		<tr>
 			<th scope="col" width="0%" style="width:0%;">ID</th>
-			<th scope="col" width="25%" style="width:25%;">シナリオコード</th>
-			<th scope="col" width="15%" style="width:15%;">シナリオ名</th>
-			<th scope="col" width="25%" style="width:25%;">説明</th>
+			<th scope="col" width="25%" style="width:15%;">シナリオコード</th>
+			<th scope="col" width="15%" style="width:25%;">シナリオ名</th>
+			<th scope="col" width="25%" style="width:25%;">メモ</th>
 			<th scope="col" width="25%" style="width:25%;">利用クライアント</th>
 			<th scope="col" width="10%" style="width:10%;">状態</th>
 		</tr>
@@ -79,6 +79,10 @@ $(function(){
 		return '<a href="' + [# th:text="@{/t06o1ny8/scenarios/show/}" /] + row.id + '">' + (data == null ? '－' : codes[String(data)]) + "</a>";
 	}
 
+	var render4=function(data, type, row){
+		return '<a href="' + [# th:text="@{/t06o1ny8/scenarios/show/}" /] + row.id + '" data-scenario_id="' + row.id + '" class="scenario_user">' + (data == null ? '－' : hbr(data)) + "</a>";
+	}
+
 	
 	// 初期化
 	if($.cookie("datatableclear") == 'true'){
@@ -88,7 +92,7 @@ $(function(){
 
 	// datatableの設定を変更
 	var $table = $("#table1").DataTable({
-		searching: false,
+		searching: true,
 		serverSide: true,
 		stateSave: true,
 		"ajax": {
@@ -108,7 +112,7 @@ $(function(){
 			{targets: 1, data: "scenarioKeycode", visible: true, /* width:"20%", */ orderable:true, render:render1},
 			{targets: 2, data: "scenarioName", visible: true, /*width:"40%", */ orderable:true, render:render1},
 			{targets: 3, data: "description", visible: true, /*width:"20%", */ orderable:true, render:render1},
-			{targets: 4, data: "clientNameList", visible: true,  /*width:"20%", */ orderable:false, render:render1},
+			{targets: 4, data: "clientNameList", visible: true,  /*width:"20%", */ orderable:false, render:render4},
 			{targets: 5, data: "isInvalided", visible: true,  /*width:"20%", */ orderable:false, render:render2}
 		],
 		"drawCallback":function(settings){
@@ -120,6 +124,12 @@ $(function(){
 						$(this).parent().parent().find("a").removeClass('hover');
 					}
 			);
+			
+			$('.scenario_user').each(function(i, obj){
+				// alert($(this).data('client_id'));
+				drawClient($(this).data('scenario_id'), this);
+			});
+
 		}
 	});
 	// If you want to use a 100% width table.
@@ -130,6 +140,35 @@ $(function(){
 const create = () => {
 	location.href = [# th:text="@{/t06o1ny8/scenarios/new}" /];
 };
+
+const drawClient = (scenarioId, obj) => {
+
+	$.getJSON([# th:text="@{/t06o1ny8/scenarios/client/list/}" /] + scenarioId)
+		.done(function(json) {
+			// 正常終了
+			var html  = "";
+			$.each(json, function(i, data){
+				
+				if(html != ''){
+					html += ', ';
+				}
+				html += data['clientKeycode'];
+				html += ":";
+				html += data['clientNameJa'];
+			});
+			if(html == ''){
+				html = '－';
+			}
+			$(obj).html(html);
+		
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			// エラー
+			console.log("XMLHttpRequest : " + jqXHR.status + " | " + "textStatus : " + textStatus + " | " + "errorThrown : " + errorThrown.message);
+			alert('Communication failed. \nPlease reload the screen.\nIf the problem persists, please contact your administrator.');
+	});
+}
+
 
 </script>
 </th:block>

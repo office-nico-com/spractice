@@ -388,7 +388,7 @@ public class UsersController {
 	
 	
 	/**
-	 * 所属している組織の一覧を返す
+	 * 所属しているクライアントの一覧を返す
 	 * @param model
 	 * @param userId
 	 * @return

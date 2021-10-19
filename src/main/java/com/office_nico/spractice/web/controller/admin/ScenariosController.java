@@ -33,6 +33,7 @@ import com.office_nico.spractice.constants.InvalidStatus;
 import com.office_nico.spractice.constants.Length;
 import com.office_nico.spractice.constants.codes.AdminFunctionCode;
 import com.office_nico.spractice.constants.codes.AdminOperationCode;
+import com.office_nico.spractice.domain.ClientScenario;
 import com.office_nico.spractice.domain.CompletionPoint;
 import com.office_nico.spractice.domain.Guidance;
 import com.office_nico.spractice.domain.GuidanceAction;
@@ -140,8 +141,14 @@ public class ScenariosController {
 		Map<String, Object> map = new HashMap<>();
 
 		try {
-			String[] order = form.getOrderString("id", "scenarioKeycode", "scenarioName", "id", new String[] {"isInvalided","scenarioName"});
-			Page<Scenario> page = scenarioService.page(logger, sessionuser.getId(), form.getStart(), form.getLength(), form.getOrderDirecton(), order);
+			String[] order = form.getOrderString("id", "scenario_keycode", "scenario_name", "id", new String[] {"is_invalided","scenario_name"});
+
+			String search = null;
+			if(form.getSearch() != null && form.getSearch().get("value") != null) {
+				search = form.getSearch().get("value");
+			}
+
+			Page<Scenario> page = scenarioService.page(logger, sessionuser.getId(), search, form.getStart(), form.getLength(), form.getOrderDirecton(), order);
 			map.put("data", page.toList());
 			map.put("recordsFiltered", page.getTotalElements());
 			map.put("recordsTotal", page.getTotalElements());
@@ -954,7 +961,42 @@ public class ScenariosController {
 			throw new ApplicationRuntimeException("An error has occurred in " + Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() .", e);
 		}
 		return View.WORK;
+	}
+	
+	/**
+	 * 利用しているクライアントの一覧を返す
+	 * @param model
+	 * @param userId
+	 * @return
+	 */
+	@Action(Type.AJAX)
+	@GetMapping({ PREFIX + "/client/list/{scenarioId}" })
+	@ResponseBody
+	public List<Map<String, Object>> clientList(Model model, @PathVariable(name = "scenarioId", required = true) Long scenarioId) {
 
+		User sessionuser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		List<Map<String, Object>> ret = new ArrayList<>();
+
+		try {
+			List<ClientScenario> clientScenarios =  scenarioService.getUsedClients(logger, sessionuser.getId(), scenarioId);
+			for(ClientScenario clientScenario : clientScenarios) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("id", clientScenario.getClient().getId());
+				map.put("clientNameJa", clientScenario.getClient().getClientNameJa());
+				map.put("clientNameJaKana", clientScenario.getClient().getClientNameJaKana());
+				map.put("clientKeycode", clientScenario.getClient().getClientKeycode());
+				map.put("userRegistTypeCode", clientScenario.getClient().getUserRegistTypeCode());
+				map.put("description", clientScenario.getClient().getDescription());
+				map.put("isInvalided", clientScenario.getClient().getIsInvalided());
+				map.put("isDeleted", clientScenario.getClient().getIsDeleted());
+				ret.add(map);
+			}
+		}
+		catch(Throwable e) {
+			throw new ApplicationRuntimeException("An error has occurred in " + Thread.currentThread().getStackTrace()[1].getClassName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "() .", e);
+		}
+		return ret;
 	}
 	
 	/**

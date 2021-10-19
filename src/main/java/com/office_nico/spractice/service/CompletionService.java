@@ -11,17 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.office_nico.spractice.domain.Completion;
 import com.office_nico.spractice.domain.CompletionPoint;
 import com.office_nico.spractice.domain.Guidance;
+import com.office_nico.spractice.domain.Scenario;
 import com.office_nico.spractice.repository.completion.CompletionRepository;
 import com.office_nico.spractice.repository.completion_point.CompletionPointRepository;
 import com.office_nico.spractice.repository.guidance.GuidanceRepository;
+import com.office_nico.spractice.repository.scenario.ScenarioRepository;
 
 @Service
 @Transactional
@@ -34,6 +34,8 @@ public class CompletionService {
 	@Autowired private CompletionRepository completionRepository = null;
 
 	@Autowired private GuidanceRepository guidanceRepository = null;
+	
+	@Autowired private ScenarioRepository scenarioRepository = null;
 
 
 	/**
@@ -44,13 +46,16 @@ public class CompletionService {
 	 * @param pageMax 1ページ当たりの表示数
 	 * @return ページオブジェクト
 	 */
-	public Page<CompletionPoint> page(Logger logger, Long sessionUserId, int start, int length, Sort.Direction dir, String[] order){
+	public Page<CompletionPoint> page(Logger logger, Long sessionUserId, String search, int start, int length, Sort.Direction dir, String[] orders){
 		logger = (logger == null ? logger : _logger);
-		
+		/*
 		int pageNumber = start == 0 ? 0 : (start / length);
 		
 		Pageable pr = PageRequest.of(pageNumber, length, dir, order);
 		Page<CompletionPoint> page = completionPointRepository.findByIsDeletedFalse(pr);
+		*/
+		Page<CompletionPoint> page = completionPointRepository.findCompletionPointsBySearchKeywordAndIsDeletedFalse(search, orders, dir.toString(), start, length);
+		
 		return page;
 	}
 	
@@ -332,4 +337,17 @@ public class CompletionService {
 		return completions;
 	}
 
+	/**
+	 * 利用しているシナリオの一覧を返す
+	 * 
+	 * @param logger        ロガー
+	 * @param sessionUserId セッションユーザーID
+	 * @param scenarId        シナリオID
+	 * @return クライアントシナリオリスト
+	 */
+	public List<Scenario> getUsedScenarios(Logger logger, Long sessionUserId, Long completionPointId) {
+		logger = (logger == null ? logger : _logger);
+
+		return scenarioRepository.findScenarioByCompletionPointId(completionPointId);
+	}
 }

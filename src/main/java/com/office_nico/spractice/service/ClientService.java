@@ -62,6 +62,21 @@ public class ClientService {
 		return page;
 	}
 
+	/**
+	 * ページリストの取得（検索条件にシナリオを含める）
+	 * @param logger ロガー
+	 * @param sessionUserId セッションユーザーID
+	 * @param String serach 検索条件
+	 * @param current 現在のページ
+	 * @param pageMax 1ページ当たりの表示数
+	 * @return ページオブジェクト
+	 */
+	public Page<Client> pageWithSearchScenario(Logger logger, Long sessionUserId, String serach, int start, int length, Sort.Direction dir, String[] orders){
+		logger = (logger == null ? logger : _logger);
+
+		Page<Client> page = clientRepository.findClientsBySearchKeywordAndIsDeletedFalse(serach, orders, dir.toString(), start, length);
+		return page;
+	}
 	
 	/**
 	 * クライアントの一覧を取得

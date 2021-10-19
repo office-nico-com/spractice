@@ -36,7 +36,7 @@
 			<th scope="col">ID</th>
 			<th scope="col" width="25%">アカウント</th>
 			<th scope="col" width="25%">ユーザー名</th>
-			<th scope="col" width="25%">所属組織</th>
+			<th scope="col" width="25%">所属クライアント</th>
 			<th scope="col" width="9%">登録元</th>
 			<th scope="col" width="8%">権限</th>
 			<th scope="col" width="7%">状態</th>
@@ -158,14 +158,12 @@ const drawClient = (userId, obj) => {
 			var html  = "";
 			$.each(json, function(i, data){
 				
-				if(!data['isDeleted'] && !data['isInvalided']){
-					if(html != ''){
-						html += ', ';
-					}
-					html += data['clientKeycode'];
-					html += ":";
-					html += data['clientNameJa'];
+				if(html != ''){
+					html += ', ';
 				}
+				html += data['clientKeycode'];
+				html += ":";
+				html += data['clientNameJa'];
 			});
 			if(html == ''){
 				html = '－';

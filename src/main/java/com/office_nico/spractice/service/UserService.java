@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -79,9 +77,9 @@ public class UserService {
 	public Page<User> page(Logger logger, Long sessionUserId, String searchKeyword, int start, int length, Sort.Direction dir, String[] order) {
 		logger = (logger == null ? logger : _logger);
 
-		int pageNumber = start == 0 ? 0 : (start / length);
+//		int pageNumber = start == 0 ? 0 : (start / length);
 
-		Pageable pr = PageRequest.of(pageNumber, length, dir, order);
+//		Pageable pr = PageRequest.of(pageNumber, length, dir, order);
 		
 		Page<User> page = null;
 //		if(searchKeyword != null && searchKeyword.length() > 0) {
@@ -287,7 +285,7 @@ public class UserService {
 	 * @param logger        ロガー
 	 * @param sessionUserId セッションユーザーID
 	 * @param userId        クライアントID
-	 * @return クライアントリスト
+	 * @return クライアントユーザーリスト
 	 */
 	public List<ClientUser> getAffiliatedClients(Logger logger, Long sessionUserId, Long userId) {
 		logger = (logger == null ? logger : _logger);
