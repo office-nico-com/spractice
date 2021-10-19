@@ -90,7 +90,6 @@ public class StorageFileService {
 		}
 		
 		if(binaryFileCategory.isEmpty()) {
-			// TODO:
 			throw new NullPointerException();
 		}
 		

@@ -20,6 +20,11 @@ CREATE TABLE clients (
 
 ALTER TABLE clients ADD CONSTRAINT PK_clients PRIMARY KEY (id);
 
+CREATE INDEX IDX_CLIENTS_01 ON CLIENTS (client_keycode);
+CREATE INDEX IDX_CLIENTS_02 ON CLIENTS (client_name_ja);
+CREATE INDEX IDX_CLIENTS_03 ON CLIENTS (client_name_ja_kana);
+CREATE INDEX IDX_CLIENTS_04 ON CLIENTS (user_regist_type_code);
+
 
 CREATE TABLE scenarios (
  id BIGSERIAL NOT NULL,
@@ -42,6 +47,10 @@ CREATE TABLE scenarios (
 
 ALTER TABLE scenarios ADD CONSTRAINT PK_scenarios PRIMARY KEY (id);
 
+CREATE INDEX IDX_SCENARIOS_01 ON SCENARIOS (scenario_keycode);
+CREATE INDEX IDX_SCENARIOS_02 ON SCENARIOS (scenario_name);
+CREATE INDEX IDX_SCENARIOS_03 ON SCENARIOS (description);
+
 
 CREATE TABLE stocks (
  id BIGSERIAL NOT NULL,
@@ -54,6 +63,8 @@ CREATE TABLE stocks (
 );
 
 ALTER TABLE stocks ADD CONSTRAINT PK_stocks PRIMARY KEY (id);
+
+CREATE INDEX IDX_STOCKS_01 ON STOCKS (scenario_id);
 
 
 CREATE TABLE binary_file_categories (
@@ -68,6 +79,8 @@ CREATE TABLE binary_file_categories (
 );
 
 ALTER TABLE binary_file_categories ADD CONSTRAINT PK_binary_file_categories PRIMARY KEY (id);
+
+CREATE INDEX IDX_BINARY_FILE_CATEGORIES_01 ON BINARY_FILE_CATEGORIES (sort_order);
 
 
 CREATE TABLE users (
@@ -92,6 +105,14 @@ CREATE TABLE users (
 
 ALTER TABLE users ADD CONSTRAINT PK_users PRIMARY KEY (id);
 
+CREATE INDEX IDX_USERS_01 ON USERS (account);
+CREATE INDEX IDX_USERS_02 ON USERS (email);
+CREATE INDEX IDX_USERS_03 ON USERS (family_name);
+CREATE INDEX IDX_USERS_04 ON USERS (given_name);
+CREATE INDEX IDX_USERS_05 ON USERS (family_name_kana);
+CREATE INDEX IDX_USERS_06 ON USERS (given_name_kana);
+CREATE INDEX IDX_USERS_07 ON USERS (registered_from_code);
+
 
 CREATE TABLE completion_points (
  id BIGSERIAL NOT NULL,
@@ -107,6 +128,8 @@ CREATE TABLE completion_points (
 );
 
 ALTER TABLE completion_points ADD CONSTRAINT PK_completion_points PRIMARY KEY (id);
+
+CREATE INDEX IDX_COMPLETION_POINTS_01 ON COMPLETION_POINTS (completion_point_keycode);
 
 
 CREATE TABLE completions (
@@ -124,6 +147,9 @@ CREATE TABLE completions (
 );
 
 ALTER TABLE completions ADD CONSTRAINT PK_completions PRIMARY KEY (id);
+
+CREATE INDEX IDX_COMPLETIONS_01 ON COMPLETIONS (client_id,user_id,completion_point_id);
+CREATE INDEX IDX_COMPLETIONS_02 ON COMPLETIONS (started_at,ended_at);
 
 
 CREATE TABLE informations (
@@ -143,6 +169,8 @@ CREATE TABLE informations (
 
 ALTER TABLE informations ADD CONSTRAINT PK_informations PRIMARY KEY (id);
 
+CREATE INDEX IDX_INFORMATIONS_01 ON INFORMATIONS (show_started_on,show_ended_on);
+
 
 CREATE TABLE admin_operations (
  id BIGSERIAL NOT NULL,
@@ -159,6 +187,9 @@ CREATE TABLE admin_operations (
 );
 
 ALTER TABLE admin_operations ADD CONSTRAINT PK_admin_operations PRIMARY KEY (id);
+
+CREATE INDEX IDX_ADMIN_OPERATIONS_01 ON ADMIN_OPERATIONS (operated_at);
+CREATE INDEX IDX_ADMIN_OPERATIONS_02 ON ADMIN_OPERATIONS (user_id);
 
 
 CREATE TABLE guidances (
@@ -189,6 +220,8 @@ CREATE TABLE guidances (
 
 ALTER TABLE guidances ADD CONSTRAINT PK_guidances PRIMARY KEY (id);
 
+CREATE INDEX IDX_GUIDANCES_01 ON GUIDANCES (scenario_id,sort_order);
+
 
 CREATE TABLE guidance_actions (
  id BIGSERIAL NOT NULL,
@@ -208,6 +241,8 @@ CREATE TABLE guidance_actions (
 
 ALTER TABLE guidance_actions ADD CONSTRAINT PK_guidance_actions PRIMARY KEY (id);
 
+CREATE INDEX IDX_GUIDANCE_ACTIONS_01 ON GUIDANCE_ACTIONS (guidance_id,sort_order);
+
 
 CREATE TABLE clients_users (
  id BIGSERIAL NOT NULL,
@@ -221,6 +256,8 @@ CREATE TABLE clients_users (
 );
 
 ALTER TABLE clients_users ADD CONSTRAINT PK_clients_users PRIMARY KEY (id);
+
+CREATE UNIQUE INDEX IDX_CLIENTS_USERS_01 ON CLIENTS_USERS (client_id,user_id);
 
 
 CREATE TABLE clients_scenarios (
@@ -236,6 +273,10 @@ CREATE TABLE clients_scenarios (
 );
 
 ALTER TABLE clients_scenarios ADD CONSTRAINT PK_clients_scenarios PRIMARY KEY (id);
+
+CREATE UNIQUE INDEX IDX_CLIENTS_SCENARIOS_01 ON CLIENTS_SCENARIOS (client_id,scenario_id);
+
+CREATE INDEX IDX_CLIENTS_SCENARIOS_02 ON CLIENTS_SCENARIOS (sort_order);
 
 
 CREATE TABLE binary_files (
@@ -254,6 +295,8 @@ CREATE TABLE binary_files (
 );
 
 ALTER TABLE binary_files ADD CONSTRAINT PK_binary_files PRIMARY KEY (id);
+
+CREATE INDEX IDX_BINARY_FILES_01 ON BINARY_FILES (binary_file_category_id);
 
 
 COMMENT ON TABLE clients IS 'クライアント';
