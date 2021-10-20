@@ -195,7 +195,7 @@ public class UserService {
 		List<ClientUser> clientUsers = clientUserRepository.findByUserId(userId);
 		for (ClientUser clientUser : clientUsers) {
 			boolean find = false;
-			for (int i = clientUserList.size() - 1; i == 0; i--) {
+			for (int i = clientUserList.size() - 1; i >= 0; i--) {
 				ClientUser clientUser2 = clientUserList.get(i);
 				if (clientUser.getClient().getId().equals(clientUser2.getClient().getId())) {
 					find = true;

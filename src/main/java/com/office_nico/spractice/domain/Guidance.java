@@ -108,6 +108,10 @@ public class Guidance {
 	private String startCompletionPointDescription;
 	@Transient
 	private String endCompletionPointDescription;
+	@Transient
+	private Boolean startCompletionPointIsInvalided;
+	@Transient
+	private Boolean endCompletionPointIsInvalided;
 	
 	@Transient
 	private Long workId = null;

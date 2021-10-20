@@ -389,7 +389,7 @@ public class ScenariosController {
 		try {
 			User sessionuser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			
-			List<CompletionPoint> list = completionService.getValidCompletionPoints(logger, sessionuser.getId());
+			List<CompletionPoint> list = completionService.getCompletionPoints(logger, sessionuser.getId());
 			
 			return list;
 		}

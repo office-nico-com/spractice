@@ -68,16 +68,25 @@ public class ReportService {
 	 * @param sessionUserId セッションユーザーID
 	 * @param clientId クライアントID
 	 * @param totalCount 総受講数
+	 * @param isIncludingInvalid 無効シナリオを含むフラグ（管理サイトは含む、ユーザーサイトは含めない）
 	 * @return 集計データ
 	 */
-	public List<ReportData> getReports(Logger logger, Long sessionUserId, Long clientId, Integer totalCount){
+	public List<ReportData> getReports(Logger logger, Long sessionUserId, Long clientId, Integer totalCount, Boolean isIncludingInvalid){
 		logger = (logger == null ? logger : _logger);
 		
 		List<ReportData> reports = new ArrayList<>();
 		
 		// シナリオの一覧⇒修了ポイントの一覧を取得する
 		List<Long> completionPointIds = new ArrayList<>();
-		List<Scenario> scenarios = scenarioRepository.findValidSenarioByClientId(clientId);
+		
+		List<Scenario> scenarios = null;
+		if(!isIncludingInvalid) {
+			scenarios = scenarioRepository.findValidSenarioByClientId(clientId);
+		}
+		else {
+			scenarios = scenarioRepository.findSenarioByClientId(clientId);
+		}
+		
 		for(Scenario scenario : scenarios) {
 			List<Guidance> guidances = guidanceRepository.findByScenarioIdAndStartCompletionPointIdIsNotNullAndEndCompletionPointIdIsNotNullOrderBySortOrder(scenario.getId());
 			for(Guidance guidance : guidances) {
@@ -89,7 +98,15 @@ public class ReportService {
 				}
 			}
 		}
-		List<CompletionPoint> completionPoints = completionPointRepository.findByIsDeletedFalseAndIsInvalidedFalseAndId(completionPointIds);
+
+		List<CompletionPoint> completionPoints = null;
+		if(!isIncludingInvalid) {
+			completionPoints = completionPointRepository.findByIsDeletedFalseAndIsInvalidedFalseAndId(completionPointIds);
+		}
+		else {
+			completionPoints = completionPointRepository.findByIsDeletedFalseAndId(completionPointIds);
+		}
+
 		for(CompletionPoint completionPoint : completionPoints) {
 			ReportData report = new ReportData();
 			report.setCompletionPoint(completionPoint);

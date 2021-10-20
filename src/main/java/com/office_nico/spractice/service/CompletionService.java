@@ -64,8 +64,8 @@ public class CompletionService {
 	 * @param logger ロガー
 	 * @return 修了ポイントリスト
 	 */
-	public List<CompletionPoint> getValidCompletionPoints(Logger logger, Long sessionUserId){
-		return completionPointRepository.findByIsDeletedFalseAndIsInvalidedFalseOrderByCompletionPointKeycode();
+	public List<CompletionPoint> getCompletionPoints(Logger logger, Long sessionUserId){
+		return completionPointRepository.findByIsDeletedFalseOrderByCompletionPointKeycode();
 	}
 	
 	

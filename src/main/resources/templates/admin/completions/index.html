@@ -71,7 +71,7 @@ table.download td.title{
 	<table class="table mt-4 download" th:if="${reports.size() > 0}">
 	<tbody>
 	<tr th:each="report : ${reports}">
-	<td class="button"><button class="btn btn-success" th:onclick="'download(' + ${report.completionPoint.id} + ');'">ダウンロード</button></td>
+	<td class="button"><button class="btn btn-success" type="button" th:onclick="'download(' + ${report.completionPoint.id} + ');return false;'">ダウンロード</button></td>
 	<td class="title" th:text="${report.completionPoint.description}"/>
 	</tr>
 	</tbody>
@@ -107,6 +107,7 @@ const submitForm = () => {
 const download = (id) => {
 	
 	[# th:if="${selectedClientId != null}"]
+	
 	$.LoadingOverlay("show", {
 		background: "rgba(255, 255, 255, 0.6)",
 		size: 8
@@ -119,6 +120,9 @@ const download = (id) => {
 	url += "?fd=" + fd;
 	url += "&td=" + td;
 	url += "&clientId=" + [# th:text="${selectedClientId}" /];
+	
+//	location.href=url;
+
 	$.fileDownload(url, {
 		successCallback: function (url) {
 			$.LoadingOverlay("hide");

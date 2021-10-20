@@ -836,10 +836,16 @@ const draw = () => {
 			if(obj['startCompletionPointId'] != null){
 				html += html != '' ? '<br/>' : '';
 				html += '開始 ： ' + h(obj['startCompletionPointKeycode'] == null ? '' : obj['startCompletionPointKeycode']);
+				if(obj['startCompletionPointIsInvalided'] != null && obj['startCompletionPointIsInvalided']){
+					html += '（無効中）';
+				}
 			}
 			if(obj['endCompletionPointId'] != null){
 				html += html != '' ? '<br/>' : '';
 				html += '修了 ： ' + h(obj['endCompletionPointKeycode'] == null ? '' : obj['endCompletionPointKeycode']);
+				if(obj['endCompletionPointIsInvalided'] != null && obj['endCompletionPointIsInvalided']){
+					html += '（無効中）';
+				}
 			}
 			if(html == ''){
 				html = '設定なし';
@@ -1757,10 +1763,16 @@ const editCompletionPoint = (index) =>{
 
 
 			for(var i=0; i<json.length; i++){
-				$('#idStartCompletionPointId2').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+				
+				var option = '<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']);
+				if(json[i]['isInvalided'] != null && json[i]['isInvalided']){
+					option += '（無効中）';
+				}
+				option += '</option>';
+				$('#idStartCompletionPointId2').append(option);
 				// シナリオ内に設定されていものだけをリスト化
 				if(isIncludedCompletionPoint(json[i]['id'])){
-					$('#idStartCompletionPointId1').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+					$('#idStartCompletionPointId1').append(option);
 				}
 			}
 
@@ -1771,10 +1783,17 @@ const editCompletionPoint = (index) =>{
 			$('#idEndCompletionPointId2').append('<option value="">▽</option>');
 
 			for(var i=0; i<json.length; i++){
-				$('#idEndCompletionPointId2').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+				
+				var option = '<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']);
+				if(json[i]['isInvalided'] != null && json[i]['isInvalided']){
+					option += '（無効中）';
+				}
+				option += '</option>';
+					
+				$('#idEndCompletionPointId2').append(option);
 				// シナリオ内に設定されていものだけをリスト化
 				if(isIncludedCompletionPoint(json[i]['id'])){
-					$('#idEndCompletionPointId1').append('<option value="' + h(json[i]['id']) + '" data-label="' + h(json[i]['completionPointKeycode']) + '">' + h(json[i]['completionPointKeycode'] + "：" + json[i]['description']) + '</option>');
+					$('#idEndCompletionPointId1').append(option);
 				}
 			}
 

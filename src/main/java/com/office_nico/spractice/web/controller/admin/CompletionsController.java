@@ -117,7 +117,7 @@ public class CompletionsController {
 				Integer totalCount = reportService.getTotalEntryCount(logger, sessionuser.getId(), clientId);
 				
 				// データ集計
-				reports = reportService.getReports(logger, sessionuser.getId(), clientId, totalCount);
+				reports = reportService.getReports(logger, sessionuser.getId(), clientId, totalCount, true);
 			}
 			model.addAttribute("reports", reports);
 

@@ -91,7 +91,8 @@ public class CompletionDaoImpl implements CompletionDao<Completion> {
 			+ "cast(min(extract(epoch from completions.ended_at)-extract(epoch from completions.started_at)) as integer) as min, "
 			+ "cast(avg(extract(epoch from completions.ended_at)-extract(epoch from completions.started_at)) as integer) as avg "
 			+ "FROM completions "
-			+ "INNER JOIN users ON (users.id = completions.user_id AND users.is_deleted = false) "		// 削除ユーザーは集計に含めない、無効ユーザーは集計に含める
+			+ "INNER JOIN users ON (users.id = completions.user_id AND users.is_deleted = false) "		// 削除は含めない、無効は含める
+			+ "INNER JOIN clients_users ON (clients_users.user_id = users.id AND clients_users.client_id = :arg3 ) "
 			+ "WHERE completions.completion_point_id in ( :arg1 ) "
 			+ "AND completions.client_id = :arg2 "
 			+ "AND (completions.started_at IS NOT NULL) "
@@ -99,6 +100,7 @@ public class CompletionDaoImpl implements CompletionDao<Completion> {
 			+ "GROUP BY completions.completion_point_id " )
 			.setParameter("arg1", completionPointIds)
 			.setParameter("arg2", clientId)
+			.setParameter("arg3", clientId)
 			.getResultList();
 
 		for(Object[] record : records) {
@@ -120,18 +122,20 @@ public class CompletionDaoImpl implements CompletionDao<Completion> {
 			"SELECT "
 					+ "completion_point_id, cast(count(*) as integer) as count FROM "
 					+ "( "
-					+ "  SELECT user_id, completion_point_id FROM completions "
-					+ "  INNER JOIN users ON (users.id = completions.user_id AND users.is_deleted = false) "
+					+ "  SELECT completions.user_id, completion_point_id FROM completions "
+					+ "  INNER JOIN users ON (users.id = completions.user_id AND users.is_deleted = false) "  // 削除ユーザーは含めない
+					+ "  INNER JOIN clients_users ON (clients_users.user_id = users.id AND clients_users.client_id = :arg3 ) "
 					+ "  WHERE completions.completion_point_id in ( :arg1 ) "
 					+ "  AND completions.client_id = :arg2 "
 					+ "  AND (completions.started_at IS NOT NULL) "
 					+ "  AND (completions.ended_at IS NOT NULL) "
-					+ "  GROUP BY user_id, completion_point_id "
+					+ "  GROUP BY completions.user_id, completion_point_id "
 					+ ") AS t1 "
 					+ "GROUP BY t1.completion_point_id "
 				)
 			.setParameter("arg1", completionPointId)
 			.setParameter("arg2", clientId)
+			.setParameter("arg3", clientId)
 			.getResultList();
 
 		for(Object[] record : records) {
@@ -152,7 +156,7 @@ public class CompletionDaoImpl implements CompletionDao<Completion> {
 		List<Object> records = entityManager.createNativeQuery(
 				"SELECT cast(count(*) as integer) AS unworked_count FROM ( "
 						+ "SELECT t1.user_id, count(completions.*) AS count FROM "
-						+ "  (SELECT users.id AS user_id FROM users INNER JOIN clients_users ON (clients_users.user_id = users.id and users.is_deleted = false) WHERE clients_users.client_id = :arg2 ) t1 "
+						+ "  (SELECT users.id AS user_id FROM users INNER JOIN clients_users ON (clients_users.user_id = users.id) WHERE users.is_deleted = false AND clients_users.client_id = :arg2 ) t1 "
 						+ "LEFT OUTER JOIN completions ON (completions.user_id = t1.user_id AND completions.completion_point_id = :arg1 AND completions.client_id = :arg3) "
 						+ "GROUP BY t1.user_id HAVING count(completions.*) = 0 "
 						+ ") t2 "
@@ -188,7 +192,8 @@ public class CompletionDaoImpl implements CompletionDao<Completion> {
 			+ "users.family_name, "
 			+ "users.given_name "
 			+ "FROM completions "
-			+ "INNER JOIN users ON (users.id = completions.user_id AND users.is_deleted = false) "		// 削除ユーザーは集計に含めない、無効ユーザーは集計に含める
+			+ "INNER JOIN users ON (users.id = completions.user_id AND users.is_deleted = false) "  // 削除ユーザーは除外
+			+ "INNER JOIN clients_users ON (clients_users.user_id = users.id AND clients_users.client_id = :arg5 ) "
 			+ "WHERE completions.completion_point_id = :arg1 "
 			+ "AND completions.client_id = :arg2 "
 			+ "AND (completions.started_at IS NOT NULL) "
@@ -201,6 +206,7 @@ public class CompletionDaoImpl implements CompletionDao<Completion> {
 			.setParameter("arg2", clientId)
 			.setParameter("arg3", fd)
 			.setParameter("arg4", td)
+			.setParameter("arg5", clientId)
 			.getResultList();
 
 		for(Object[] record : records) {

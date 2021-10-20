@@ -64,9 +64,48 @@ public class ScenarioDaoImpl implements ScenarioDao<Scenario> {
 		}
 		
 		return ret;
-
 	}
 
+	@Override
+	public List<Scenario> findSenarioByClientId(Long clientId) {
+
+		List<Scenario> ret = new ArrayList<>();
+
+		@SuppressWarnings("unchecked")
+		List<Object[]> records = entityManager.createNativeQuery(
+				"SELECT "
+				+ "scenarios.id, "
+				+ "scenarios.scenario_keycode, "
+				+ "scenarios.scenario_name, "
+				+ "scenarios.thumbnail_binary_file_id, "
+				+ "scenarios.description, "
+				+ "scenarios.note, "
+				+ "scenarios.is_invalided, "
+				+ "scenarios.is_deleted, "
+				+ "clients_scenarios.is_invalided AS client_scenario_is_invalided, "
+				+ "clients_scenarios.sort_order AS sort_order "
+				+ "FROM clients_scenarios "
+				+ "INNER JOIN scenarios ON (scenarios.id = clients_scenarios.scenario_id AND scenarios.is_deleted = false) "
+				+ "WHERE clients_scenarios.client_id = :arg1 "
+				+ "ORDER BY clients_scenarios.sort_order")
+				.setParameter("arg1", clientId).getResultList();;
+		
+		for(Object[] record : records) {
+			Scenario scenario = new Scenario();
+			scenario.setId(Long.valueOf(String.valueOf((BigInteger)record[0])));
+			scenario.setScenarioKeycode((String)record[1]);
+			scenario.setScenarioName((String)record[2]);
+			scenario.setThumbnailBinaryFileId(Long.valueOf(String.valueOf((BigInteger)record[3])));
+			scenario.setDescription((String)record[4]);
+			scenario.setNote((String)record[5]);
+			scenario.setIsInvalided((Boolean)record[6]);
+			scenario.setIsDeleted((Boolean)record[7]);
+			ret.add(scenario);
+		}
+		
+		return ret;
+	}
+	
 	@Override
 	public Scenario findValidSenarioByClientIdAndScenarioKeycode(Long clientId, String scenarioKeycode) {
 

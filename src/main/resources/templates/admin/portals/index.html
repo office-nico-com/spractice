@@ -143,18 +143,22 @@ const drawSenario = (clientId, obj) => {
 			var html  = "";
 			$.each(json, function(i, data){
 				
-				if(!data['isDeleted'] && !data['isInvalided']){
-					if(html != ''){
-						html += ', ';
-					}
-					html += data['scenarioKeycode'];
-					html += ":";
-					html += data['scenarioName'];
-					if(data['isInvisible']){
-						html += "(非表示)";
-					}
+				if(html != ''){
+					html += ', ';
+				}
+				html += data['scenarioKeycode'];
+				html += ":";
+				html += data['scenarioName'];
+				if(data['isInvisible']){
+					html += "(非表示)";
+				}
+				if(data['isInvalided']){
+					html += "(無効中)";
 				}
 			});
+			if(html == ''){
+				html = '－';
+			}
 			$(obj).html(html);
 		
 		})

@@ -47,7 +47,7 @@ public class ClientScenarioDaoImpl implements ClientScenarioDao<ClientScenario> 
 		query.appendField("clients_scenarios.is_invalided", "client_scenario_is_invalided");
 		query.appendField("clients_scenarios.sort_order", "sort_order");
 		query.append("FROM clients_scenarios");
-		query.append("INNER JOIN scenarios ON (scenarios.id = clients_scenarios.scenario_id) ");
+		query.append("INNER JOIN scenarios ON (scenarios.id = clients_scenarios.scenario_id AND scenarios.is_deleted = false) ");
 		query.append("WHERE clients_scenarios.client_id = ? ", clientId);
 
 		query.addOrder("clients_scenarios.sort_order", "ASC");

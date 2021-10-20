@@ -158,16 +158,17 @@ $(function(){
 			var html  = "";
 			$.each(json, function(i, data){
 				
-				if(!data['isDeleted'] && !data['isInvalided']){
-					if(html != ''){
-						html += ', ';
-					}
-					html += data['clientKeycode'];
-					html += ":";
-					html += data['clientNameJa'];
-					if(data['roleCode'] == [# th:utext="${@roleCode.admin}" /] ){
-						html += [# th:text="'(' + ${@roleCode.label(@roleCode.admin)} + ')'" /];
-					}
+				if(html != ''){
+					html += ', ';
+				}
+				html += data['clientKeycode'];
+				html += ":";
+				html += data['clientNameJa'];
+				if( data['isInvalided']){
+					html += "(無効中)";
+				}
+				if(data['roleCode'] == [# th:utext="${@roleCode.admin}" /] ){
+					html += [# th:text="'(' + ${@roleCode.label(@roleCode.admin)} + ')'" /];
 				}
 			});
 			if(html == ''){

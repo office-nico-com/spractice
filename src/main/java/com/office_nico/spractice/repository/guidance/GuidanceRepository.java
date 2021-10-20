@@ -20,7 +20,7 @@ public interface GuidanceRepository extends JpaRepository<Guidance,Long>, Guidan
 	
 	public List<Guidance> findByScenarioIdOrderBySortOrder(Long scenarioId);
 
-	@Query(value="SELECT guidances.*, t1.completion_point_keycode AS start_completion_point_keycode, t2.completion_point_keycode AS end_completion_point_keycode FROM guidances LEFT OUTER JOIN completion_points AS t1 ON (t1.id = guidances.start_completion_point_id) LEFT OUTER JOIN completion_points  AS t2 ON (t2.id = guidances.end_completion_point_id)  WHERE guidances.scenario_id = ?1 ORDER BY guidances.sort_order", nativeQuery = true)
+	@Query(value="SELECT guidances.*, t1.completion_point_keycode AS start_completion_point_keycode, t2.completion_point_keycode AS end_completion_point_keycode, t1.is_invalided AS start_completion_point_is_invalided, t2.is_invalided AS end_completion_point_is_invalided FROM guidances LEFT OUTER JOIN completion_points AS t1 ON (t1.id = guidances.start_completion_point_id AND t1.is_deleted = false) LEFT OUTER JOIN completion_points  AS t2 ON (t2.id = guidances.end_completion_point_id AND t2.is_deleted = false)  WHERE guidances.scenario_id = ?1 ORDER BY guidances.sort_order", nativeQuery = true)
 	public List<Map<String, Object>> findByScenarioIdOrderBySortOrder2(Long scenarioId);
 
 	public Long countByGuidanceKeycode(String guidanceKeycode);

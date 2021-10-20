@@ -221,6 +221,12 @@ public class ScenarioService {
 		List<Map<String, Object>> records = guidanceRepository.findByScenarioIdOrderBySortOrder2(scenarioId);
 		for(Map<String, Object> record : records) {
 			Guidance guidance = BeanUtil.mapToBean(record, new Guidance());
+			if(guidance.getStartCompletionPointKeycode() == null) {
+				guidance.setStartCompletionPointId(null);
+			}
+			if(guidance.getEndCompletionPointKeycode() == null) {
+				guidance.setEndCompletionPointId(null);
+			}
 
 			List<GuidanceAction> guidanceActions = guidanceActionRepository.findByGuidanceIdOrderBySortOrder(guidance.getId());
 			// SortOrderの途中が抜けている場合は追加
@@ -584,7 +590,7 @@ public class ScenarioService {
 		
 		return scenarios;
 	}
-	
+
 	/**
 	 * 有効なシナリオ情報の取得（ガイダンス込み）
 	 * @param logger ロガー
@@ -614,15 +620,19 @@ public class ScenarioService {
 		// 履修ポイントの解決
 		for(Guidance guidance : guidances) {
 			if(guidance.getStartCompletionPointId() != null) {
-				Optional<CompletionPoint> completionPoint = completionPointRepository.findById(guidance.getStartCompletionPointId());
-				if(!completionPoint.isEmpty()) {
-					guidance.setStartCompletionPointKeycode(completionPoint.get().getCompletionPointKeycode());
+				if(completionPointRepository.existsById(guidance.getStartCompletionPointId())) {
+					Optional<CompletionPoint> completionPoint = completionPointRepository.findById(guidance.getStartCompletionPointId());
+					if(!completionPoint.isEmpty() && !completionPoint.get().getIsDeleted() && !completionPoint.get().getIsInvalided()) {
+						guidance.setStartCompletionPointKeycode(completionPoint.get().getCompletionPointKeycode());
+					}
 				}
 			}
 			if(guidance.getEndCompletionPointId() != null) {
-				Optional<CompletionPoint> completionPoint = completionPointRepository.findById(guidance.getEndCompletionPointId());
-				if(!completionPoint.isEmpty()) {
-					guidance.setEndCompletionPointKeycode(completionPoint.get().getCompletionPointKeycode());
+				if(completionPointRepository.existsById(guidance.getEndCompletionPointId())) {
+					Optional<CompletionPoint> completionPoint = completionPointRepository.findById(guidance.getEndCompletionPointId());
+					if(!completionPoint.isEmpty() && !completionPoint.get().getIsDeleted() && !completionPoint.get().getIsInvalided()) {
+						guidance.setEndCompletionPointKeycode(completionPoint.get().getCompletionPointKeycode());
+					}
 				}
 			}
 		}

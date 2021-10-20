@@ -57,6 +57,8 @@ table.download td.title{
 
 <h5 class="font-weight-bold title mb-5">訓練時間</h5>
 
+<th:block th:if="${reports.size() == 0}" th:text="表示する情報がありません。"/>
+
 <th:block th:each="report : ${reports}">
 <span class="font-weight-bold" th:text="'[' + ${report.completionPoint.description} + ']'"/>
 <table class="table table-sm mt-2">
@@ -82,6 +84,8 @@ table.download td.title{
 <h5 class="font-weight-bold title mb-4 mt-5">訓練状況</h5>
 
 
+<div th:if="${reports.size() == 0}" th:text="表示する情報がありません。" class="mt-5 mb-4"/>
+
 <div class="pie_chart_frame" th:each="report : ${reports}">
 <canvas th:id="'chart_' + ${report.completionPoint.id}"></canvas>
 </div>
@@ -94,7 +98,10 @@ table.download td.title{
 <h5 class="font-weight-bold title">修了履歴（CSVダウンロード）</h5>
 
 
-<div class="row mt-4 mb-4">
+<div th:if="${reports.size() == 0}" th:text="ダウンロードする情報がありません。" class="mt-5 mb-4"/>
+
+
+<div class="row mt-4 mb-4" th:if="${reports.size() > 0}">
 <div class="col-2 d-flex align-items-center justify-content-center">ダウンロード期間</div>
 <div class="col-2">
 <input type="text" name="fd" th:value="*{#temporals.format(fromDate, 'yyyy/M/d')}" class="form-control form-control-lg" id="idFromDate" placeholder="" autocomplete="off">
@@ -109,7 +116,7 @@ table.download td.title{
 <table class="table mt-4 download">
 <tbody>
 <tr th:each="report : ${reports}">
-<td class="button"><button class="btn btn-success" th:onclick="'download(' + ${report.completionPoint.id} + ');'">ダウンロード</button></td>
+<td class="button"><button class="btn btn-success" type="button" th:onclick="'download(' + ${report.completionPoint.id} + ');return false;'">ダウンロード</button></td>
 <td class="title" th:text="${report.completionPoint.description}"/>
 </tr>
 </tbody>
@@ -169,6 +176,7 @@ $(function(){
 });
 
 const download = (id) => {
+
 	$.LoadingOverlay("show", {
 		background: "rgba(255, 255, 255, 0.6)",
 		size: 8
@@ -180,6 +188,7 @@ const download = (id) => {
 	var url = [# th:text="@{/{clientKeycode}/download/(clientKeycode=${clientKeycode})}" /] + id;
 	url += "?fd=" + fd;
 	url += "&td=" + td;
+//	location.href=url;
 	$.fileDownload(url, {
 		successCallback: function (url) {
 			$.LoadingOverlay("hide");

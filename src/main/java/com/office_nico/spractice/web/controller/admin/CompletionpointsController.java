@@ -354,6 +354,7 @@ public class CompletionpointsController {
 				map.put("id", scenario.getId());
 				map.put("scenarioKeycode", scenario.getScenarioKeycode());
 				map.put("scenarioName", scenario.getScenarioName());
+				map.put("isInvalided", scenario.getIsInvalided());
 				ret.add(map);
 			}
 		}

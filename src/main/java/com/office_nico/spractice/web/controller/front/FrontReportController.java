@@ -138,7 +138,7 @@ public class FrontReportController {
 			model.addAttribute("totalCount", totalCount);
 			
 			// データ集計
-			List<ReportData> reports = reportService.getReports(logger, sessionData.getUserId(), client.getId(), totalCount);
+			List<ReportData> reports = reportService.getReports(logger, sessionData.getUserId(), client.getId(), totalCount, false);
 			model.addAttribute("reports", reports);
 			
 			

@@ -164,6 +164,11 @@ const drawClient = (userId, obj) => {
 				html += data['clientKeycode'];
 				html += ":";
 				html += data['clientNameJa'];
+				
+				if( data['isInvalided']){
+					html += "(無効中)";
+				}
+				
 			});
 			if(html == ''){
 				html = '－';

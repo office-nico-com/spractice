@@ -22,7 +22,7 @@ public interface CompletionPointRepository extends JpaRepository<CompletionPoint
 	
 	public Page<CompletionPoint> findByIsDeletedFalse(Pageable pr);
 
-	public List<CompletionPoint> findByIsDeletedFalseAndIsInvalidedFalseOrderByCompletionPointKeycode();
+	public List<CompletionPoint> findByIsDeletedFalseOrderByCompletionPointKeycode();
 
 	public CompletionPoint findTopByIsDeletedFalseAndIsInvalidedFalseAndCompletionPointKeycode(String completionPointKeycode);
 
@@ -33,5 +33,8 @@ public interface CompletionPointRepository extends JpaRepository<CompletionPoint
 
 	@Query("SELECT cp FROM CompletionPoint cp where cp.isDeleted = false AND cp.isInvalided = false AND cp.id IN (?1)")
 	public List<CompletionPoint> findByIsDeletedFalseAndIsInvalidedFalseAndId(List<Long> completionPointIds);
+
+	@Query("SELECT cp FROM CompletionPoint cp where cp.isDeleted = false AND cp.id IN (?1)")
+	public List<CompletionPoint> findByIsDeletedFalseAndId(List<Long> completionPointIds);
 
 }

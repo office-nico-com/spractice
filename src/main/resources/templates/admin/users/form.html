@@ -62,17 +62,17 @@
 			<table class="table table-striped">
 			<thead>
 			<tr>
-				<th scope="col">選択</th>
-				<th scope="col">クライアントコード</th>
-				<th scope="col">クライアント名</th>
-				<th scope="col">クライアント権限</th>
+				<th scope="col" width="10%">選択</th>
+				<th scope="col" width="30%">クライアントコード</th>
+				<th scope="col" width="30%">クライアント名</th>
+				<th scope="col" width="30%">クライアント権限</th>
 			</tr>
 			</thead>
 
 			<tbody>
 			<tr th:each="client,status:${clients}">
 				<th scope="row"><input type="checkbox" th:field="*{clients[__${status.index}__].clientId}" th:value="${#strings.toString(client.id)}" th:id="'client_id' + ${status.index}"></th>
-				<td><label th:for="'client_id' + ${status.index}" th:text="${client.clientKeycode}"/></td>
+				<td><label th:for="'client_id' + ${status.index}" th:text="${client.clientKeycode} + ${client.isInvalided ? '（無効中）' : ''}"/></td>
 				<td><label th:for="'client_id' + ${status.index}" th:text="${client.clientNameJa}"/></td>
 				<td>
 				<select th:field="*{clients[__${status.index}__].roleCode}" class="custom-select" style="width:auto;">

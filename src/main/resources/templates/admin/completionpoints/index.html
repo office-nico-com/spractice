@@ -153,6 +153,9 @@ const drawScenario = (completionpointId, obj) => {
 				html += data['scenarioKeycode'];
 				html += ":";
 				html += data['scenarioName'];
+				if(data['isInvalided']){
+					html += "(無効中)";
+				}
 			});
 			if(html == ''){
 				html = '－';

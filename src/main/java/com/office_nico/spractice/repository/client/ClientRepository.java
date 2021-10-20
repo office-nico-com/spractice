@@ -46,7 +46,7 @@ public interface ClientRepository extends JpaRepository<Client,Long>, ClientDao<
 
 	public Client findTopByClientKeycodeAndIsDeletedFalse(String clientKeycode);
 
-	@Query("SELECT count(cu) FROM ClientUser cu join cu.client c where c.isDeleted = false AND cu.client.id = ?1")
+	@Query("SELECT count(cu) FROM ClientUser cu join cu.user u where u.isDeleted = false AND cu.client.id = ?1")
 	public Integer countUsersByClientId(Long clientId);
 
 }

@@ -13,7 +13,7 @@ public class CompletionPointForm {
 
 	private String id = null;
 	@Size(min=Length.completionPointKeycodeMin, max=Length.completionPointKeycode, message = "{javax.validation.constraints.Size.range.message}")
-	@Pattern(regexp = "^[a-zA-Z0-9]*$", message = "{javax.validation.constraints.Pattern.alphanum.message}")
+	@Pattern(regexp ="^[a-zA-Z0-9@\\#\\$\\%\\*!]*$", message = "{javax.validation.constraints.Pattern.alphanummark2.message}")
 	private String completionPointKeycode = null;
 
 	@NotBlank
