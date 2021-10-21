@@ -7,6 +7,7 @@ var SieApiMarker=function($_target,  _selector, _left, _top){
 	this.$marker=null;
 	this.left=0;
 	this.top=0;
+	this.reverse=false;
 	if(_left != null){
 		this.left = _left;
 	}
@@ -21,6 +22,9 @@ var SieApiMarker=function($_target,  _selector, _left, _top){
 			if($obj.length > 0){
 				_self.$marker = $('<img src="' + _self.marker + '" class="sie-api-marker-img blinking"/>').appendTo($obj);
 				_self.$marker.css({left:to_px(_self.left), top:to_px(_self.top)});
+				if(_self.reverse){
+					_self.$marker.css({'transform':'rotate(90deg)'});
+				}
 			}
 		}
 	}
@@ -43,6 +47,9 @@ var SieApiMarker=function($_target,  _selector, _left, _top){
 			if($obj.length > 0){
 				_self.$marker = $('<img src="' + _self.marker + '" class="sie-api-marker-img blinking"/>').appendTo($obj);
 				_self.$marker.css({left:to_px(_self.left), top:to_px(_self.top)});
+				if(_self.reverse){
+					_self.$marker.css({'transform':'rotate(90deg)'});
+				}
 				if(_self.zIndex != null){
 					_self.$marker.css({'z-index':_self.zIndex});
 				}

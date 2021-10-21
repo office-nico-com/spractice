@@ -1,1 +1,643 @@
-セキュアプラクティスの紹介など
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes" name="viewport">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    
+    
+    <link href="/assets/css/common.css?20211018" rel="stylesheet">
+        <link href="/assets/css/contents.css?20210803" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:400,700&display=swap&subset=japanese" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@500;600;700;900&display=swap" rel="stylesheet">
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/jquery.common.js?20211018"></script>
+    <script src="/assets/js/swiper-4.5.1.min.js"></script>
+	    
+    
+		<!-- All in One SEO 4.1.0.2 -->
+		<title>CISO羅針盤 セキュアプラクティス | 株式会社ハイパー セキュリティア営業部</title>
+		<meta name="description" content="最先端セキュリティとベストな提案で情報を守る"/>
+		<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+		<link rel="canonical" href="https://www.securitier.jp/security/ciso/cisosp/" />
+		<meta property="og:site_name" content="株式会社ハイパー　セキュリティア営業部" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="CISO羅針盤 セキュアプラクティス | 株式会社ハイパー セキュリティア営業部" />
+		<meta property="og:description" content="最先端セキュリティとベストな提案で情報を守る" />
+		<meta property="og:url" content="https://www.securitier.jp/security/ciso/cisosp/" />
+		<meta property="og:image" content="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/sec_logo.png" />
+		<meta property="og:image:secure_url" content="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/sec_logo.png" />
+		<meta property="og:image:width" content="512" />
+		<meta property="og:image:height" content="512" />
+		<meta property="article:published_time" content="2020-11-26T08:05:01Z" />
+		<meta property="article:modified_time" content="2021-08-06T00:59:23Z" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:domain" content="www.securitier.jp" />
+		<meta name="twitter:title" content="CISO羅針盤 セキュアプラクティス | 株式会社ハイパー セキュリティア営業部" />
+		<meta name="twitter:description" content="最先端セキュリティとベストな提案で情報を守る" />
+		<meta name="twitter:image" content="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/sec_logo.png" />
+		<script type="application/ld+json" class="aioseo-schema">
+			{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebSite","@id":"https:\/\/www.securitier.jp\/#website","url":"https:\/\/www.securitier.jp\/","name":"\u682a\u5f0f\u4f1a\u793e\u30cf\u30a4\u30d1\u30fc\u3000\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30a2\u55b6\u696d\u90e8","publisher":{"@id":"https:\/\/www.securitier.jp\/#organization"}},{"@type":"Organization","@id":"https:\/\/www.securitier.jp\/#organization","name":"\u682a\u5f0f\u4f1a\u793e\u30cf\u30a4\u30d1\u30fc\u3000\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30a2\u55b6\u696d\u90e8","url":"https:\/\/www.securitier.jp\/","logo":{"@type":"ImageObject","@id":"https:\/\/www.securitier.jp\/#organizationLogo","url":"https:\/\/www.securitier.jp\/securitier_cms\/wp-content\/uploads\/2020\/11\/sec_logo.png","width":"512","height":"512"},"image":{"@id":"https:\/\/www.securitier.jp\/#organizationLogo"}},{"@type":"BreadcrumbList","@id":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#breadcrumblist","itemListElement":[{"@type":"ListItem","@id":"https:\/\/www.securitier.jp\/#listItem","position":"1","item":{"@id":"https:\/\/www.securitier.jp\/#item","name":"\u30db\u30fc\u30e0","description":"\u6700\u5148\u7aef\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3068\u30d9\u30b9\u30c8\u306a\u63d0\u6848\u3067\u60c5\u5831\u3092\u5b88\u308b","url":"https:\/\/www.securitier.jp\/"},"nextItem":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#listItem"},{"@type":"ListItem","@id":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#listItem","position":"2","item":{"@id":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#item","name":"\u7f85\u91dd\u76e4\u30fcSP","description":"\u6700\u5148\u7aef\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3068\u30d9\u30b9\u30c8\u306a\u63d0\u6848\u3067\u60c5\u5831\u3092\u5b88\u308b","url":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/"},"previousItem":"https:\/\/www.securitier.jp\/#listItem"}]},{"@type":"Person","@id":"https:\/\/www.securitier.jp\/author\/admin\/#author","url":"https:\/\/www.securitier.jp\/author\/admin\/","name":"admin","image":{"@type":"ImageObject","@id":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#authorImage","url":"https:\/\/secure.gravatar.com\/avatar\/da0cf3a423ae6c6932645cb144a93ae9?s=96&d=mm&r=g","width":"96","height":"96","caption":"admin"}},{"@type":"WebPage","@id":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#webpage","url":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/","name":"CISO\u7f85\u91dd\u76e4 \u30bb\u30ad\u30e5\u30a2\u30d7\u30e9\u30af\u30c6\u30a3\u30b9 | \u682a\u5f0f\u4f1a\u793e\u30cf\u30a4\u30d1\u30fc \u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30a2\u55b6\u696d\u90e8","description":"\u6700\u5148\u7aef\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3068\u30d9\u30b9\u30c8\u306a\u63d0\u6848\u3067\u60c5\u5831\u3092\u5b88\u308b","inLanguage":"ja","isPartOf":{"@id":"https:\/\/www.securitier.jp\/#website"},"breadcrumb":{"@id":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#breadcrumblist"},"author":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#author","creator":"https:\/\/www.securitier.jp\/security\/ciso\/cisosp\/#author","datePublished":"2020-11-26T08:05:01+09:00","dateModified":"2021-08-06T00:59:23+09:00"}]}
+		</script>
+		<!-- All in One SEO -->
+
+<link rel='dns-prefetch' href='//s.w.org' />
+		<!-- This site uses the Google Analytics by MonsterInsights plugin v7.17.0 - Using Analytics tracking - https://www.monsterinsights.com/ -->
+							<script src="//www.googletagmanager.com/gtag/js?id=UA-116720919-1"  type="text/javascript" data-cfasync="false"></script>
+			<script type="text/javascript" data-cfasync="false">
+				var mi_version = '7.17.0';
+				var mi_track_user = true;
+				var mi_no_track_reason = '';
+				
+								var disableStr = 'ga-disable-UA-116720919-1';
+
+				/* Function to detect opted out users */
+				function __gtagTrackerIsOptedOut() {
+					return document.cookie.indexOf( disableStr + '=true' ) > - 1;
+				}
+
+				/* Disable tracking if the opt-out cookie exists. */
+				if ( __gtagTrackerIsOptedOut() ) {
+					window[disableStr] = true;
+				}
+
+				/* Opt-out function */
+				function __gtagTrackerOptout() {
+					document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+					window[disableStr] = true;
+				}
+
+				if ( 'undefined' === typeof gaOptout ) {
+					function gaOptout() {
+						__gtagTrackerOptout();
+					}
+				}
+								window.dataLayer = window.dataLayer || [];
+				if ( mi_track_user ) {
+					function __gtagTracker() {dataLayer.push( arguments );}
+					__gtagTracker( 'js', new Date() );
+					__gtagTracker( 'set', {
+						'developer_id.dZGIzZG' : true,
+						                    });
+					__gtagTracker( 'config', 'UA-116720919-1', {
+						forceSSL:true,link_attribution:true,					} );
+										window.gtag = __gtagTracker;										(
+						function () {
+							/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+							/* ga and __gaTracker compatibility shim. */
+							var noopfn = function () {
+								return null;
+							};
+							var newtracker = function () {
+								return new Tracker();
+							};
+							var Tracker = function () {
+								return null;
+							};
+							var p = Tracker.prototype;
+							p.get = noopfn;
+							p.set = noopfn;
+							p.send = function (){
+								var args = Array.prototype.slice.call(arguments);
+								args.unshift( 'send' );
+								__gaTracker.apply(null, args);
+							};
+							var __gaTracker = function () {
+								var len = arguments.length;
+								if ( len === 0 ) {
+									return;
+								}
+								var f = arguments[len - 1];
+								if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
+									if ( 'send' === arguments[0] ) {
+										var hitConverted, hitObject = false, action;
+										if ( 'event' === arguments[1] ) {
+											if ( 'undefined' !== typeof arguments[3] ) {
+												hitObject = {
+													'eventAction': arguments[3],
+													'eventCategory': arguments[2],
+													'eventLabel': arguments[4],
+													'value': arguments[5] ? arguments[5] : 1,
+												}
+											}
+										}
+										if ( typeof arguments[2] === 'object' ) {
+											hitObject = arguments[2];
+										}
+										if ( typeof arguments[5] === 'object' ) {
+											Object.assign( hitObject, arguments[5] );
+										}
+										if ( 'undefined' !== typeof (
+											arguments[1].hitType
+										) ) {
+											hitObject = arguments[1];
+										}
+										if ( hitObject ) {
+											action = 'timing' === arguments[1].hitType ? 'timing_complete' : hitObject.eventAction;
+											hitConverted = mapArgs( hitObject );
+											__gtagTracker( 'event', action, hitConverted );
+										}
+									}
+									return;
+								}
+
+								function mapArgs( args ) {
+									var gaKey, hit = {};
+									var gaMap = {
+										'eventCategory': 'event_category',
+										'eventAction': 'event_action',
+										'eventLabel': 'event_label',
+										'eventValue': 'event_value',
+										'nonInteraction': 'non_interaction',
+										'timingCategory': 'event_category',
+										'timingVar': 'name',
+										'timingValue': 'value',
+										'timingLabel': 'event_label',
+									};
+									for ( gaKey in gaMap ) {
+										if ( 'undefined' !== typeof args[gaKey] ) {
+											hit[gaMap[gaKey]] = args[gaKey];
+										}
+									}
+									return hit;
+								}
+
+								try {
+									f.hitCallback();
+								} catch ( ex ) {
+								}
+							};
+							__gaTracker.create = newtracker;
+							__gaTracker.getByName = newtracker;
+							__gaTracker.getAll = function () {
+								return [];
+							};
+							__gaTracker.remove = noopfn;
+							__gaTracker.loaded = true;
+							window['__gaTracker'] = __gaTracker;
+						}
+					)();
+									} else {
+										console.log( "" );
+					( function () {
+							function __gtagTracker() {
+								return null;
+							}
+							window['__gtagTracker'] = __gtagTracker;
+							window['gtag'] = __gtagTracker;
+					} )();
+									}
+			</script>
+				<!-- / Google Analytics by MonsterInsights -->
+		<link rel='stylesheet' id='wp-block-library-css'  href='https://www.securitier.jp/securitier_cms/wp-includes/css/dist/block-library/style.min.css?ver=5.7.3' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='https://www.securitier.jp/securitier_cms/wp-includes/css/dashicons.min.css?ver=5.7.3' type='text/css' media='all' />
+<script type='text/javascript' id='monsterinsights-frontend-script-js-extra'>
+/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","download_extensions":"doc,pdf,ppt,zip,xls,docx,pptx,xlsx","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"https:\/\/www.securitier.jp","hash_tracking":"false","ua":"UA-116720919-1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.securitier.jp/securitier_cms/wp-content/plugins/google-analytics-for-wordpress/assets/js/frontend-gtag.min.js?ver=7.17.0' id='monsterinsights-frontend-script-js'></script>
+<link rel="https://api.w.org/" href="https://www.securitier.jp/wp-json/" /><link rel="alternate" type="application/json" href="https://www.securitier.jp/wp-json/wp/v2/security/304" /><link rel="alternate" type="application/json+oembed" href="https://www.securitier.jp/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.securitier.jp%2Fsecurity%2Fciso%2Fcisosp%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.securitier.jp/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.securitier.jp%2Fsecurity%2Fciso%2Fcisosp%2F&#038;format=xml" />
+<style type="text/css">.pink-message {
+background: none repeat scroll 0 0 #ff33dd;
+color: #ffffff;
+text-shadow: none;
+font-size: 14px;
+line-height: 24px;
+padding: 10px;
+} 
+.green-message {
+background: none repeat scroll 0 0 #8cc14c;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px;
+} 
+.orange-message {
+background: none repeat scroll 0 0 #faa732;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px;
+} 
+.red-message {
+background: none repeat scroll 0 0 #da4d31;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px;
+} 
+.grey-message {
+background: none repeat scroll 0 0 #53555c;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px;
+} 
+.left-block {
+background: none repeat scroll 0 0px, radial-gradient(ellipse at center center, #ffffff 0%, #f2f2f2 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #8b8e97;
+    padding: 10px;
+    margin: 10px;
+    float: left;
+} 
+.right-block {
+background: none repeat scroll 0 0px, radial-gradient(ellipse at center center, #ffffff 0%, #f2f2f2 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #8b8e97;
+    padding: 10px;
+    margin: 10px;
+    float: right;
+} 
+.blockquotes {
+background: none;
+    border-left: 5px solid #f1f1f1;
+    color: #8B8E97;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 22px;
+    padding-left: 15px;
+    padding: 10px;
+    width: 60%;
+    float: left;
+} 
+.新クラス {
+
+} 
+.pink-border {
+border: 1px solid #ff33dd;
+margin: 0;
+padding: 10px;
+} 
+</style><link rel="icon" href="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/cropped-sec_logo-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/cropped-sec_logo-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/cropped-sec_logo-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/cropped-sec_logo-270x270.png" />
+<style type="text/css">
+.button--anker a{background:#2b72b4;}
+.button--anker.button--link:after{transform: rotate(-45deg);}
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header">
+          <p>            <a href="https://www.securitier.jp"><img alt="株式会社セキュリティア" class="header-logo" src="/assets/img/common/logo.png?20210528"></a>
+          </p>          <div class="header__nav">
+            <div class="header__link">
+              <ul>
+				<li><a href="https://www.securitier.jp/casestudy/">導入事例</a></li>
+                <li><a href="https://www.securitier.jp/news/">お知らせ</a></li>
+                <li><a href="https://www.securitier.jp/event/">イベント</a></li>
+              </ul>
+            </div>
+            <nav class="gnav">
+              <ul class="gnav__main">
+                <li class="list">
+                  <a href="https://www.securitier.jp/security/">セキュリティ支援</a>
+                  <ul class="gnav__sub">
+                    <li><a href="https://www.securitier.jp/security/ciso/cisocs/">羅針盤ーCS</a></li>
+                    <!--<li><a href="#">羅針盤ーVD</a></li>-->
+                    <li><a href="https://www.securitier.jp/security/ciso/cisosp/">羅針盤ーSP</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="https://www.securitier.jp/solution/">ソリューション</a>
+                </li>
+                <li class="list">
+                  <a href="https://www.securitier.jp/products/">取扱商品</a>
+					<ul class="gnav__sub">
+						<li class="list--sub"><a href="https://www.securitier.jp/products/products_cat/cyber-attack/">サイバー攻撃対策</a><ul class="gnav__sub--2"><li><a href="https://www.securitier.jp/products/cyber-attack/hpsce/">HP Sure Click Enterprise</a></li><li><a href="https://www.securitier.jp/products/cyber-attack/carbonblack/">VMware Carbon Black Cloud Endpoint Standard</a></li><li><a href="https://www.securitier.jp/products/cyber-attack/mr-ep/">MR-EP</a></li><li><a href="https://www.securitier.jp/products/cyber-attack/mr-ed/">MR-ED</a></li><li><a href="https://www.securitier.jp/products/cyber-attack/scutum/">Scutum</a></li></ul></li><li class="list--sub"><a href="https://www.securitier.jp/products/products_cat/security/">セキュリティ対策</a><ul class="gnav__sub--2"><li><a href="https://www.securitier.jp/products/security/swivel-secure/">Swivel secure 「AuthControl Sentry™」</a></li><li><a href="https://www.securitier.jp/products/security/mr-am/">MR-AM</a></li><li><a href="https://www.securitier.jp/products/security/vaddy/">VAddy</a></li></ul></li><li class="list--sub"><a href="https://www.securitier.jp/products/products_cat/information-leak/">情報漏えい対策</a><ul class="gnav__sub--2"><li><a href="https://www.securitier.jp/products/information-leak/spg-remote/">SPG-Remote</a></li><li><a href="https://www.securitier.jp/products/information-leak/spg-remote-medical/">SPG-Remote Medical</a></li><li><a href="https://www.securitier.jp/products/information-leak/mail-de-file/">メールdeファイル</a></li></ul></li><li class="list--sub"><a href="https://www.securitier.jp/products/products_cat/education/">教育</a><ul class="gnav__sub--2"><li><a href="https://www.securitier.jp/security/ciso/cisosp/">セキュアプラクティス</a></li></ul></li>					</ul>
+                </li>
+                <li class="list">
+                  <a href="https://www.securitier.jp/about/">セキュリティアとは</a>
+                  <ul class="gnav__sub">
+                    <li><a href="https://www.securitier.jp/about/vision/">VISION</a></li>
+                  </ul>
+                </li>
+                <li><a href="https://www.securitier.jp/blog/">コラム</a></li>
+              </ul>
+				      <ul class="gnav__sub_sp">
+				<li><a href="https://www.securitier.jp/casestudy/">導入事例</a></li>
+                <li><a href="https://www.securitier.jp/news/">お知らせ</a></li>
+                <li><a href="https://www.securitier.jp/event/">イベント</a></li>
+					      <li><a href="https://www.securitier.jp/contact/">お問い合わせ</a></li>
+              </ul>
+            </nav>
+            <div class="header-sp__box">
+              <div class="header-nav__sp">
+                <span></span> <span></span> <span></span>
+              </div>
+            </div>
+          </div>
+          <div class="header__contact">
+            <a href="https://www.securitier.jp/contact/">お問い合わせ</a>
+          </div>
+        </div>
+      </header>      
+      <main class="page page--single">
+      
+	  
+      <section class="key_visual key_visual--third">
+        <p class="key__parent-title">セキュリティ支援<span>SECURITY</span></p>
+      </section>
+      
+        <div class="Inner">
+        <section class="products-contents">
+                              
+          <div class="article">
+            <div class="products-visual" style="background-image: url('https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/羅針盤ーSP-.jpg');">
+  <h1 class="visual__title" style="color: #ffffff;">CISO羅針盤<br />
+セキュアプラクティス</h1>
+  <p class="visual__subtitle" style="color: #ffffff">ロールプレイング型<br />
+セキュリティ教育コンテンツ</p>
+</div>
+
+
+<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-advgb-columns advgb-columns-wrapper Anker-Btn__Wrapper Columns--space-between" id="advgb-cols-0e4555cc-a689-4116-8289-a83028b3b9b3"><div class="advgb-columns-container"><div class="advgb-columns advgb-columns-row advgb-is-mobile advgb-columns-3 layout-13-13-13 mbl-layout-13-13-13 vgutter-10">
+<div class="wp-block-advgb-column advgb-column advgb-is-one-third-tablet advgb-is-one-third-mobile" id="advgb-col-ca5e7f85-2834-4e1b-9eda-ba5f550e1636" style="flex:none"><div class="advgb-column-inner" style="border-style:none;border-width:1px">
+<div class="button--anker">
+<a href="#Outline">概要</a>
+</div>
+</div></div>
+
+
+
+<div class="wp-block-advgb-column advgb-column advgb-is-one-third-tablet advgb-is-one-third-mobile" id="advgb-col-498ee143-e8f4-4063-b8f4-9e48f96e0d6a" style="flex:none"><div class="advgb-column-inner" style="border-style:none;border-width:1px">
+<div class="button--anker">
+<a href="#Feature">特徴</a>
+</div>
+</div></div>
+
+
+
+<div class="wp-block-advgb-column advgb-column advgb-is-one-third-tablet advgb-is-one-third-mobile" id="advgb-col-7007a1ea-18cb-4a72-9822-8432b0191e3c" style="flex:none"><div class="advgb-column-inner" style="border-style:none;border-width:1px">
+<div class="button--anker button--link">
+<a href="/casestudy/#cisosp">導入事例</a>
+</div>
+</div></div>
+</div></div></div>
+
+
+
+<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div id="Outline" class="Anchor"></div>
+
+
+
+<h2 class="has-text-align-center"><span style="color:#3171b3" class="has-inline-color">現状の課題</span></h2>
+
+
+
+<div class="wp-block-advgb-columns advgb-columns-wrapper" id="advgb-cols-79a0a14c-a4cd-487b-8a55-d3458b2a3092"><div class="advgb-columns-container"><div class="advgb-columns advgb-columns-row advgb-is-mobile columns-valign-full advgb-columns-2 layout-12-12 mbl-layout-stacked vgutter-10">
+<div class="wp-block-advgb-column advgb-column advgb-is-half-tablet advgb-is-full-mobile" id="advgb-col-f0c757cf-13e8-4a51-854e-c6326ec01c6f"><div class="advgb-column-inner" style="border-style:dotted;border-color:#bbcce9;border-width:1px">
+<div class="wp-block-advgb-list"><ul class="advgblist-a87554d9-ae11-467b-a006-214eed2c5839 advgb-list advgb-list-marker"><li>セキュリティ教育の中で実体験が求められている</li><li>実際にマルウェアを作成して感染体験はできない</li><li>実際の攻撃後のイメージがしにくく危機感が薄い</li><li>メール訓練などで情報担当への問い合わせが多い</li></ul></div>
+</div></div>
+
+
+
+<div class="wp-block-advgb-column advgb-column advgb-is-half-tablet advgb-is-full-mobile" id="advgb-col-51bc6dae-1c1a-480c-9b95-8d99f912bbeb"><div class="advgb-column-inner" style="border-style:solid;border-color:#bbcce9;border-width:1px">
+<h4 class="has-text-align-center"><span style="color:#f39800" class="has-inline-color">リアリティと緊張感のある実体験はしたい</span><br>でも<br><span style="color:#f39800" class="has-inline-color">問い合わせなどで業務へ支障をきたしたくない</span></h4>
+</div></div>
+</div></div></div>
+
+
+
+<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/arrow.png" alt=""/></figure></div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_text-1.jpg" alt=""/></figure></div>
+
+
+
+<div style="height:60px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div id="Feature" class="Anchor"></div>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_title.jpg" alt=""/></figure></div>
+
+
+
+<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h3 class="title-border"><span style="color:#f39800" class="has-inline-color">ロールプレイングによる体験型の教育でわかりやすい</span></h3>
+
+
+
+<div class="wp-block-columns are-vertically-aligned-top">
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:33.33%">
+<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_list-1.jpg" alt=""/></figure></div>
+</div>
+
+
+
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:66.66%">
+<div class="wp-block-advgb-list"><ul class="advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 advgb-list advgb-list-marker"><li>実際のマルウェアに感染した場合のイメージが実体験でき、危機感を醸成できる</li><li>より現実に近い形で体験を可能にするため、実際のメール画面に酷似した環境を提供</li><li>クリック操作のため、簡単でわかりやすい</li><li>本物の標的型攻撃メールのような「脅迫メール」「マルウェア感染」「ランサムウェア」などが体験可能</li></ul></div>
+
+
+
+<p></p>
+</div>
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h4 class="has-text-align-center"><span style="color:#3171b3" class="has-inline-color">ロールプレイングによる標的型攻撃メール教育</span></h4>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_capture-1-1.jpg" alt="パスワードの窃取"/></figure>
+</div>
+
+
+
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_capture-2-1.jpg" alt="脅迫メール"/></figure>
+</div>
+</div>
+</div>
+
+
+
+<div class="wp-block-column">
+<div class="wp-block-columns">
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_capture-3.jpg" alt="マルウェア感染"/></figure>
+</div>
+
+
+
+<div class="wp-block-column">
+<figure class="wp-block-image size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_capture-4.jpg" alt="ランサムウェア"/></figure>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h3 class="title-border"><span style="color:#f39800" class="has-inline-color">解説を見ながら体験できるためすぐに理解できる</span></h3>
+
+
+
+<div class="wp-block-columns are-vertically-aligned-top">
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:33.33%">
+<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_list-2.jpg" alt=""/></figure></div>
+</div>
+
+
+
+<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:66.66%">
+<div class="wp-block-advgb-list"><ul class="advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 advgb-list advgb-list-marker"><li>標的型攻撃メールの見分け方のポイントがまとめてあるため、わかりやすい</li><li>解説サイトへの案内もあり、さらに解説の詳細を閲覧することが可能</li></ul></div>
+</div>
+</div>
+
+
+
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h3 class="title-border"><span style="color:#f39800" class="has-inline-color">新たな攻撃のパターンも追加作成できる</span></h3>
+
+
+
+<div class="wp-block-columns">
+<div class="wp-block-column" style="flex-basis:33.33%">
+<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://www.securitier.jp/securitier_cms/wp-content/uploads/2020/11/secure-practice_list-3.jpg" alt=""/></figure></div>
+</div>
+
+
+
+<div class="wp-block-column" style="flex-basis:66.66%">
+<div class="wp-block-advgb-list"><ul class="advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 advgb-list advgb-list-marker"><li>モジュール型で開発されているため、新たなパターンを追加することも可能（追加のご依頼は別途ご相談）</li></ul></div>
+</div>
+</div>
+
+
+
+<p class="has-text-align-center has-small-font-size">※某大学考案・監修、System Design Office NICO開発の製品です。<br>セキュリティアは「CISO羅針盤－セキュアプラクティス－」総販売店です。</p>
+<style class="advgb-styles-renderer">#advgb-cols-0e4555cc-a689-4116-8289-a83028b3b9b3{}#advgb-cols-0e4555cc-a689-4116-8289-a83028b3b9b3 > .advgb-columns-container > .advgb-columns-row {}#advgb-cols-0e4555cc-a689-4116-8289-a83028b3b9b3 > .advgb-columns-container > .advgb-columns-row > .advgb-column {}@media screen and (max-width: 1023px) {#advgb-cols-0e4555cc-a689-4116-8289-a83028b3b9b3{}}@media screen and (max-width: 767px) {#advgb-cols-0e4555cc-a689-4116-8289-a83028b3b9b3{}}#advgb-col-ca5e7f85-2834-4e1b-9eda-ba5f550e1636>.advgb-column-inner{}#advgb-col-ca5e7f85-2834-4e1b-9eda-ba5f550e1636>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row {}#advgb-col-ca5e7f85-2834-4e1b-9eda-ba5f550e1636>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row > .advgb-column {}#advgb-col-ca5e7f85-2834-4e1b-9eda-ba5f550e1636{width: 32%;}@media screen and (max-width: 1023px) {#advgb-col-ca5e7f85-2834-4e1b-9eda-ba5f550e1636>.advgb-column-inner{}}@media screen and (max-width: 767px) {#advgb-col-ca5e7f85-2834-4e1b-9eda-ba5f550e1636>.advgb-column-inner{}}#advgb-col-498ee143-e8f4-4063-b8f4-9e48f96e0d6a>.advgb-column-inner{}#advgb-col-498ee143-e8f4-4063-b8f4-9e48f96e0d6a>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row {}#advgb-col-498ee143-e8f4-4063-b8f4-9e48f96e0d6a>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row > .advgb-column {}#advgb-col-498ee143-e8f4-4063-b8f4-9e48f96e0d6a{width: 32%;}@media screen and (max-width: 1023px) {#advgb-col-498ee143-e8f4-4063-b8f4-9e48f96e0d6a>.advgb-column-inner{}}@media screen and (max-width: 767px) {#advgb-col-498ee143-e8f4-4063-b8f4-9e48f96e0d6a>.advgb-column-inner{}}#advgb-col-7007a1ea-18cb-4a72-9822-8432b0191e3c>.advgb-column-inner{}#advgb-col-7007a1ea-18cb-4a72-9822-8432b0191e3c>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row {}#advgb-col-7007a1ea-18cb-4a72-9822-8432b0191e3c>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row > .advgb-column {}#advgb-col-7007a1ea-18cb-4a72-9822-8432b0191e3c{width: 32%;}@media screen and (max-width: 1023px) {#advgb-col-7007a1ea-18cb-4a72-9822-8432b0191e3c>.advgb-column-inner{}}@media screen and (max-width: 767px) {#advgb-col-7007a1ea-18cb-4a72-9822-8432b0191e3c>.advgb-column-inner{}}#advgb-cols-79a0a14c-a4cd-487b-8a55-d3458b2a3092{}#advgb-cols-79a0a14c-a4cd-487b-8a55-d3458b2a3092 > .advgb-columns-container > .advgb-columns-row {}#advgb-cols-79a0a14c-a4cd-487b-8a55-d3458b2a3092 > .advgb-columns-container > .advgb-columns-row > .advgb-column {}@media screen and (max-width: 1023px) {#advgb-cols-79a0a14c-a4cd-487b-8a55-d3458b2a3092{}}@media screen and (max-width: 767px) {#advgb-cols-79a0a14c-a4cd-487b-8a55-d3458b2a3092{}}#advgb-col-f0c757cf-13e8-4a51-854e-c6326ec01c6f>.advgb-column-inner{padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px;}#advgb-col-f0c757cf-13e8-4a51-854e-c6326ec01c6f>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row {}#advgb-col-f0c757cf-13e8-4a51-854e-c6326ec01c6f>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row > .advgb-column {}@media screen and (max-width: 1023px) {#advgb-col-f0c757cf-13e8-4a51-854e-c6326ec01c6f>.advgb-column-inner{}}@media screen and (max-width: 767px) {#advgb-col-f0c757cf-13e8-4a51-854e-c6326ec01c6f>.advgb-column-inner{}}.advgblist-a87554d9-ae11-467b-a006-214eed2c5839 li{font-size:16px;margin-left:18px}.advgblist-a87554d9-ae11-467b-a006-214eed2c5839 li:before{font-size:16px;color:#3171b3;line-height:18px;margin:2px;padding:2px;margin-left:-20px}#advgb-col-51bc6dae-1c1a-480c-9b95-8d99f912bbeb>.advgb-column-inner{padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px;}#advgb-col-51bc6dae-1c1a-480c-9b95-8d99f912bbeb>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row {}#advgb-col-51bc6dae-1c1a-480c-9b95-8d99f912bbeb>.advgb-column-inner > .advgb-columns-container > .advgb-columns-row > .advgb-column {}@media screen and (max-width: 1023px) {#advgb-col-51bc6dae-1c1a-480c-9b95-8d99f912bbeb>.advgb-column-inner{}}@media screen and (max-width: 767px) {#advgb-col-51bc6dae-1c1a-480c-9b95-8d99f912bbeb>.advgb-column-inner{}}.advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 li{font-size:16px;margin-left:18px}.advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 li:before{font-size:16px;color:#f39800;line-height:18px;margin:2px;padding:2px;margin-left:-20px}.advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 li{font-size:16px;margin-left:18px}.advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 li:before{font-size:16px;color:#f39800;line-height:18px;margin:2px;padding:2px;margin-left:-20px}.advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 li{font-size:16px;margin-left:18px}.advgblist-2202379a-04b5-4934-9d0c-f5a7a3cc77f7 li:before{font-size:16px;color:#f39800;line-height:18px;margin:2px;padding:2px;margin-left:-20px}</style>          </div>
+                            </section>
+        
+        </div>
+      
+      </main>
+    </div>
+    
+
+	<div class="page-top"><a href="#"></a></div>
+    <footer>
+	
+      <section class="footer-contact">
+        <div class="footer-contaqct__box">
+          <p class="contact-title">CONTACT</p>
+          <p class="contact-title-sub">お問い合わせ</p>
+          <p class="contact-text">
+            提供サービスに関するご相談·お見積りなど、お気軽にお問い合わせください。
+          </p>
+          <div class="footer-contact-button">
+            <a href="https://www.securitier.jp/contact/">お問い合わせフォーム</a>
+          </div>
+          <!--<div class="footer-contact-faq">
+           <a class="button_base" href="https://helpfan.jp/user/securitier" target="_blank">
+           <div class="button_set01">
+             <p class="button_set01_dot">商品に関するよくあるご質問を見る</p>
+           </div>
+            </a>
+          </div>-->
+        </div>
+      </section>
+      <div class="footer__link">
+        <div class="footer__Inner">
+          <div class="footer__link-list">
+            <ul>
+              <li>
+                <a href="https://www.hyperpc.co.jp/" target="_blank">企業情報</a>
+              </li>
+              <li>
+                <a href="https://www.hyperpc.co.jp/privacy1.html" target="_blank">個人情報保護方針</a>
+              </li>
+              <li>
+                <a href="https://www.hyperpc.co.jp/privacy2.html" target="_blank">個人情報の取扱いについて</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer__Inner">
+          <div class="footer__company">
+            <div class="footer__logo">
+              <img alt="" src="/assets/img/common/logo.png?20210528">
+            </div>
+            <div class="footer__company__data">
+              <p class="footer__company-name">株式会社ハイパー　セキュリティア営業部</p>
+              <address>
+                〒103-0012 東京都中央区日本橋堀留町2-9-6ニューESRビル<br>
+                TEL:03-5643-2221<br>
+              </address>
+            </div>
+          </div>
+          <div class="footer__tool">
+            <p class="footer__tool-copyright">
+              Copyright &copy; HYPER Inc. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+<link rel='stylesheet' id='advgb_blocks_styles_min-css'  href='https://www.securitier.jp/securitier_cms/wp-content/plugins/advanced-gutenberg/assets/css/blocks_styles/blocks.min.css?ver=5.7.3' type='text/css' media='all' />
+<link rel='stylesheet' id='advgb_bulma_styles-css'  href='https://www.securitier.jp/securitier_cms/wp-content/plugins/advanced-gutenberg/assets/css/bulma.min.css?ver=5.7.3' type='text/css' media='all' />
+<script type='text/javascript' src='https://www.securitier.jp/securitier_cms/wp-includes/js/wp-embed.min.js?ver=5.7.3' id='wp-embed-js'></script>
+<script type='text/javascript' src='https://www.securitier.jp/securitier_cms/wp-includes/js/jquery/jquery.min.js?ver=3.5.1' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://www.securitier.jp/securitier_cms/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+  </body>
+</html>

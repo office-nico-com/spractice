@@ -1328,4 +1328,16 @@ div.sie-module-win-gmail div.sie-module-win-gmail-body.downloaded div.gmail-down
 	position:absolute;
 	top:-120px;
 	left:50px;
+
 }
+div.sie-module-win-gmail div.sie-module-win-gmail-body div.link-popup{
+	z-index:20000;
+	background-color:#DEE1E6;
+	color:#333;
+	font-size:12px;
+	padding:8px;
+	bottom:0;
+	border-radius: 0px 5px 0px 0px;
+	display:none;
+}
+

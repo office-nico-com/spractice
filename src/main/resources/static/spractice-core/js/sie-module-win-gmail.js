@@ -26,6 +26,7 @@ var SieModuleWinGmail = function(moduleId){
 	this.view += '<br/>';
 	this.view += '</div>';
 
+	this.view += '<div class="link-popup"></div>'
 	this.view += '<div class="gmail-header">'
 	this.view += '<div class="main-menu" ><i class="fa fa-bars" aria-hidden="true"></i></div>';
 	this.view += '<img src="' + this.headerIcon + '" class="gmail-icon" width="46">';
@@ -204,6 +205,8 @@ var SieModuleWinGmail = function(moduleId){
 		for(var i=0; i<_self.resources.length; i++){
 
 			var li = '<li class="';
+
+			li += 'mail_' + _self.resources[i]['id'] + ' ';
 
 			if(_self.resources[i]['is_readed']){
 				li += 'readed ';
@@ -425,5 +428,65 @@ var SieModuleWinGmail = function(moduleId){
 		
 	}
 
+
+	// 既読
+	this.setReaded=function(id, readed){
+		var _self = this;
+		if(readed){
+			if(_self.thisWindow != null){
+				_self.thisWindow.find('.mail_' + id).addClass('readed');
+			}
+			for(var i=0; i<_self.resources.length; i++){
+				if(_self.resources[i]['id'] == id){
+					_self.resources[i].is_readed=true;
+					break;
+				}
+			}
+		}
+		else{
+			if(_self.thisWindow != null){
+				_self.thisWindow.find('.mail_' + id).removeClass('read');
+			}
+			for(var i=0; i<_self.resources.length; i++){
+				if(_self.resources[i]['id'] == id){
+					_self.resources[i].is_readed=false;
+					break;
+				}
+			}
+		}
+	}
+
+	// 既読の確認
+	this.isReaded=function(id){
+		var _self = this;
+		var ret = false;
+		for(var i=0; i<_self.resources.length; i++){
+			if(_self.resources[i]['id'] == id){
+				ret = _self.resources[i].is_readed;
+				break;
+			}
+		}
+		return ret;
+	}
+
+	// リンクの表示
+	this.showLink=function(label){
+		_self.thisWindow.find('div.link-popup').text(label);
+		_self.thisWindow.find('div.link-popup').fadeIn("fast");
+	}
+	this.hideLink=function(){
+		_self.thisWindow.find('div.link-popup').text('');
+		_self.thisWindow.find('div.link-popup').hide();
+	}
+
+	// 初期状態（メール一覧）にする
+	this.reset=function(){
+		var _self = this;
+		_self.params["window"].find("div.mail-block").remove();
+		_self.params["window"].find("div.header-group-1").show();
+		_self.params["window"].find("div.header-group-2").hide();
+		_self.params["window"].find("ul.mail-list").show();
+		_self.params["window"].find("div.gmail-footer").show();
+	}
 }
 

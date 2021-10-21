@@ -1,0 +1,1262 @@
+@charset "utf-8";
+
+
+div.sie-module-win-thunderbird div.titlebar{
+	background-color:#A8CBDB;
+	height:47px;
+}
+div.sie-module-win-thunderbird div.titlebar img{
+	display:none;
+}
+div.sie-module-win-thunderbird div.titlebar span{
+	display:none;
+}
+
+
+div.sie-module-win-thunderbird div.titlebar i{
+	color:#000;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu {
+	font-size:11px;
+	font-weight:bold;
+	top:-5px;
+	cursor:default;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu:hover{
+	color:#888;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu1 {
+	left:5px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu2 {
+	left:75px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu3 {
+	left:125px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu4 {
+	left:175px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu5 {
+	left:225px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu6 {
+	left:290px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu7 {
+	left:385px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.menu8 {
+	left:435px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.tab {
+	width:220px;
+	background-color:#F9F9FA;
+	top:20px;
+	font-size:12px;
+	padding-left:10px;
+	height:27px;
+	line-height:27px;
+	border-top:solid 2px #0A84FF;
+	left:0px;
+	border-right:solid 1px #758E99;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.tab i {
+	margin-right:5px;
+}
+
+div.sie-module-win-thunderbird div.titlebar div.delim{
+	height:1px;
+	width:100%;
+	left:0px;
+	top:46px;
+	background-color:#758E99;
+}
+
+
+
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar{
+	height:35px;
+	width:100%;
+	line-height:20px;
+	overflow:hidden;
+	white-space: nowrap;
+	z-index:800;
+	background-color:#F9F9FA;
+	border-bottom:solid 1px #D2D0CE;
+	min-width:800px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.download{
+	top:4px;
+	left:2px;
+	line-height:25px;
+	font-size:12px;
+	padding-left:30px;
+	padding-right:20px;
+	cursor:default;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.download:hover{
+	border:solid 1px #B1B1B2;
+	background-color:#ECECED;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.download i{
+	position:absolute;
+	margin-right:5px;
+	font-size:18px;
+	left:8px;
+	top:3px;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.download i.fa-angle-down{
+	font-size:16px;
+	left:65px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.create{
+	top:4px;
+	line-height:25px;
+	font-size:12px;
+	left:88px;
+	padding-left:30px;
+	padding-right:10px;
+	cursor:default;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.create:hover{
+	border:solid 1px #B1B1B2;
+	background-color:#ECECED;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.create i{
+	position:absolute;
+	margin-right:5px;
+	font-size:18px;
+	left:8px;
+	top:3px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.chat{
+	top:4px;
+	line-height:25px;
+	font-size:12px;
+	left:152px;
+	padding-left:30px;
+	padding-right:10px;
+	cursor:default;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.chat:hover{
+	border:solid 1px #B1B1B2;
+	background-color:#ECECED;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.chat i{
+	position:absolute;
+	margin-right:5px;
+	font-size:18px;
+	left:8px;
+	top:3px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.address{
+	top:4px;
+	line-height:25px;
+	font-size:12px;
+	left:238px;
+	padding-left:30px;
+	padding-right:10px;
+	cursor:default;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.address:hover{
+	border:solid 1px #B1B1B2;
+	background-color:#ECECED;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.address i{
+	position:absolute;
+	margin-right:5px;
+	font-size:18px;
+	left:8px;
+	top:3px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.delim{
+	width:1px;
+	top:3px;
+	height:27px;
+	background-color:#898989;
+	left:338px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.tag{
+	top:4px;
+	left:342px;
+	line-height:25px;
+	font-size:12px;
+	padding-left:30px;
+	padding-right:20px;
+	cursor:default;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.tag:hover{
+	border:solid 1px #B1B1B2;
+	background-color:#ECECED;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.tag i{
+	position:absolute;
+	margin-right:5px;
+	font-size:18px;
+	left:8px;
+	top:3px;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.tag i.fa-angle-down{
+	font-size:16px;
+	left:56px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.filter{
+	top:4px;
+	line-height:25px;
+	font-size:12px;
+	left:415px;
+	padding-left:30px;
+	padding-right:10px;
+	cursor:default;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.filter:hover{
+	border:solid 1px #B1B1B2;
+	background-color:#ECECED;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.filter i{
+	position:absolute;
+	margin-right:5px;
+	font-size:18px;
+	left:8px;
+	top:3px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.menubar{
+	top:4px;
+	line-height:25px;
+	font-size:12px;
+	right:0;
+	padding-left:20px;
+	padding-right:10px;
+	cursor:default;
+	margin-right:5px;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.menubar:hover{
+	border:solid 1px #B1B1B2;
+	background-color:#ECECED;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.menubar i{
+	position:absolute;
+	margin-right:5px;
+	font-size:18px;
+	left:8px;
+	top:3px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar input.searchbox{
+	position:absolute;
+	right:0;
+	margin-right:50px;
+	width:200px;
+	outline:none;
+	top:4px;
+}
+
+
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div{
+	font-size:13px;
+	font-weight:500;
+	letter-spacing:-1px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar i{
+	position:absolute;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar i.fa-lightbulb-o{
+	position:relative;
+	margin-right:3px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.block1{
+	height:73px;
+	width:42px;
+	top:38px;
+/*	background-color:#ddd; */
+	cursor:pointer;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.block2{
+	height:18px;
+	width:28px;
+	top:38px;
+/*	background-color:#ddd; */
+	cursor:pointer;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.block1:hover{
+	background-color:#C8C6C4;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.block2:hover{
+	background-color:#C8C6C4;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.menu-bar div.quick{
+	background-image:url("../img/sie-module-win-outlook/quick.png");
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body{
+	height:calc(100% - 35px);
+	width:100%;
+	top:35px;
+	overflow:auto;
+	background-color:#FFFFFF;
+	white-space: nowrap;
+	overflow:hidden;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder{
+	top:0px;
+	width:240px;
+	height:calc(100% - 23px);
+/*	background-color:red; */
+/*	border-right:solid 1px #D4D4D4; */
+	overflow:hidden;
+	background-color:#FAFAFA;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder div.folder-title1{
+	left:10px;
+	font-size:12px;
+	top:7px;
+	font-weight:600;
+	padding-left:34px;
+	width:calc(100% - 12px);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder div.folder-title1 i.fa-angle-down{
+	margin-right:4px;
+	font-size:20px;
+	position:absolute;
+	left:0px;
+	top:-2px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder div.folder-title1 i.fa-envelope-o{
+	margin-right:4px;
+	font-size:15px;
+	position:absolute;
+	left:16px;
+	top:0px;
+	color:#2577E3;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder ul.folder-list1{
+	position:absolute;
+	list-style-type: none;
+	padding-left:0px;
+	left:0px;
+	top:28px;
+	width:100%;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder ul.folder-list1 li{
+	list-style-type: none;
+	padding-left:30px;
+	line-height:24px;
+	cursor:pointer;
+	font-size:12px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder ul.folder-list1 li.selected{
+	background-color:#D9D9D9;
+	font-weight:600;
+	color:#2577E3;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder ul.folder-list1 li i{
+	margin-right:6px;
+	font-size:15px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder div.folder-title2{
+
+	left:10px;
+	font-size:12px;
+	top:222px;
+	font-weight:600;
+	padding-left:34px;
+	width:calc(100% - 12px);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder div.folder-title2 i.fa-angle-down{
+	margin-right:4px;
+	font-size:20px;
+	position:absolute;
+	left:0px;
+	top:-2px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder div.folder-title2 i.fa-folder{
+	margin-right:4px;
+	font-size:15px;
+	position:absolute;
+	left:16px;
+	top:0px;
+	color:#8AB6EA;
+}
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder ul.folder-list2{
+	position:absolute;
+	list-style-type: none;
+	padding-left:0px;
+	left:0px;
+	top:240px;
+	width:100%;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder ul.folder-list2 li{
+	list-style-type: none;
+	padding-left:30px;
+	line-height:24px;
+	cursor:pointer;
+	font-size:12px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.folder ul.folder-list2 li i{
+	margin-right:6px;
+	font-size:15px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-list{
+	top:0px;
+	left:240px;
+	width:calc(100% - 240px);
+	height:200px;
+/*	background-color:blue;   */
+/*	border-right:solid 1px #D4D4D4;  */
+	cursor:pointer;
+/*	overflow:hidden; */
+	overflow:auto;
+	overflow-y:hidden;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list{
+	width:100%;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list thead{
+	display: block;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tbody {
+	display: block;
+	overflow-y: auto;
+	height: 50px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tbody{
+/*	background-color:#fff; */
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th{
+	font-size:11px;
+	text-align:center;
+	line-height:23px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th1{
+	width:20px;
+	border-right:solid 1px #E5E5E5;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th2{
+	width:20px;
+	border-right:solid 1px #E5E5E5;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th3{
+	width:20px;
+	border-right:solid 1px #E5E5E5;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th3 i{
+	transform: rotate(45deg);
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th4{
+	width:calc(100% - 480px);
+	border-right:solid 1px #E5E5E5;
+	text-align:left;
+	padding-left:50px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th5{
+	width:20px;
+	border-right:solid 1px #E5E5E5;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th5 i{
+	transform: rotate(135deg);
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th6{
+	width:230px;
+	border-right:solid 1px #E5E5E5;
+	text-align:left;
+	padding-left:50px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th7{
+	width:20px;
+	border-right:solid 1px #E5E5E5;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list th.th8{
+	width:150px;
+	text-align:left;
+	padding-left:50px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tr.mail:hover{
+	background-color:#E5F3FF;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tr.not-read td,div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tr.not-read td div{
+	font-weight:bold;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tr.selected td {
+	background-color:#CDE8FF;
+	border-top:solid 1px #7BC3FF;
+	border-bottom:solid 1px #7BC3FF;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tr.selected td:first-child {
+/*	border-left:solid 1px #7BC3FF; */
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list tr.selected td:last-child {
+/*	border-right:solid 1px #7BC3FF; */
+}
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td{
+	font-size:11px;
+	text-align:center;
+	line-height:23px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td.td2{
+	color:#aaa;
+	font-weight:bold;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td.td3 i{
+	transform: rotate(45deg);
+}
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td.td4 div{
+	position:static;
+	display:block;
+	font-size:11px;
+	text-align:left;
+	line-height:23px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width:95%;
+	padding-left:10px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td.td5{
+	color:#75AB29;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td.td6 div{
+	position:static;
+	display:block;
+	font-size:11px;
+	text-align:left;
+	line-height:23px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width:95%;
+	padding-left:10px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td.td8{
+	text-align:left;
+	padding-left:5px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body table.mail-list td.td7{
+	color:#aaa;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.handle1{
+	width:3px;
+	left:238px;
+	top:0px;
+	height:calc(100% - 23px);
+/*	background-color:red; */
+	padding-left:1px;
+	padding-right:1px;
+/*	cursor:col-resize; */
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.handle1::before{
+	display:block;
+	content:"";
+	width:1px;
+	height:100%;
+	margin-left:0px;
+	background-color:#D4D4D4;
+}
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.handle2{
+	height:3px;
+	left:240px;
+	top:199px;
+	width:calc(100% - 240px);
+/*	background-color:red; */
+	padding-top:1px;
+	padding-bottom:1px;
+	cursor:row-resize;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.handle2::before{
+	display:block;
+	content:"";
+	height:1px;
+	width:100%;
+	margin-left:0px;
+	background-color:#A9B7C9;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.drag-area2{
+	left:240px;
+	width:calc(100% - 240px);
+	top:100px;
+	height:calc(100% - 200px);
+	background-color:red;
+	opacity:0;
+}
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view{
+	top:201px;
+	left:240px;
+	width:calc(100% - 240px);
+	height:calc(100% - 224px);		/* 23 + 201 */
+/*	background-color:yellow;  */
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.init-view{
+	top:0px;
+	height:100%;
+	width:100%;
+	background-color:#fff;
+	overflow:auto;
+	padding:10px;
+	font-weight:16px;
+	min-width:500px;
+	background-color:;
+	background: linear-gradient(180deg, #C6D9E9, #EBEBEB);
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.init-view img{
+	position:absolute;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head{
+	height:85px;
+	width:100%;
+	background-color:#F8F8F8;
+	border-bottom:solid 1px #A9B7C9;
+	min-width:1000px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.from-title{
+	top:10px;
+	left:0px;
+	font-size:12px;
+	color:#888A85;
+	width:40px;
+	text-align:right;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.from-body{
+	top:10px;
+	left:50px;
+	font-size:12px;
+	color:#000;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.subject-title{
+	top:32px;
+	left:0px;
+	font-size:12px;
+	color:#888A85;
+	width:40px;
+	text-align:right;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.subject-body{
+	top:32px;
+	left:50px;
+	font-size:12px;
+	color:#000;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.to-title{
+	top:54px;
+	left:0px;
+	font-size:12px;
+	color:#888A85;
+	width:40px;
+	text-align:right;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button{
+	border:solid 1px #B0B0B0;
+	background-color:#EBEBEB;
+	cursor:pointer;
+	font-size:11px;
+	padding:4px;
+	padding-left:8px;
+	padding-right:8px;
+	top:2px;
+}
+
+/*
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-reply{
+	right:0;
+	margin-right:250px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-reply-all{
+	right:0;
+	margin-right:160px;
+}
+*/
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.receive-time{
+	right:0;
+	top:40px;
+	margin-right:10px;
+	font-size:12px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-other{
+	right:0;
+	margin-right:10px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-trash{
+	right:0;
+	margin-right:75px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-fire{
+	right:0;
+	margin-right:131px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-archive{
+	right:0;
+	margin-right:257px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-transfer{
+	right:0;
+	margin-right:345px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-reply-all{
+	right:0;
+/*	margin-right:403px; */
+	margin-right:426px; 
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-reply{
+	right:0;
+	margin-right:514px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button-reply-all-down{
+	right:0;
+	margin-right:403px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button i{
+	margin-right:5px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-other i{
+	margin-right:0px;
+	margin-left:5px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button.button-transfer i{
+	transform: scale(-1, 1);
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.button-reply-all-down i{
+	margin-left:0px;
+	margin-right:0px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-head div.to-body{
+	top:54px;
+	left:50px;
+	font-size:12px;
+	color:#000;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-body{
+	top:85px;
+	height:calc(100% - 85px);
+	width:100%;
+	background-color:#fff;
+	overflow:auto;
+	padding:10px;
+	font-weight:16px;
+	min-width:500px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.message-body.attachment{
+	height:calc(100% - 150px);
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head{
+	height:33px;
+	width:100%;
+	min-width:500px;
+	bottom:0;
+	background-color:#F0F0F0;
+	margin-bottom:32px;
+	border-top:solid 1px #A9B7C9;
+	border-bottom:solid 1px #A9B7C9;
+	font-size:12px;
+	line-height:33px;
+	padding-left:40px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head i.fa-angle-down{
+	position:absolute;
+	font-size:20px;
+	top:6px;
+	left:6px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head i.fa-paperclip{
+	position:absolute;
+	font-size:16px;
+	top:6px;
+	left:26px;
+	transform: rotate(45deg);
+
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head span{
+	font-size:12px;
+	color:#8F918D;
+	margin-left:8px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head div.save{
+	right:0;
+	border:solid 1px #ABABAB;
+	background-color:#E4E4E4;
+	top:4px;
+	font-size:12px;
+	height:24px;
+	line-height:24px;
+	padding-left:5px;
+	padding-right:7px;
+	margin-right:28px;
+	cursor:default;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head div.save i{
+	margin-right:5px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head div.save-down{
+	right:0;
+	border:solid 1px #ABABAB;
+	background-color:#E4E4E4;
+	top:4px;
+	font-size:8px;
+	height:24px;
+	line-height:24px;
+	padding-left:8px;
+	padding-right:8px;
+	margin-right:10px;
+	cursor:default;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-head div.save-down i{
+	font-size:12px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-body{
+	height:32px;
+	background-color:red;
+	width:100%;
+	min-width:500px;
+	bottom:0;
+	background-color:#fff;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-body div{
+	height:26px;
+	top:2px;
+	left:5px;
+	font-size:12px;
+	line-height:26px;
+	cursor:default;
+	padding-left:5px;
+	padding-right:5px;
+	-ms-user-select: none; /* IE 10+ */
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-body div:hover{
+	background-color:#E5F3FF;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-body div img{
+	height:26px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.mail-view div.attachment-body div span{
+	font-size:12px;
+	color:#5F5F71;
+	margin-left:5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-head{
+	cursor:pointer;
+}
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-head i{
+	position:absolute;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.reply{
+	top:5px;
+	left:17px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.replyall{
+	top:5px;
+	left:68px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.transfer{
+	top:5px;
+	left:153px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.user{
+	top:28px;
+	left:15px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.from{
+	top:28px;
+	left:65px;
+	color:#666;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.title{
+	top:48px;
+	left:65px;
+	color:#666;
+	font-size:14px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.delim {
+	top:80px;
+	height:1px;
+	width:calc(100% - 24px);
+	left:12px;
+	background-color:#e5e5e5;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-body{
+	top:90px;
+/*	background-color:yellow; */
+	height:calc(100% - 100px);
+	width:calc(100% - 24px);
+	left:12px;
+/*	overflow:hidden; */
+	min-width:100px;
+	white-space:normal;
+	overflow:auto;
+	cursor:auto;
+}
+
+
+
+
+
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-body.with-attachment{
+	height:calc(100% - 156px);
+	top:146px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-attachment{
+	top:86px;
+	height:56px;
+	width:calc(100% - 24px);
+	left:12px;
+	min-width:100px;
+	overflow:hidden;
+	border-bottom:solid 1px #e5e5e5;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-attachment div.attachment{
+	position:relative;
+	top:0px;
+	height:50px;
+	border:solid 1px #ABABAB;
+	margin-left:10px;
+	display:inline-block;
+	cursor:pointer;
+	padding-right:20px;
+	user-select: none;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-attachment div.attachment img{
+	vertical-align:middle
+	height:46px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-attachment div.attachment div.info{
+	position:relative;
+	display:inline-block;
+	vertical-align:middle;
+	padding-top:2px;
+	padding-left:5px;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-attachment div.attachment span.file-name{
+	color:#444;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-attachment div.attachment span.size{
+	font-size:14px;
+	color:#757575;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-view div.message-attachment div.attachment:hover{
+	background-color:#B1D6F0;
+}
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.footer{
+	bottom:0;
+	left:0px;
+	width:100%;
+	height:23px;
+	background-color:#F3F2F1;
+	border-top:solid 1px #C8C6C4;
+	line-height:32px;
+	padding-left:7px;
+	min-width:800px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.footer span.link-url{
+	line-height:22px;font-size:12px;left:32px;position:absolute;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.footer div.footer1{
+	font-size:10px;
+	line-height:23px;
+	border-right:1px solid #E3E3E3;
+	padding-right:8px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.footer div.footer2{
+	right:0;
+	line-height:23px;
+	margin-right:15px;
+	border-left:solid 1px #E3E3E3;
+	padding-left:8px;
+	font-size:11px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.footer div.footer2 i{
+	margin-right:5px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.footer div.footer3{
+	right:0;
+	line-height:23px;
+	margin-right:103px;
+	border-left:solid 1px #E3E3E3;
+	padding-left:8px;
+	font-size:11px;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.footer div.footer4{
+	right:0;
+	line-height:23px;
+	margin-right:160px;
+	border-left:solid 1px #E3E3E3;
+	padding-left:8px;
+	font-size:11px;
+}
+
+
+
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-footer div.button{
+	height:100%;
+	width:50px;
+	color:#797775;
+	top:0px;
+	right:0;
+	text-align:center;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-footer div.button.selected{
+	background-color:#C8C6C4;
+}
+
+div.sie-module-win-thunderbird div.sie-module-win-body div.mail-body div.outlook-footer div.right{
+	height:100%;
+	width:171px;
+	color:#797775;
+	top:0px;
+	right:0;
+	text-align:center;
+	background-image:url("../img/sie-module-win-outlook/foot-right.png");
+	margin-right:10px;
+}
+
+
+div.sie-module-win-outlook-splash-logo{
+	width:400px;
+	height:200px;
+	left:50%;
+	top:50%;
+	margin-left:-200px;
+	margin-top:-100px;
+	background-color:#106EBE;
+	color:#C1CEE1;
+	z-index:100000;
+}
+
+
+div.sie-module-win-outlook-splash-logo div.application-logo{
+	top:10px;
+	left:15px;
+	font-size:25px;
+}
+
+div.sie-module-win-outlook-splash-logo div.company{
+	top:15px;
+	left:45px;
+	font-size:20px;
+}
+
+div.sie-module-win-outlook-splash-logo div.application-name{
+	top:50%;
+	left:50%;
+	margin-left:-90px;
+	margin-top:-30px;
+	font-size:48px;
+}
+
+div.sie-module-win-outlook-splash-logo div.message{
+	bottom:0;
+	left:15px;
+	margin-bottom:15px;
+	color:#fff;
+	font-size:12px;
+}
